@@ -3,7 +3,7 @@ using JuMP
 """
     modelMILP(solver, instance[, P1, binary])
 
-    Create the bin packing model corresponding to _instance_ using
+    Create the MILP model corresponding to _instance_ using
     `solver` as the optimizer. When `P1` is true we model against problem P1 (see
     report for further details), when `P1` is false we model against problem P2.
     If `binary` is true we consider boolean variables, if `binary` is false we consider
@@ -11,7 +11,7 @@ using JuMP
 
     # Arguments
     - `solver`: the solver Optimizer function.
-    - `instance`: the bin packing instance.
+    - `instanceMILP`: the MILP instance.
     - **optional** `bound`: upper bound of m. By default, m = n.
     - **optional** `P1`: true if modeling with P1 (P2 otherwise and by default).
     - **optional** `binary`: true if modeling with binary variables (free variables otherwise).
@@ -22,7 +22,7 @@ function modelMILP(solver = Gurobi.Optimizer, instanceMILP, binary::Bool = true)
     set_optimizer_attribute(m, "LogToConsole", 0)
 
     # Définition des variables
-    @variable(m, 0 <= x[1:(n*m)] <= 1, binary=binary)
+    @variable(m, 0 <= instanceMILP.X <= 1, binary=binary)
     @variable(m, 0 <= instanceMILP.Lmax)
     @variable(m, 0 <= instanceMILP.Lmin)
 

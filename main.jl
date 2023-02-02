@@ -8,7 +8,7 @@ using GLPK
 using Gurobi
 using MathOptInterface
 
-include("model.jl")
+# include("model.jl")
 include("datastructMILP.jl")
 include("loadinstance.jl")
 
@@ -22,7 +22,7 @@ include("loadinstance.jl")
 """
 function main(fname::String)
     data::instanceMILP = loadinstanceMILP("InstancesPoste/InstancesPoste/" * fname)
-
+    println(data)
         # println(instance.id)
         # MILP, x, y = modelMILP(Gurobi.Optimizer, instance, length(instance.w), true, true)
         # println("\nOptimisation...")
