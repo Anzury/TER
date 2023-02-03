@@ -22,7 +22,10 @@ include("loadinstance.jl")
 """
 function main(fname::String)
     data::instanceMILP = loadinstanceMILP("InstancesPoste/InstancesPoste/" * fname)
-    println(data)
+    io = open("geek.txt","w")
+    println(io,data)
+    close(io)
+
         # println(instance.id)
         # MILP, x, y = modelMILP(Gurobi.Optimizer, instance, length(instance.w), true, true)
         # println("\nOptimisation...")
@@ -33,4 +36,4 @@ function main(fname::String)
     return nothing
 end
 
-main("12_20/12_20_[1,6]_1700_1.xlsx")
+main("120_90/120_90_[1,4]_4100_1.xlsx")

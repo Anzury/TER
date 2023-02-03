@@ -39,7 +39,7 @@ function loadinstanceMILP(xlfile::String)
         # Compute U
         outputs = []
         for j in 1:O
-            mailset = Set()
+            mailset = []
             for l in 1:k
                 if intervalbatch[l].debut <= j && intervalbatch[l].fin >= j
                     push!(mailset,l)
