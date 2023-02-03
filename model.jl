@@ -16,24 +16,61 @@ using JuMP
     - **optional** `P1`: true if modeling with P1 (P2 otherwise and by default).
     - **optional** `binary`: true if modeling with binary variables (free variables otherwise).
 """
-function modelMILP(solver = Gurobi.Optimizer, instanceMILP, binary::Bool = true)
+function modelMILP(instanceMILP, binary::Bool = true, solver = Gurobi.Optimizer)
     # Création du model
     m = direct_model((solver)())
     set_optimizer_attribute(m, "LogToConsole", 0)
 
+    X = instanceMILP.X
+    Lmax = instanceMILP.Lmax
+    Lmin = instanceMILP.Lmin
+    B = instanceMILP.B
+    R = instanceMILP.R
+    V = instanceMILP.V 
+    O = instanceMILP.O 
+    Oj = instanceMILP.Oj 
+    U = instanceMILP.U 
+
     # Définition des variables
-    @variable(m, 0 <= instanceMILP.X <= 1, binary=binary)
-    @variable(m, 0 <= instanceMILP.Lmax)
-    @variable(m, 0 <= instanceMILP.Lmin)
+    @variable(m, 0 <= X <= 1, binary=binary)
+    @variable(m, 0 <= Lmax)
+    @variable(m, 0 <= Lmin)
 
     # Définition de l'objectif (la somme des yj à minimiser)
-    @objective(m, Min, instanceMILP.Lmax - instanceMILP.Lmin)
+    @objective(m, Min, Lmax - Lmin)
+
+    list = []
+    for r in 1:R 
+        batch = B[r]
+        for j in batch
+            push!(list,(j,r))
+        end
+    end
+
+    list2 = []
+    for k in 1:O
+        for r in 1:R
+            push!(list2,(k,r))
+        end
+    end
+
+    list3 = []
+    for r in 1:R
+        Brem = B[r]
+        pop!(Brem)
+        for j in Brem
+            push!(list3,(j,r))
+        end
+    end
+
+    allj = [i for (i,j) in list]
+    allr = [j for (i,j) in list]
 
     # Définition des contraintes
-    @constraint(m, [(j, r) in (instanceMILP.B[r], 1:instanceMILP.R)], sum(X[r][j][k]) = 1 for k in instanceMILP.O[r][j].debut:instanceMILP.O[r][j].fin) # 2
-    @constraint(m, [(k, r) in (1:instanceMILP.O, 1:instanceMILP.R)], sum(X[r][j][k]) <= 1 for j in instanceMILP.U[r][k]) # 3
-    @constraint(m, [(j, r) in (instanceMILP.B[r][1:end-1], 1:instanceMILP.R)], sum(k * X[r][j][k] for k in instanceMILP.O[r][j].debut:instanceMILP.O[r][j].fin) <= sum(k * X[r][j+1][k] for k in instanceMILP.O[r][j+1].debut:instanceMILP.O[r][j+1].fin)) # 4
-    @constraint(m, [k in 1:instanceMILP.O], instanceMILP.Lmin <= sum(sum(V[r].batch[j] * X[r][j][k] for j in instanceMILP.U[r][k]) for r in 1:instanceMILP.R) <= instanceMILP.Lmax) # 5
+    @constraint(m, c2[[(j,r) = t for t in list]], sum(X[r][j][k] for k in Oj[r][j].debut:Oj[r][j].fin) == 1 ) # 2
+    @constraint(m, c3[[(k,r) = t for t in list2]], sum(X[r][j][k] for j in U[r][k]) <= 1 ) # 3
+    @constraint(m, c4[[(j,r) = t for t in list3]], sum(k * X[r][j][k] for k in Oj[r][j].debut:Oj[r][j].fin) <= sum(k * X[r][j+1][k] for k in Oj[r][j+1].debut:Oj[r][j+1].fin)) # 4
+    @constraint(m, c5[k=1:O], Lmin <= sum(sum(V[r].batch[j] * X[r][j][k] for j in U[r][k]) for r in 1:R) <= Lmax) # 5
 
     return m
 end

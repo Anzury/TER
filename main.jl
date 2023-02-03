@@ -16,13 +16,13 @@ include("loadinstance.jl")
     - `fname`: the filename of the file containing the instance.
 """
 function main(fname::String)
-    data::instanceMILP = loadinstanceMILP("InstancesPoste/InstancesPoste/" * fname)
+    data = loadinstanceMILP("InstancesPoste/InstancesPoste/" * fname)
     io = open("geek.txt","w")
     println(io,data)
     close(io)
 
-    println(instance.id)
-    MILP = modelMILP(Gurobi.Optimizer, instance, true)
+    println(data.id)
+    MILP = modelMILP(data, true, Gurobi.Optimizer)
     println("\nOptimisation...")
     optimize!(MILP)
     println("\nRésultats")
