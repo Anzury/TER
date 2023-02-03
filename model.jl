@@ -30,10 +30,10 @@ function modelMILP(solver = Gurobi.Optimizer, instanceMILP, binary::Bool = true)
     @objective(m, Min, instanceMILP.Lmax - instanceMILP.Lmin)
 
     # Définition des contraintes
-    @constraint(m, [(j, r) in (instanceMILP.B[r], instanceMILP.R)], sum(x[r][j, k]) = 1 for k in instanceMILP.O[r][j]) # 2
-    @constraint(m, [(k, r) in (instanceMILP.O, instanceMILP.R)], sum(x[r][j, k]) <= 1 for j in instanceMILP.U[r][k]) # 3
-    @constraint(m, [(j, r) in (instanceMILP.B[r], instanceMILP.R)], sum(k * x[r][j, k] for k in O[r][j]) <= sum(k * x[r][j+1, k] for k in O[r][j+1])) # 4
-    @constraint(m, [k in O], instanceMILP.Lmin <= sum(sum(v[r][j] * x[r][j, k] for j in instanceMILP.U[r][k]) for r in instanceMILP.R) <= InstanceMILP.Lmax) # 5
+    @constraint(m, [(j, r) in (instanceMILP.B[r], 1:instanceMILP.R)], sum(X[r][j][k]) = 1 for k in instanceMILP.O[r][j].debut:instanceMILP.O[r][j].fin) # 2
+    @constraint(m, [(k, r) in (1:instanceMILP.O, 1:instanceMILP.R)], sum(X[r][j][k]) <= 1 for j in instanceMILP.U[r][k]) # 3
+    @constraint(m, [(j, r) in (instanceMILP.B[r][1:end-1], 1:instanceMILP.R)], sum(k * X[r][j][k] for k in instanceMILP.O[r][j].debut:instanceMILP.O[r][j].fin) <= sum(k * X[r][j+1][k] for k in instanceMILP.O[r][j+1].debut:instanceMILP.O[r][j+1].fin)) # 4
+    @constraint(m, [k in 1:instanceMILP.O], instanceMILP.Lmin <= sum(sum(V[r].batch[j] * X[r][j][k] for j in instanceMILP.U[r][k]) for r in 1:instanceMILP.R) <= instanceMILP.Lmax) # 5
 
     return m
 end
