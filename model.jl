@@ -18,7 +18,6 @@ function modelMILP(instanceMILP, binary::Bool = true, solver = Gurobi.Optimizer)
     # Création du model
     m = direct_model((solver)())
     set_optimizer_attribute(m, "LogToConsole", 0)
-    set_optimizer_attribute(m, "MIPFocus", 3)
     set_optimizer_attribute(m, "TimeLimit", 600)
 
     X = instanceMILP.X
