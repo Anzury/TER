@@ -19,26 +19,32 @@ function main()
     println("\nEtudiants : Adrien Pichon et Nicolas Compère\n")
 
     # Collecting the names of instances to solve located in the folder Data ----
-    target = "./InstancesPoste/InstancesPoste/12_20/"
+    target = "./InstancesPoste/InstancesPoste/"
     fnames = getfname(target)
 
+    allfnames = []
+    for name in fnames
+        push!(allfnames,[name,getfname(string(target,"/",name))])
+    end
+
     println("")
-    for instance in fnames
-    
-        data = loadinstanceMILP(string(target,"/",instance))
+    for folder in allfnames
+        for files in folder[2]
+            data = loadinstanceMILP(string(target,folder[1],"/",files))
 
-        id = data.id
-        println(id)
-        println("")
-        MILP = modelMILP(data, true, Gurobi.Optimizer)
-        println("\nOptimisation...")
-        optimize!(MILP)
-        println("\nRésultats")
-        println(solution_summary(MILP))
+            id = data.id
+            println(id)
+            println("")
+            MILP = modelMILP(data, true, Gurobi.Optimizer)
+            println("\nOptimisation...")
+            optimize!(MILP)
+            println("\nRésultats")
+            println(solution_summary(MILP))
 
-        io = open("results/$id.txt","w")
-        println(io,solution_summary(MILP, verbose = true))
-        close(io)
+            io = open("results/$id.txt","w")
+            println(io,solution_summary(MILP, verbose = true))
+            close(io)
+        end
     end
 
     return nothing

@@ -1,0 +1,21 @@
+* Solver : Gurobi
+
+* Status
+  Termination status : INTERRUPTED
+  Primal status      : NO_SOLUTION
+  Dual status        : NO_SOLUTION
+  Result count       : 0
+  Has duals          : false
+  Message from the solver:
+  "Optimization was terminated by the user."
+
+* Candidate solution
+  Objective bound      : -1.00000e+100
+  Relative gap         : 1.00000e+100
+
+* Work counters
+  Solve time (sec)   : 2.30028e-01
+  Simplex iterations : 0
+  Barrier iterations : 0
+  Node count         : 0
+

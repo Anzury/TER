@@ -1659,7 +1659,7 @@
     X[9,9,9] : -0.00000e+00
 
 * Work counters
-  Solve time (sec)   : 8.39551e+00
+  Solve time (sec)   : 7.78824e+00
   Simplex iterations : 559788
   Barrier iterations : 0
   Node count         : 15376
