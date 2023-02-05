@@ -30,11 +30,6 @@ function modelMILP(instanceMILP, binary::Bool = true, solver = Gurobi.Optimizer)
     Oj = instanceMILP.Oj
     U = instanceMILP.U
 
-    maxLenB = 0
-    for bs in B
-        maxLenB = max(maxLenB, length(bs))
-    end
-
     copyB = []
     for r in 1:R
         Brem = deepcopy(B[r])
