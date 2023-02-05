@@ -6,7 +6,7 @@ using XLSX
 function loadinstanceMILP(xlfile::String)
     data = reduce(hcat,XLSX.readtable(xlfile, "matrice_init").data)
     sizeMILP = size(data)
-    id::String = basename(xlfile)
+    id::String = basename(xlfile)[1:end-5]
     R::Int64 = sizeMILP[1]-1
     O::Int64 = sizeMILP[2]-4
 

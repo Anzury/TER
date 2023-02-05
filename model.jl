@@ -1,7 +1,7 @@
 using JuMP
 
 """
-    modelMILP(solver, instance[, P1, binary])
+    modelMILP(instance,binary,solver)
 
     Create the MILP model corresponding to _instance_ using
     `solver` as the optimizer. When `P1` is true we model against problem P1 (see
@@ -10,74 +10,53 @@ using JuMP
     free variables.
 
     # Arguments
-    - `instance`: the MILP instance.
+    - `instanceMILP`: the MILP instance.
     - **optional** `binary`: true if modeling with binary variables (free variables otherwise).
     - **optional** `solver`: the solver Optimizer function.
 """
-function modelMILP(instance, binary::Bool = true, solver = Gurobi.Optimizer)
+function modelMILP(instanceMILP, binary::Bool = true, solver = Gurobi.Optimizer)
     # Création du model
     m = direct_model((solver)())
     set_optimizer_attribute(m, "LogToConsole", 0)
+    set_optimizer_attribute(m, "MIPFocus", 3)
+    set_optimizer_attribute(m, "TimeLimit", 600)
 
-    X = instance.X
-    Lmax = instance.Lmax
-    Lmin = instance.Lmin
-    B = instance.B
-    R = instance.R
-    V = instance.V 
-    O = instance.O 
-    Oj = instance.Oj 
-    U = instance.U 
+    X = instanceMILP.X
+    Lmax = instanceMILP.Lmax
+    Lmin = instanceMILP.Lmin
+    B = instanceMILP.B
+    R = instanceMILP.R
+    V = instanceMILP.V
+    O = instanceMILP.O
+    Oj = instanceMILP.Oj
+    U = instanceMILP.U
 
-    # Définition des variables
-    @variable(m, 0 <= X <= 1, binary=binary)
-    @variable(m, 0 <= Lmax)
-    @variable(m, 0 <= Lmin)
-
-    # Définition de l'objectif (la somme des yj à minimiser)
-    @objective(m, Min, Lmax - Lmin)
-
-    list = []
-    for r in 1:R 
-        batch = B[r]
-        for j in batch
-            push!(list,(j,r))
-        end
+    maxLenB = 0
+    for bs in B
+        maxLenB = max(maxLenB, length(bs))
     end
 
-    list2 = []
-    for k in 1:O
-        for r in 1:R
-            push!(list2,(k,r))
-        end
-    end
-
-    list3 = []
+    copyB = []
     for r in 1:R
         Brem = deepcopy(B[r])
         pop!(Brem)
-        for j in Brem
-            push!(list3,(j,r))
-        end
+        push!(copyB,Brem)
     end
 
-    allj = [i for (i,j) in list]
-    allr = [j for (i,j) in list]
+    # Définition des variables
+    @variable(m, 0 <= X[1:R, 1:maxLenB, 1:O] <= 1, binary=binary)
+    @variable(m, 0 <= Lmax)
+    @variable(m, 0 <= Lmin)
+
+    # Définition de l'objectif (la différence entre charges de mail batch à minimiser)
+    @objective(m, Min, Lmax - Lmin)
 
     # Définition des contraintes
-    # @constraint(m, c2[[(j,r) for (j,r) in list]], sum(X[r][j][k] for k in Oj[r][j].debut:Oj[r][j].fin) == 1 ) # 2
-    for (j,r) in list
-        @constraint(m, c2, sum(X[r][j][k] for k=Oj[r][j].debut:Oj[r][j].fin) == 1 ) # 2
-    end
-    # @constraint(m, c3[[(k,r) for (k,r) in list2]], sum(X[r][j][k] for j in U[r][k]) <= 1 ) # 3
-    for (k,r) in list2
-        @constraint(m, c3, sum(X[r][j][k] for j in U[r][k]) <= 1 ) # 3
-    end
-    # @constraint(m, c4[[(j,r) for (j,r) in list3]], sum(k * X[r][j][k] for k in Oj[r][j].debut:Oj[r][j].fin) <= sum(k * X[r][j+1][k] for k in Oj[r][j+1].debut:Oj[r][j+1].fin)) # 4
-    for (j,r) in list3
-    @constraint(m, c4, sum(k * X[r][j][k] for k in Oj[r][j].debut:Oj[r][j].fin) <= sum(k * X[r][j+1][k] for k in Oj[r][j+1].debut:Oj[r][j+1].fin)) # 4
-    end
-    @constraint(m, c5[k=1:O], Lmin <= sum(sum(V[r].batch[j] * X[r][j][k] for j in U[r][k]) for r in 1:R) <= Lmax) # 5
+    @constraint(m, c2[r=1:R,j in B[r]], sum(X[r, j, k] for k in Oj[r][j].debut:Oj[r][j].fin) == 1 )
+    @constraint(m, c3[r=1:R,k=1:O], sum(X[r, j, k] for j in U[r][k]) <= 1 )
+    @constraint(m, c4[r=1:R,j in copyB[r]], sum(k * X[r, j, k] for k in Oj[r][j].debut:Oj[r][j].fin) <= sum(k * X[r, j+1, k] for k in Oj[r][j+1].debut:Oj[r][j+1].fin))
+    @constraint(m, [k=1:O], Lmin <= sum(sum(V[r].batch[j] * X[r, j, k] for j in U[r][k]) for r in 1:R))
+    @constraint(m, [k=1:O], sum(sum(V[r].batch[j] * X[r, j, k] for j in U[r][k]) for r in 1:R) <= Lmax)
 
     return m
 end
