@@ -7,6 +7,7 @@ include("model.jl")
 include("datastructMILP.jl")
 include("loadinstance.jl")
 include("writeinstance.jl")
+include("heuristique.jl")
 
 """
     main(fname)
