@@ -66,3 +66,12 @@ function loadinstanceMILP(xlfile::String)
     
     return instanceMILP(id,R,B,V,O,Oj,U,X,Lmin,Lmax)
 end
+
+"""
+    Load an instance from a XL file name.
+"""
+function loadinstance(xlfile::String)
+    data = reduce(hcat,XLSX.readtable(xlfile, "matrice_init").data)
+    data = data[1:end-1,5:end]
+    return data
+end

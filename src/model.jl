@@ -49,8 +49,8 @@ function modelMILP(instanceMILP, binary::Bool = true, solver = Gurobi.Optimizer)
     @constraint(m, c2[r=1:R,j in B[r]], sum(X[r, j, k] for k in Oj[r][j].debut:Oj[r][j].fin) == 1 )
     @constraint(m, c3[r=1:R,k=1:O], sum(X[r, j, k] for j in U[r][k]) <= 1 )
     @constraint(m, c4[r=1:R,j in copyB[r]], sum(k * X[r, j, k] for k in Oj[r][j].debut:Oj[r][j].fin) <= sum(k * X[r, j+1, k] for k in Oj[r][j+1].debut:Oj[r][j+1].fin))
-    @constraint(m, [k=1:O], Lmin <= sum(sum(V[r].batch[j] * X[r, j, k] for j in U[r][k]) for r in 1:R))
-    @constraint(m, [k=1:O], sum(sum(V[r].batch[j] * X[r, j, k] for j in U[r][k]) for r in 1:R) <= Lmax)
+    @constraint(m, c5_1[k=1:O], Lmin <= sum(sum(V[r].batch[j] * X[r, j, k] for j in U[r][k]) for r in 1:R))
+    @constraint(m, c5_2[k=1:O], sum(sum(V[r].batch[j] * X[r, j, k] for j in U[r][k]) for r in 1:R) <= Lmax)
 
     return m
 end

@@ -6,7 +6,7 @@ using MathOptInterface
 include("model.jl")
 include("datastructMILP.jl")
 include("loadinstance.jl")
-include("writeinstance.jl")
+# include("writeinstance.jl")
 include("heuristique.jl")
 
 """
@@ -21,31 +21,35 @@ function main()
     println("\nEtudiants : Adrien Pichon et Nicolas Compère\n")
 
     # Collecting the names of instances to solve located in the folder Data ----
-    target = "./data/"
+    target = "../data/"
     fnames = getfname(target)
 
     allfnames = []
     for name in fnames
         push!(allfnames, [name, getfname(string(target, "/", name))])
     end
-
+    
     println("")
     for folder in allfnames
         for files in folder[2]
-            data = loadinstanceMILP(string(target, folder[1], "/", files))
+            # data = loadinstanceMILP(string(target, folder[1], "/", files))
 
-            id = data.id
-            println(id)
-            println("")
-            MILP = modelMILP(data, true, Gurobi.Optimizer)
-            println("\nOptimisation...")
-            optimize!(MILP)
-            println("\nRésultats")
-            println(solution_summary(MILP))
+            # id = data.id
+            # println(id)
+            # println("")
+            # MILP = modelMILP(data, true, Gurobi.Optimizer)
+            # println("\nOptimisation...")
+            # optimize!(MILP)
+            # println("\nRésultats")
+            # println(solution_summary(MILP))
 
-            io = open("./results/$id.txt", "w")
-            println(io, solution_summary(MILP, verbose=true))
-            close(io)
+            # io = open("./results/$id.txt", "w")
+            # println(io, solution_summary(MILP, verbose=true))
+            # close(io)
+
+            data = loadinstance(string(target, folder[1], "/", files))
+            println("id: ",basename(string(target, folder[1], "/", files)[1:end-5]))
+            heuristique(data)
         end
     end
 
@@ -55,7 +59,7 @@ end
 function getfname(pathtofolder)
 
     # recupere tous les fichiers se trouvant dans le repertoire cible
-    allfiles = readdir(pathtofolder)
+    allfiles = readdir(pathtofolder , sort = false)
 
     # vecteur booleen qui marque les noms de fichiers valides
     flag = trues(size(allfiles))

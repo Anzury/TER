@@ -49,7 +49,7 @@ function writeExcel(xfile::String, datafile::String)
 end
 
 # test purposes
-readfile("./results/100_60_[1,4]_3300_1.txt")
+# readfile("../results/100_60_[1,4]_3300_1.txt")
 
 # test purposes
-writeExcel("MILP_results.xlsx")
+writeExcel("MILP_results.xlsx","../results/100_60_[1,4]_3300_1.txt")
