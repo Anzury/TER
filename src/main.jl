@@ -49,7 +49,8 @@ function main()
 
             data = loadinstance(string(target, folder[1], "/", files))
             println("id: ",basename(string(target, folder[1], "/", files)[1:end-5]))
-            heuristique(data)
+            sol = heuristique(data)
+            println("Solution: ", f(sol))
         end
     end
 
