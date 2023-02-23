@@ -14,14 +14,16 @@ non-empty output k in round r of solution s.
 • O(r,k)→ (s) is the set of direct right empty outputs of
 the non-empty output k in round r of solution s.
 """
-function neighbour(instance::Matrix,τ)
+function neighbour(instance::Matrix,τ,verbose::Bool=false)
     #initialisation
     s0 = instance
     i = 0
     r = 1
     s = deepcopy(s0)
     while r <= size(s0)[1]
-        println("r = ",r)
+        if verbose
+            println("round r = ",r)
+        end
         # compute the batches of round r that can be mouved
         movables = []
         for j = 1:size(s0)[2]
@@ -29,7 +31,9 @@ function neighbour(instance::Matrix,τ)
                 push!(movables,j)
             end
         end
-        println("movables: ",movables)
+        if verbose
+            println("movables batches: ",movables)
+        end
         #compute the most loaded output among the non-empty ones of round r for solution s(i)
         if movables != []
             k,mostload = mostloadedoutput(s,movables,r)
@@ -41,7 +45,9 @@ function neighbour(instance::Matrix,τ)
                 return s
             end
         end
-        println("k = ",k)
+        if verbose
+            println("most loaded output k: ",k)
+        end
         #compute the set of direct left empty outputs of the non-empty output k in round r of solution s
         Oright = []
         if k < size(s0)[2]
@@ -51,7 +57,9 @@ function neighbour(instance::Matrix,τ)
                     j = j+1
             end
         end
-        println("Oright: ",Oright)
+        if verbose
+            println("moves possible to the right for batch in output k: ",Oright)
+        end
         #compute the set of direct right empty outputs of the non-empty output k in round r of solution s
         Oleft = []
         if k > 1
@@ -61,38 +69,48 @@ function neighbour(instance::Matrix,τ)
                     j = j-1
             end
         end
-        println("Oleft: ",Oleft)
+        if verbose
+            println("moves possible to the left for batch in output k: ",Oleft)
+        end
         #if O(r,k)→ (s(i)) ̸= ∅, then choose the least loaded output q ∈O(r,k)→ (s(i)) and go to Step 4.
         if Oright != []
-            println("Oright in: ",Oright)
             q,leastload = leastloadedoutput(s,Oright)
-            println("q = ",q)
+            if verbose
+                println("choose the least loaded output q ∈O(r,k)→ (s(i))")
+                println("least loaded output q = ",q)
+            end
             #Let s(T ) be a solution obtained from solution s(i) by shifting the mail batch from output k to output q for round r.
             sT = deepcopy(s)
             sT[r,q] = sT[r,k]
             sT[r,k] = 0
             #If f(s(T )) < f(s(i)) + τ, then move to a new current solution, i.e., set i := i + 1 and s(i) := s(T ).
-            println("f(sT) = ",f(sT)," f(s) = ",f(s))
             if f(sT) < f(s) + τ
                 i = i+1
                 s = sT
-                println("update s")
+                if verbose
+                    println("f(sT) = ",f(sT)," f(s) = ",f(s))
+                    println("update s")
+                end
             end
         #if O(r,k)← (s(i)) ̸= ∅, then choose the least loaded output q ∈O(r,k)← (s(i)), otherwise go to Step 5.
         elseif Oleft != []
-            println("Oleft in: ",Oleft)
             q,leastload = leastloadedoutput(s,Oleft)
-            println("q = ",q)
+            if verbose
+                println("choose the least loaded output q ∈O(r,k)← (s(i))")
+                println("least loaded output q = ",q)
+            end
             #Let s(T ) be a solution obtained from solution s(i) by shifting the mail batch from output k to output q for round r.
             sT = deepcopy(s)
             sT[r,q] = sT[r,k]
             sT[r,k] = 0
             #If f(s(T )) < f(s(i)) + τ, then move to a new current solution, i.e., set i := i + 1 and s(i) := s(T ).
-            println("f(sT) = ",f(sT)," f(s) = ",f(s))
             if f(sT) < f(s) + τ
                 i = i+1
                 s = sT
-                println("update s")
+                if verbose
+                    println("f(sT) = ",f(sT)," f(s) = ",f(s))
+                    println("update s")
+                end
             end
         end
         #if r < |R|, then set r := r + 1 and go to Step 2. Otherwise, stop and return solution s(i).
@@ -169,15 +187,19 @@ s(B) := s∗. If f(s∗) < f(s), then reset s := s∗
 and repeat Step 3.2. Otherwise, stop and return
 the best found solution s(B).
 """
-function heuristique(instance::Matrix)
-    println("stage 1")
+function heuristique(instance::Matrix,verbose::Bool=false)
+    if verbose
+        println("stage 1")
+    end
     # Stage 1
     # 1.1
     τ = 0
     s = instance
     s_best = instance
     solutions = [f(s)]
-    println("step 1.2")
+    if verbose
+        println("step 1.2")
+    end
     # 1.2
     s_star = neighbour(s,τ)
     push!(solutions,f(s_star))
@@ -187,12 +209,16 @@ function heuristique(instance::Matrix)
         s_star = neighbour(s,τ)
     end
     push!(solutions,f(s_best))
-    println("stage 2")
+    if verbose
+        println("stage 2")
+    end
     # Stage 2
     # 2.1
     τ = 0.05*f(s)
     ∆ = 0.5
-    println("step 2.2")
+    if verbose
+        println("step 2.2")
+    end
     # 2.2
     s_star = neighbour(s,τ)
     while f(s_star) < f(s)
@@ -204,7 +230,9 @@ function heuristique(instance::Matrix)
         s_best = s_star
     end
     push!(solutions,f(s_best))
-    println("step 2.3")
+    if verbose
+        println("step 2.3")
+    end
     # 2.3
     τ = τ - ∆
     s = s_star
@@ -221,11 +249,15 @@ function heuristique(instance::Matrix)
         s_best = s_star
     end
     push!(solutions,f(s_best))
-    println("stage 3")
+    if verbose
+        println("stage 3")
+    end
     # Stage 3
     # 3.1
     τ = 0
-    println("step 3.2")
+    if verbose
+        println("step 3.2")
+    end
     # 3.2
     s_star = neighbour(s,τ)
     while f(s_star) < f(s)
