@@ -52,7 +52,7 @@ function main()
             data = loadinstance("../data/12_20/12_20_[1,6]_1700_1.xlsx")
             # println("id: ",basename(string(target, folder[1], "/", files)[1:end-5]))
             println("id: ",basename("../data/12_20/12_20_[1,6]_1700_1.xlsx")[1:end-5])
-            sol,solutions = heuristique(data)
+            sol,solutions = heuristique(data,true)
             println("Solution: ", f(sol)," ", "solutions: ", solutions)
             plotsolutions(solutions, "../data/12_20/12_20_[1,6]_1700_1.xlsx")
     #     end

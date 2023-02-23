@@ -91,6 +91,8 @@ function neighbour(instance::Matrix,τ,verbose::Bool=false)
                     println("f(sT) = ",f(sT)," f(s) = ",f(s))
                     println("update s")
                 end
+            elseif verbose
+                println("no update")
             end
         #if O(r,k)← (s(i)) ̸= ∅, then choose the least loaded output q ∈O(r,k)← (s(i)), otherwise go to Step 5.
         elseif Oleft != []
@@ -111,6 +113,8 @@ function neighbour(instance::Matrix,τ,verbose::Bool=false)
                     println("f(sT) = ",f(sT)," f(s) = ",f(s))
                     println("update s")
                 end
+            elseif verbose
+                println("no update")
             end
         end
         #if r < |R|, then set r := r + 1 and go to Step 2. Otherwise, stop and return solution s(i).
@@ -201,12 +205,12 @@ function heuristique(instance::Matrix,verbose::Bool=false)
         println("step 1.2")
     end
     # 1.2
-    s_star = neighbour(s,τ)
+    s_star = neighbour(s,τ,verbose)
     push!(solutions,f(s_star))
     while f(s_star) < f(s)
         s = deepcopy(s_star)
         s_best = s_star
-        s_star = neighbour(s,τ)
+        s_star = neighbour(s,τ,verbose)
     end
     push!(solutions,f(s_best))
     if verbose
@@ -220,10 +224,10 @@ function heuristique(instance::Matrix,verbose::Bool=false)
         println("step 2.2")
     end
     # 2.2
-    s_star = neighbour(s,τ)
+    s_star = neighbour(s,τ,verbose)
     while f(s_star) < f(s)
         s = deepcopy(s_star)
-        s_star = neighbour(s,τ)
+        s_star = neighbour(s,τ,verbose)
         push!(solutions,f(s_star))
     end
     if f(s_star) < f(s_best)
@@ -237,10 +241,10 @@ function heuristique(instance::Matrix,verbose::Bool=false)
     τ = τ - ∆
     s = s_star
     while τ > 0
-        s_star = neighbour(s,τ)
+        s_star = neighbour(s,τ,verbose)
         while f(s_star) < f(s)
             s = deepcopy(s_star)
-            s_star = neighbour(s,τ)
+            s_star = neighbour(s,τ,verbose)
             push!(solutions,f(s_star))
         end
         τ = τ - ∆
@@ -259,10 +263,10 @@ function heuristique(instance::Matrix,verbose::Bool=false)
         println("step 3.2")
     end
     # 3.2
-    s_star = neighbour(s,τ)
+    s_star = neighbour(s,τ,verbose)
     while f(s_star) < f(s)
         s = deepcopy(s_star)
-        s_star = neighbour(s,τ)
+        s_star = neighbour(s,τ,verbose)
         push!(solutions,f(s_star))
     end
     if f(s_star) < f(s_best)
