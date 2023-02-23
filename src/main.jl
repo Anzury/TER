@@ -8,6 +8,7 @@ include("datastructMILP.jl")
 include("loadinstance.jl")
 # include("writeinstance.jl")
 include("heuristique.jl")
+include("plot.jl")
 
 """
     main(fname)
@@ -21,17 +22,17 @@ function main()
     println("\nEtudiants : Adrien Pichon et Nicolas Compère\n")
 
     # Collecting the names of instances to solve located in the folder Data ----
-    target = "../data/"
-    fnames = getfname(target)
+    # target = "../data/"
+    # fnames = getfname(target)
 
-    allfnames = []
-    for name in fnames
-        push!(allfnames, [name, getfname(string(target, "/", name))])
-    end
+    # allfnames = []
+    # for name in fnames
+    #     push!(allfnames, [name, getfname(string(target, "/", name))])
+    # end
     
-    println("")
-    for folder in allfnames
-        for files in folder[2]
+    # println("")
+    # for folder in allfnames
+    #     for files in folder[2]
             # data = loadinstanceMILP(string(target, folder[1], "/", files))
 
             # id = data.id
@@ -47,12 +48,15 @@ function main()
             # println(io, solution_summary(MILP, verbose=true))
             # close(io)
 
-            data = loadinstance(string(target, folder[1], "/", files))
-            println("id: ",basename(string(target, folder[1], "/", files)[1:end-5]))
-            sol = heuristique(data)
-            println("Solution: ", f(sol))
-        end
-    end
+            # data = loadinstance(string(target, folder[1], "/", files))
+            data = loadinstance("../data/12_20/12_20_[1,6]_1700_1.xlsx")
+            # println("id: ",basename(string(target, folder[1], "/", files)[1:end-5]))
+            println("id: ",basename("../data/12_20/12_20_[1,6]_1700_1.xlsx")[1:end-5])
+            sol,solutions = heuristique(data)
+            println("Solution: ", f(sol)," ", "solutions: ", solutions)
+            plotsolutions(solutions, "../data/12_20/12_20_[1,6]_1700_1.xlsx")
+    #     end
+    # end
 
     return nothing
 end

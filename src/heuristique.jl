@@ -21,47 +21,78 @@ function neighbour(instance::Matrix,τ)
     r = 1
     s = deepcopy(s0)
     while r <= size(s0)[1]
-        #compute the most loaded output among the non-empty ones of round r for solution s(i)
-        k,mostload = mostloadedoutput(s,1:size(s0)[2],r)
-        #compute the set of direct left empty outputs of the non-empty output k in round r of solution s
-        Oleft = []
-        j = k + 1
-        while s[r,j] == 0 && j < size(s0)[2]
-                push!(Oleft,j)
-                j = j+1
+        println("r = ",r)
+        # compute the batches of round r that can be mouved
+        movables = []
+        for j = 1:size(s0)[2]
+            if s[r,j] != 0 && ((j+1<=size(s0)[2] && s[r,j+1]==0) || (j-1>=1 && s[r,j-1]==0))
+                push!(movables,j)
+            end
         end
-        #compute the set of direct right empty outputs of the non-empty output k in round r of solution s
+        println("movables: ",movables)
+        #compute the most loaded output among the non-empty ones of round r for solution s(i)
+        if movables != []
+            k,mostload = mostloadedoutput(s,movables,r)
+        else
+            if r < size(s0)[1]
+                r = r+1
+                continue
+            else
+                return s
+            end
+        end
+        println("k = ",k)
+        #compute the set of direct left empty outputs of the non-empty output k in round r of solution s
         Oright = []
+        if k < size(s0)[2]
+            j = k + 1
+            while j <= size(s0)[2] && s[r,j] == 0
+                    push!(Oright,j)
+                    j = j+1
+            end
+        end
+        println("Oright: ",Oright)
+        #compute the set of direct right empty outputs of the non-empty output k in round r of solution s
+        Oleft = []
         if k > 1
             j = k - 1
-            while s[r,j] == 0 && j > 1
-                    push!(Oright,j)
+            while j >= 1 && s[r,j] == 0
+                    push!(Oleft,j)
                     j = j-1
             end
         end
+        println("Oleft: ",Oleft)
         #if O(r,k)→ (s(i)) ̸= ∅, then choose the least loaded output q ∈O(r,k)→ (s(i)) and go to Step 4.
         if Oright != []
+            println("Oright in: ",Oright)
             q,leastload = leastloadedoutput(s,Oright)
+            println("q = ",q)
             #Let s(T ) be a solution obtained from solution s(i) by shifting the mail batch from output k to output q for round r.
             sT = deepcopy(s)
             sT[r,q] = sT[r,k]
             sT[r,k] = 0
             #If f(s(T )) < f(s(i)) + τ, then move to a new current solution, i.e., set i := i + 1 and s(i) := s(T ).
-            if f(sT) < f(s0) + τ
+            println("f(sT) = ",f(sT)," f(s) = ",f(s))
+            if f(sT) < f(s) + τ
                 i = i+1
                 s = sT
+                println("update s")
             end
         #if O(r,k)← (s(i)) ̸= ∅, then choose the least loaded output q ∈O(r,k)← (s(i)), otherwise go to Step 5.
         elseif Oleft != []
+            println("Oleft in: ",Oleft)
             q,leastload = leastloadedoutput(s,Oleft)
+            println("q = ",q)
             #Let s(T ) be a solution obtained from solution s(i) by shifting the mail batch from output k to output q for round r.
             sT = deepcopy(s)
             sT[r,q] = sT[r,k]
             sT[r,k] = 0
             #If f(s(T )) < f(s(i)) + τ, then move to a new current solution, i.e., set i := i + 1 and s(i) := s(T ).
-            if f(sT) < f(s0) + τ
+            println("f(sT) = ",f(sT)," f(s) = ",f(s))
+            if f(sT) < f(s) + τ
                 i = i+1
                 s = sT
+                println("update s")
             end
         end
         #if r < |R|, then set r := r + 1 and go to Step 2. Otherwise, stop and return solution s(i).
@@ -76,7 +107,7 @@ end
 """
 compute the least loaded output of a solution s by finding the minimum of the sum of each column
 """
-function leastloadedoutput(s,set)
+function leastloadedoutput(s::Matrix,set)
     min = sum(s[:,set[1]])
     output = set[1]
     for j in set[2:end]
@@ -90,16 +121,18 @@ function leastloadedoutput(s,set)
 end
 
 """
-compute the most loaded output of a solution among the non-empty ones of round r for solution s by finding the minimum of the sum of each column
+compute the most loaded output of a solution among the non-empty ones of round r for solution s by finding the maximum of the sum of each column
 """
-function mostloadedoutput(s,set,r)
-    max = 0
+function mostloadedoutput(s::Matrix,set,r::Int64)
+    max = sum(s[:,set[1]])
     output = set[1]
-    for j in set
-        load = sum(s[:,j])
-        if s[r,j] != 0 && load > max
-            max = load
-            output = j
+    for j in set[2:end]
+        if s[r,j] != 0 
+            load = sum(s[:,j])
+            if load > max
+                max = load
+                output = j
+            end
         end
     end
     return output, max
@@ -143,14 +176,17 @@ function heuristique(instance::Matrix)
     τ = 0
     s = instance
     s_best = instance
+    solutions = [f(s)]
     println("step 1.2")
     # 1.2
     s_star = neighbour(s,τ)
+    push!(solutions,f(s_star))
     while f(s_star) < f(s)
         s = deepcopy(s_star)
         s_best = s_star
         s_star = neighbour(s,τ)
     end
+    push!(solutions,f(s_best))
     println("stage 2")
     # Stage 2
     # 2.1
@@ -160,12 +196,14 @@ function heuristique(instance::Matrix)
     # 2.2
     s_star = neighbour(s,τ)
     while f(s_star) < f(s)
-        s = s_star
+        s = deepcopy(s_star)
         s_star = neighbour(s,τ)
+        push!(solutions,f(s_star))
     end
     if f(s_star) < f(s_best)
         s_best = s_star
     end
+    push!(solutions,f(s_best))
     println("step 2.3")
     # 2.3
     τ = τ - ∆
@@ -173,14 +211,16 @@ function heuristique(instance::Matrix)
     while τ > 0
         s_star = neighbour(s,τ)
         while f(s_star) < f(s)
-            s = s_star
+            s = deepcopy(s_star)
             s_star = neighbour(s,τ)
+            push!(solutions,f(s_star))
         end
         τ = τ - ∆
     end
     if f(s_star) < f(s_best)
         s_best = s_star
     end
+    push!(solutions,f(s_best))
     println("stage 3")
     # Stage 3
     # 3.1
@@ -189,18 +229,20 @@ function heuristique(instance::Matrix)
     # 3.2
     s_star = neighbour(s,τ)
     while f(s_star) < f(s)
-        s = s_star
+        s = deepcopy(s_star)
         s_star = neighbour(s,τ)
+        push!(solutions,f(s_star))
     end
     if f(s_star) < f(s_best)
         s_best = s_star
     end
-    return s_best
+    push!(solutions,f(s_best))
+    return s_best,solutions
 end
 
 """
 compute the value of a solution s by summing the number of mails in each output and computing the difference between the maximum and the minimum
 """
 function f(s)
-    return maximum(sum(s,dims=2)) - minimum(sum(s,dims=2))
+    return maximum(sum(s,dims=1)) - minimum(sum(s,dims=1))
 end
