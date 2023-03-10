@@ -13,10 +13,8 @@ include("plot.jl")
 """
     main(fname)
 
-    Main entry point of the method, run method on the instances stored in `fname`.
+    Main entry point of the method, run method on the instances.
 
-    # Arguments
-    - `fname`: the filename of the file containing the instance.
 """
 function main()
     println("\nEtudiants : Adrien Pichon et Nicolas Compère\n")
@@ -33,7 +31,9 @@ function main()
     # println("")
     # for folder in allfnames
     #     for files in folder[2]
+            # target = "../data/75_50/75_50_[1,5]_3300_1.xlsx"
             # data = loadinstanceMILP(string(target, folder[1], "/", files))
+            # data = loadinstanceMILP(target)
 
             # id = data.id
             # println(id)
@@ -49,12 +49,18 @@ function main()
             # close(io)
 
             # data = loadinstance(string(target, folder[1], "/", files))
-            data = loadinstance("../data/12_20/12_20_[1,6]_1700_1.xlsx")
+            # target = "../data/100_60/100_60_[1,4]_3300_2.xlsx"
+            # target = "../data/30_30/30_30_[1,6]_2400_1.xlsx"
+            # target = "../data/75_50/75_50_[1,5]_3300_1.xlsx"
+            target = "../data/120_90/120_90_[1,4]_4100_1.xlsx"
+            # target = "../data/data_reelles/OPTICLASS_trafic_05_24_PF.xlsx"
+            # target = "../data/12_20/12_20_[1,6]_1700_1.xlsx"
+            data = loadinstance(target)
             # println("id: ",basename(string(target, folder[1], "/", files)[1:end-5]))
-            println("id: ",basename("../data/12_20/12_20_[1,6]_1700_1.xlsx")[1:end-5])
-            sol,solutions = heuristique(data,true)
-            println("Solution: ", f(sol)," ", "solutions: ", solutions)
-            plotsolutions(solutions, "../data/12_20/12_20_[1,6]_1700_1.xlsx")
+            println("id: ",basename(target)[1:end-5])
+            t = @elapsed sol,solutions = heuristique(data,3,0.2,0.02,500)
+            println("Temps: ", t)
+            plotsolutions(solutions, target)
     #     end
     # end
 
