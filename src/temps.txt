@@ -1,0 +1,1049 @@
+temps pour trouver le voisin initial : 0.0797279 s
+temps pour trouver le voisin dans la premiere boucle : 0.0688117 s
+temps pour trouver le voisin dans la premiere boucle : 0.0776379 s
+temps pour trouver le voisin dans la premiere boucle : 0.0855219 s
+temps pour trouver le voisin dans la premiere boucle : 0.0801184 s
+temps pour trouver le voisin dans la premiere boucle : 0.0725784 s
+temps pour trouver le voisin dans la premiere boucle : 0.0627033 s
+temps pour trouver le voisin dans la premiere boucle : 0.0637085 s
+temps pour trouver le voisin dans la premiere boucle : 0.0645483 s
+temps pour trouver le voisin dans la premiere boucle : 0.060939 s
+temps pour trouver le voisin dans la premiere boucle : 0.0636317 s
+temps pour trouver le voisin dans la premiere boucle : 0.0671074 s
+temps pour trouver le voisin dans la premiere boucle : 0.0740752 s
+temps pour trouver le voisin dans la premiere boucle : 0.0720706 s
+temps pour trouver le voisin dans la premiere boucle : 0.0676465 s
+temps pour trouver le voisin dans la premiere boucle : 0.0729591 s
+temps pour trouver le voisin dans la premiere boucle : 0.0677564 s
+temps pour trouver le voisin dans la premiere boucle : 0.0686316 s
+temps pour trouver le voisin dans la premiere boucle : 0.0765467 s
+temps pour trouver le voisin dans la premiere boucle : 0.0654145 s
+temps pour trouver le voisin dans la premiere boucle : 0.068501 s
+temps pour trouver le voisin dans la premiere boucle : 0.0747149 s
+temps pour trouver le voisin dans la premiere boucle : 0.0677182 s
+temps pour trouver le voisin dans la premiere boucle : 0.0607265 s
+temps pour trouver le voisin dans la premiere boucle : 0.0703176 s
+temps pour trouver le voisin dans la premiere boucle : 0.0771915 s
+temps pour trouver le voisin dans la premiere boucle : 0.0615287 s
+temps pour trouver le voisin dans la premiere boucle : 0.064015 s
+temps pour trouver le voisin dans la premiere boucle : 0.0639287 s
+temps pour trouver le voisin dans la premiere boucle : 0.063742 s
+temps pour trouver le voisin dans la premiere boucle : 0.0643272 s
+temps pour trouver le voisin dans la premiere boucle : 0.0640686 s
+temps pour trouver le voisin dans la premiere boucle : 0.062817 s
+temps pour trouver le voisin dans la premiere boucle : 0.0852408 s
+temps pour trouver le voisin dans la premiere boucle : 0.0690251 s
+temps pour trouver le voisin dans la premiere boucle : 0.0623277 s
+temps pour trouver le voisin initial dans la deuxieme boucle : 0.1716076 s
+temps pour trouver le voisin dans la deuxieme boucle : 0.0673592 s
+temps pour trouver le voisin dans la deuxieme boucle : 0.0650407 s
+temps pour trouver le voisin dans la deuxieme boucle : 0.0664731 s
+temps pour trouver le voisin dans la deuxieme boucle : 0.0637334 s
+temps pour trouver le voisin dans la deuxieme boucle : 0.0591331 s
+temps pour trouver le voisin dans la deuxieme boucle : 0.0634908 s
+temps pour trouver le voisin dans la deuxieme boucle : 0.0599843 s
+temps pour trouver le voisin dans la deuxieme boucle : 0.0714715 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0642079 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0642433 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0634161 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0634063 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0651309 s
+temps pour trouver le voisin dans la troisieme boucle : 0.057623 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0581269 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0610729 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0584831 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0597809 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0629049 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0659289 s
+temps pour trouver le voisin dans la troisieme boucle : 0.066422 s
+temps pour trouver le voisin dans la troisieme boucle : 0.065969 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0724636 s
+temps pour trouver le voisin dans la pause de gradient : 0.0614654 s
+temps pour trouver le voisin dans la pause de gradient : 0.0611455 s
+temps pour trouver le voisin dans la pause de gradient : 0.0650399 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0633864 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0634566 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0647021 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0643832 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0636745 s
+temps pour trouver le voisin dans la troisieme boucle : 0.064503 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0684388 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0667474 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0649641 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0828439 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0682453 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0820983 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0618455 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0627705 s
+temps pour trouver le voisin dans la pause de gradient : 0.068269 s
+temps pour trouver le voisin dans la pause de gradient : 0.0645441 s
+temps pour trouver le voisin dans la pause de gradient : 0.0650754 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0651316 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0638735 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0638723 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0747233 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0609813 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0636597 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0633292 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0645233 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0638714 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0842262 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0929485 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0678869 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0785817 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0872945 s
+temps pour trouver le voisin dans la pause de gradient : 0.0706035 s
+temps pour trouver le voisin dans la pause de gradient : 0.0590519 s
+temps pour trouver le voisin dans la pause de gradient : 0.065102 s
+temps pour trouver le voisin dans la pause de gradient : 0.059731 s
+temps pour trouver le voisin dans la troisieme boucle : 0.061226 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0593986 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0591517 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0612022 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0790156 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0623771 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0804965 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0741834 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0639658 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0715259 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0846076 s
+temps pour trouver le voisin dans la troisieme boucle : 0.065039 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0737776 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0575029 s
+temps pour trouver le voisin dans la pause de gradient : 0.0736077 s
+temps pour trouver le voisin dans la pause de gradient : 0.0900162 s
+temps pour trouver le voisin dans la pause de gradient : 0.0970758 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0733552 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0606107 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0581919 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0645758 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0644746 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0621675 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0665043 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0631939 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0638405 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0752717 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0731036 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0718019 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0781442 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0622642 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0629417 s
+temps pour trouver le voisin dans la pause de gradient : 0.066126 s
+temps pour trouver le voisin dans la pause de gradient : 0.0595176 s
+temps pour trouver le voisin dans la pause de gradient : 0.0604576 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0619259 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0621753 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0607223 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0761051 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0639386 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0660706 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0637214 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0648395 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0645751 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0635898 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0649796 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0652285 s
+temps pour trouver le voisin dans la pause de gradient : 0.0639957 s
+temps pour trouver le voisin dans la pause de gradient : 0.0651425 s
+temps pour trouver le voisin dans la pause de gradient : 0.0654299 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0658328 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0627306 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0648531 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0646342 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0632112 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0651926 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0749875 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0603625 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0648905 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0608757 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0625531 s
+temps pour trouver le voisin dans la troisieme boucle : 0.077269 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0708538 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0717877 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0619877 s
+temps pour trouver le voisin dans la pause de gradient : 0.0688168 s
+temps pour trouver le voisin dans la pause de gradient : 0.064676 s
+temps pour trouver le voisin dans la pause de gradient : 0.0638606 s
+temps pour trouver le voisin dans la troisieme boucle : 0.064746 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0646445 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0713531 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0676609 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0764817 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0610558 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0586736 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0686283 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0760146 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0614352 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0632735 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0685892 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0621222 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0648431 s
+temps pour trouver le voisin dans la pause de gradient : 0.0606922 s
+temps pour trouver le voisin dans la pause de gradient : 0.0700199 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0792659 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0642853 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0647855 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0645161 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0665905 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0690892 s
+temps pour trouver le voisin dans la troisieme boucle : 0.079494 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0595154 s
+temps pour trouver le voisin dans la troisieme boucle : 0.06128 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0574273 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0634182 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0671237 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0625661 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0604309 s
+temps pour trouver le voisin dans la pause de gradient : 0.065248 s
+temps pour trouver le voisin dans la pause de gradient : 0.0652843 s
+temps pour trouver le voisin dans la pause de gradient : 0.0642204 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0661026 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0657123 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0692851 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0799021 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0663337 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0760878 s
+temps pour trouver le voisin dans la troisieme boucle : 0.076657 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0756545 s
+temps pour trouver le voisin dans la troisieme boucle : 0.075346 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0626951 s
+temps pour trouver le voisin dans la troisieme boucle : 0.064231 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0648528 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0605868 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0597087 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0757562 s
+temps pour trouver le voisin dans la pause de gradient : 0.0607146 s
+temps pour trouver le voisin dans la pause de gradient : 0.0617539 s
+temps pour trouver le voisin dans la pause de gradient : 0.0645155 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0633414 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0632646 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0650295 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0650091 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0633771 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0659919 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0662579 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0632937 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0660969 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0764581 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0592767 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0588075 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0763597 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0618147 s
+temps pour trouver le voisin dans la pause de gradient : 0.0634619 s
+temps pour trouver le voisin dans la pause de gradient : 0.0673746 s
+temps pour trouver le voisin dans la pause de gradient : 0.066524 s
+temps pour trouver le voisin dans la pause de gradient : 0.063931 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0605593 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0614617 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0761943 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0629531 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0615694 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0615959 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0600078 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0616404 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0619756 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0599695 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0619234 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0619588 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0596658 s
+temps pour trouver le voisin dans la troisieme boucle : 0.061559 s
+temps pour trouver le voisin dans la pause de gradient : 0.0645098 s
+temps pour trouver le voisin dans la pause de gradient : 0.0616557 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0653781 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0652492 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0655632 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0646627 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0655689 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0659984 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0644239 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0661736 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0664893 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0638331 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0654156 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0649061 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0653867 s
+temps pour trouver le voisin dans la pause de gradient : 0.0651401 s
+temps pour trouver le voisin dans la pause de gradient : 0.0678598 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0666245 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0646259 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0663384 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0647553 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0647693 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0657654 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0643642 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0648662 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0656898 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0644641 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0653999 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0640242 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0682228 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0713933 s
+temps pour trouver le voisin dans la pause de gradient : 0.0625155 s
+temps pour trouver le voisin dans la pause de gradient : 0.0758197 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0711431 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0635882 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0666358 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0661675 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0629407 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0840408 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0651715 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0629541 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0741873 s
+temps pour trouver le voisin dans la troisieme boucle : 0.069326 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0697495 s
+temps pour trouver le voisin dans la troisieme boucle : 0.063833 s
+temps pour trouver le voisin dans la troisieme boucle : 0.064306 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0783901 s
+temps pour trouver le voisin dans la pause de gradient : 0.0637177 s
+temps pour trouver le voisin dans la pause de gradient : 0.0660553 s
+temps pour trouver le voisin dans la pause de gradient : 0.0647187 s
+temps pour trouver le voisin dans la pause de gradient : 0.0610979 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0611135 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0607067 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0618611 s
+temps pour trouver le voisin dans la troisieme boucle : 0.061889 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0621577 s
+temps pour trouver le voisin dans la troisieme boucle : 0.06364 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0595292 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0622244 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0621388 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0593176 s
+temps pour trouver le voisin dans la troisieme boucle : 0.06146 s
+temps pour trouver le voisin dans la troisieme boucle : 0.060694 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0606129 s
+temps pour trouver le voisin dans la pause de gradient : 0.0621862 s
+temps pour trouver le voisin dans la pause de gradient : 0.0630432 s
+temps pour trouver le voisin dans la pause de gradient : 0.0646896 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0622946 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0617387 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0633258 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0715502 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0616841 s
+temps pour trouver le voisin dans la troisieme boucle : 0.062186 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0643993 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0639878 s
+temps pour trouver le voisin dans la troisieme boucle : 0.066052 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0630417 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0646182 s
+temps pour trouver le voisin dans la pause de gradient : 0.0676144 s
+temps pour trouver le voisin dans la pause de gradient : 0.0684058 s
+temps pour trouver le voisin dans la pause de gradient : 0.0658445 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0671475 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0635674 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0612461 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0617046 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0634846 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0760843 s
+temps pour trouver le voisin dans la troisieme boucle : 0.06199 s
+temps pour trouver le voisin dans la troisieme boucle : 0.066889 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0659233 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0650832 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0615725 s
+temps pour trouver le voisin dans la troisieme boucle : 0.065298 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0623974 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0761665 s
+temps pour trouver le voisin dans la pause de gradient : 0.0659337 s
+temps pour trouver le voisin dans la pause de gradient : 0.0648775 s
+temps pour trouver le voisin dans la pause de gradient : 0.0632633 s
+temps pour trouver le voisin dans la troisieme boucle : 0.079354 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0606158 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0633485 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0632819 s
+temps pour trouver le voisin dans la troisieme boucle : 0.058898 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0647048 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0650771 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0635412 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0642768 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0660005 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0642308 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0643512 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0635865 s
+temps pour trouver le voisin dans la troisieme boucle : 0.065228 s
+temps pour trouver le voisin dans la pause de gradient : 0.0633766 s
+temps pour trouver le voisin dans la pause de gradient : 0.0647207 s
+temps pour trouver le voisin dans la pause de gradient : 0.0793108 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0644802 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0729815 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0627832 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0603926 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0599133 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0620989 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0599649 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0606773 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0609444 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0626615 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0592029 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0636601 s
+temps pour trouver le voisin dans la pause de gradient : 0.064146 s
+temps pour trouver le voisin dans la pause de gradient : 0.0617272 s
+temps pour trouver le voisin dans la troisieme boucle : 0.062531 s
+temps pour trouver le voisin dans la troisieme boucle : 0.061613 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0626058 s
+temps pour trouver le voisin dans la troisieme boucle : 0.063227 s
+temps pour trouver le voisin dans la troisieme boucle : 0.066253 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0666816 s
+temps pour trouver le voisin dans la troisieme boucle : 0.062209 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0651661 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0633237 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0642355 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0628799 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0692175 s
+temps pour trouver le voisin dans la pause de gradient : 0.0742934 s
+temps pour trouver le voisin dans la pause de gradient : 0.0632799 s
+temps pour trouver le voisin dans la pause de gradient : 0.0642284 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0673473 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0633734 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0681198 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0681999 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0648744 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0685648 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0681005 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0625594 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0662867 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0638596 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0729299 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0660702 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0624761 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0662759 s
+temps pour trouver le voisin dans la pause de gradient : 0.0652726 s
+temps pour trouver le voisin dans la pause de gradient : 0.066927 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0668695 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0623446 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0670986 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0700387 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0630868 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0665206 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0674254 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0635378 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0674213 s
+temps pour trouver le voisin dans la troisieme boucle : 0.076949 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0645023 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0629027 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0677104 s
+temps pour trouver le voisin dans la pause de gradient : 0.0681024 s
+temps pour trouver le voisin dans la pause de gradient : 0.0664731 s
+temps pour trouver le voisin dans la pause de gradient : 0.0679259 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0676592 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0640036 s
+temps pour trouver le voisin dans la troisieme boucle : 0.062536 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0608136 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0594422 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0631343 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0623122 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0638958 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0616259 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0617361 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0623422 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0677888 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0643984 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0651172 s
+temps pour trouver le voisin dans la pause de gradient : 0.0635685 s
+temps pour trouver le voisin dans la pause de gradient : 0.0648933 s
+temps pour trouver le voisin dans la pause de gradient : 0.065271 s
+temps pour trouver le voisin dans la troisieme boucle : 0.062855 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0582189 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0626206 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0666109 s
+temps pour trouver le voisin dans la troisieme boucle : 0.06556 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0673828 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0677911 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0641808 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0669744 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0645753 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0650032 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0662857 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0644901 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0596477 s
+temps pour trouver le voisin dans la pause de gradient : 0.0615789 s
+temps pour trouver le voisin dans la pause de gradient : 0.0621279 s
+temps pour trouver le voisin dans la pause de gradient : 0.0597997 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0776684 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0640802 s
+temps pour trouver le voisin dans la troisieme boucle : 0.064639 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0651861 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0627219 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0621438 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0614477 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0607338 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0772754 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0647365 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0647937 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0664397 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0628874 s
+temps pour trouver le voisin dans la troisieme boucle : 0.065638 s
+temps pour trouver le voisin dans la pause de gradient : 0.0664876 s
+temps pour trouver le voisin dans la pause de gradient : 0.0657596 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0670191 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0651461 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0661542 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0679244 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0673411 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0696686 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0668128 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0655803 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0674759 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0660331 s
+temps pour trouver le voisin dans la troisieme boucle : 0.066416 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0688922 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0656461 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0920672 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0654218 s
+temps pour trouver le voisin dans la pause de gradient : 0.0644284 s
+temps pour trouver le voisin dans la pause de gradient : 0.0696219 s
+temps pour trouver le voisin dans la pause de gradient : 0.0655175 s
+temps pour trouver le voisin dans la pause de gradient : 0.0642592 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0747104 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0671597 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0981476 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0579611 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0609019 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0621999 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0610668 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0633238 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0635817 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0604811 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0636998 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0619971 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0624286 s
+temps pour trouver le voisin dans la pause de gradient : 0.0640962 s
+temps pour trouver le voisin dans la pause de gradient : 0.0678238 s
+temps pour trouver le voisin dans la pause de gradient : 0.0630223 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0642917 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0627046 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0639932 s
+temps pour trouver le voisin dans la troisieme boucle : 0.064731 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0626299 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0645475 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0629788 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0622237 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0640763 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0626301 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0629152 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0636345 s
+temps pour trouver le voisin dans la troisieme boucle : 0.062262 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0629399 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0614653 s
+temps pour trouver le voisin dans la pause de gradient : 0.0596042 s
+temps pour trouver le voisin dans la pause de gradient : 0.0626859 s
+temps pour trouver le voisin dans la pause de gradient : 0.0731304 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0790712 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0653076 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0661444 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0633538 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0634383 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0664054 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0735244 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0645798 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0652228 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0653791 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0615141 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0651646 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0647651 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0646045 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0852951 s
+temps pour trouver le voisin dans la pause de gradient : 0.0793449 s
+temps pour trouver le voisin dans la pause de gradient : 0.0603859 s
+temps pour trouver le voisin dans la pause de gradient : 0.0683823 s
+temps pour trouver le voisin dans la pause de gradient : 0.080111 s
+temps pour trouver le voisin dans la troisieme boucle : 0.062465 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0617496 s
+temps pour trouver le voisin dans la troisieme boucle : 0.067963 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0665493 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0654484 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0676979 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0679155 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0648659 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0671741 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0664035 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0662531 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0681211 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0680071 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0716958 s
+temps pour trouver le voisin dans la pause de gradient : 0.0683641 s
+temps pour trouver le voisin dans la pause de gradient : 0.0679712 s
+temps pour trouver le voisin dans la pause de gradient : 0.0662856 s
+temps pour trouver le voisin dans la troisieme boucle : 0.067176 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0655638 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0652477 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0668141 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0662017 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0617162 s
+temps pour trouver le voisin dans la troisieme boucle : 0.063906 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0659717 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0673307 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0611815 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0621628 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0663163 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0648399 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0655669 s
+temps pour trouver le voisin dans la troisieme boucle : 0.066976 s
+temps pour trouver le voisin dans la pause de gradient : 0.0647809 s
+temps pour trouver le voisin dans la pause de gradient : 0.0663666 s
+temps pour trouver le voisin dans la pause de gradient : 0.066086 s
+temps pour trouver le voisin dans la pause de gradient : 0.0647054 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0661441 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0643176 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0645745 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0661107 s
+temps pour trouver le voisin dans la troisieme boucle : 0.06452 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0649109 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0644997 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0659985 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0672568 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0649845 s
+temps pour trouver le voisin dans la troisieme boucle : 0.066987 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0656698 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0651164 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0656501 s
+temps pour trouver le voisin dans la pause de gradient : 0.0660273 s
+temps pour trouver le voisin dans la pause de gradient : 0.0641795 s
+temps pour trouver le voisin dans la pause de gradient : 0.0660673 s
+temps pour trouver le voisin dans la pause de gradient : 0.0660063 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0642995 s
+temps pour trouver le voisin dans la troisieme boucle : 0.064759 s
+temps pour trouver le voisin dans la troisieme boucle : 0.064306 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0608381 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0649849 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0608558 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0628756 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0666752 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0710576 s
+temps pour trouver le voisin dans la troisieme boucle : 0.064378 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0628409 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0632975 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0647144 s
+temps pour trouver le voisin dans la troisieme boucle : 0.068135 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0647517 s
+temps pour trouver le voisin dans la pause de gradient : 0.0649191 s
+temps pour trouver le voisin dans la pause de gradient : 0.0652321 s
+temps pour trouver le voisin dans la pause de gradient : 0.0653001 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0648917 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0581588 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0603576 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0612004 s
+temps pour trouver le voisin dans la troisieme boucle : 0.060101 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0634516 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0672549 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0651507 s
+temps pour trouver le voisin dans la troisieme boucle : 0.066055 s
+temps pour trouver le voisin dans la troisieme boucle : 0.065906 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0785665 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0744332 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0663643 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0709529 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0652822 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0655042 s
+temps pour trouver le voisin dans la pause de gradient : 0.0645466 s
+temps pour trouver le voisin dans la pause de gradient : 0.0692472 s
+temps pour trouver le voisin dans la pause de gradient : 0.0646151 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0631851 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0655506 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0659221 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0676092 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0633178 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0646555 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0640192 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0659004 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0665683 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0641209 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0658302 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0653809 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0622826 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0604741 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0601368 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0650684 s
+temps pour trouver le voisin dans la pause de gradient : 0.064561 s
+temps pour trouver le voisin dans la pause de gradient : 0.064473 s
+temps pour trouver le voisin dans la pause de gradient : 0.0656338 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0656977 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0665231 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0641009 s
+temps pour trouver le voisin dans la troisieme boucle : 0.064532 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0640788 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0626569 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0648197 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0643172 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0622868 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0648957 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0636608 s
+temps pour trouver le voisin dans la troisieme boucle : 0.06271 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0644679 s
+temps pour trouver le voisin dans la troisieme boucle : 0.064172 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0624104 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0649789 s
+temps pour trouver le voisin dans la pause de gradient : 0.0646592 s
+temps pour trouver le voisin dans la pause de gradient : 0.0637637 s
+temps pour trouver le voisin dans la pause de gradient : 0.0721767 s
+temps pour trouver le voisin dans la pause de gradient : 0.0684066 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0624794 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0648485 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0645403 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0625834 s
+temps pour trouver le voisin dans la troisieme boucle : 0.064894 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0649538 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0628147 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0648335 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0656087 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0625637 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0645723 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0793299 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0654917 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0666111 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0664169 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0644563 s
+temps pour trouver le voisin dans la pause de gradient : 0.065706 s
+temps pour trouver le voisin dans la pause de gradient : 0.065656 s
+temps pour trouver le voisin dans la pause de gradient : 0.0636468 s
+temps pour trouver le voisin dans la troisieme boucle : 0.065221 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0648177 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0575048 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0592989 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0599558 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0619059 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0644202 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0646165 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0631862 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0669789 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0602562 s
+temps pour trouver le voisin dans la troisieme boucle : 0.059315 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0633402 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0618179 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0606771 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0643097 s
+temps pour trouver le voisin dans la pause de gradient : 0.065102 s
+temps pour trouver le voisin dans la pause de gradient : 0.0631154 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0664283 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0658939 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0768 s
+temps pour trouver le voisin dans la troisieme boucle : 0.06385 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0655283 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0640542 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0667203 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0657579 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0644921 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0660814 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0666421 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0692441 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0591413 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0615771 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0604696 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0627505 s
+temps pour trouver le voisin dans la pause de gradient : 0.0633743 s
+temps pour trouver le voisin dans la pause de gradient : 0.059346 s
+temps pour trouver le voisin dans la pause de gradient : 0.0620579 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0645517 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0631415 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0656376 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0658304 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0639536 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0604552 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0635689 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0613683 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0618106 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0654569 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0638821 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0658129 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0654145 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0636437 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0647617 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0648178 s
+temps pour trouver le voisin dans la pause de gradient : 0.0633765 s
+temps pour trouver le voisin dans la pause de gradient : 0.0651615 s
+temps pour trouver le voisin dans la pause de gradient : 0.0650332 s
+temps pour trouver le voisin dans la pause de gradient : 0.0631706 s
+temps pour trouver le voisin dans la pause de gradient : 0.0649089 s
+temps pour trouver le voisin dans la pause de gradient : 0.0650652 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0648948 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0659835 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0660141 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0645699 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0655552 s
+temps pour trouver le voisin dans la troisieme boucle : 0.066463 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0629346 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0610568 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0611522 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0618025 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0611043 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0612647 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0602096 s
+temps pour trouver le voisin dans la troisieme boucle : 0.061744 s
+temps pour trouver le voisin dans la pause de gradient : 0.0618952 s
+temps pour trouver le voisin dans la pause de gradient : 0.0612024 s
+temps pour trouver le voisin dans la pause de gradient : 0.0623474 s
+temps pour trouver le voisin dans la pause de gradient : 0.0631565 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0606619 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0689448 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0614106 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0608785 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0587934 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0611889 s
+temps pour trouver le voisin dans la troisieme boucle : 0.062081 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0801096 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0611952 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0616327 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0633661 s
+temps pour trouver le voisin dans la troisieme boucle : 0.065711 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0665599 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0646646 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0631643 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0626012 s
+temps pour trouver le voisin dans la pause de gradient : 0.0640342 s
+temps pour trouver le voisin dans la pause de gradient : 0.0667208 s
+temps pour trouver le voisin dans la pause de gradient : 0.0665368 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0654338 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0660775 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0660838 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0646065 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0660248 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0661782 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0643204 s
+temps pour trouver le voisin dans la troisieme boucle : 0.066812 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0663257 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0645291 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0661016 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0662958 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0648935 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0733079 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0876391 s
+temps pour trouver le voisin dans la pause de gradient : 0.06338 s
+temps pour trouver le voisin dans la pause de gradient : 0.0652926 s
+temps pour trouver le voisin dans la pause de gradient : 0.0651656 s
+temps pour trouver le voisin dans la pause de gradient : 0.0649406 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0646243 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0647727 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0629438 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0653932 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0653232 s
+temps pour trouver le voisin dans la troisieme boucle : 0.062715 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0635592 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0635602 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0735426 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0636178 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0656679 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0642403 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0660141 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0659943 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0648316 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0677212 s
+temps pour trouver le voisin dans la pause de gradient : 0.0665123 s
+temps pour trouver le voisin dans la pause de gradient : 0.0643938 s
+temps pour trouver le voisin dans la pause de gradient : 0.0789207 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0645561 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0629835 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0650226 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0643956 s
+temps pour trouver le voisin dans la troisieme boucle : 0.062789 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0647869 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0649555 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0631429 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0692715 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0628641 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0707802 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0655178 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0604323 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0587095 s
+temps pour trouver le voisin dans la pause de gradient : 0.0611885 s
+temps pour trouver le voisin dans la pause de gradient : 0.0613819 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0592858 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0602719 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0643066 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0848074 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0590928 s
+temps pour trouver le voisin dans la troisieme boucle : 0.062569 s
+temps pour trouver le voisin dans la troisieme boucle : 0.063882 s
+temps pour trouver le voisin dans la troisieme boucle : 0.064547 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0646845 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0629226 s
+temps pour trouver le voisin dans la troisieme boucle : 0.066385 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0659859 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0647091 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0660049 s
+temps pour trouver le voisin dans la pause de gradient : 0.0671198 s
+temps pour trouver le voisin dans la pause de gradient : 0.0648208 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0666191 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0663053 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0647721 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0661417 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0662043 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0646962 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0630329 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0630926 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0577482 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0602944 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0617835 s
+temps pour trouver le voisin dans la troisieme boucle : 0.068471 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0661692 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0668902 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0647548 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0666341 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0672149 s
+temps pour trouver le voisin dans la pause de gradient : 0.0657412 s
+temps pour trouver le voisin dans la pause de gradient : 0.0663925 s
+temps pour trouver le voisin dans la pause de gradient : 0.0663256 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0642495 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0661212 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0657013 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0643342 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0724616 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0729801 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0590659 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0836505 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0657781 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0637318 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0664205 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0665609 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0650126 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0662077 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0598936 s
+temps pour trouver le voisin dans la troisieme boucle : 0.05918 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0620225 s
+temps pour trouver le voisin dans la pause de gradient : 0.0625907 s
+temps pour trouver le voisin dans la pause de gradient : 0.0596666 s
+temps pour trouver le voisin dans la pause de gradient : 0.0608663 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0653711 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0620017 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0721619 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0698994 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0650431 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0692268 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0661091 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0632184 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0646247 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0646259 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0625499 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0640109 s
+temps pour trouver le voisin dans la troisieme boucle : 0.064002 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0622171 s
+temps pour trouver le voisin dans la troisieme boucle : 0.063742 s
+temps pour trouver le voisin dans la pause de gradient : 0.0644571 s
+temps pour trouver le voisin dans la pause de gradient : 0.067247 s
+temps pour trouver le voisin dans la pause de gradient : 0.0700599 s
+temps pour trouver le voisin dans la pause de gradient : 0.0678983 s
+temps pour trouver le voisin dans la troisieme boucle : 0.08493 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0716164 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0648001 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0629911 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0642062 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0608074 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0580509 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0601822 s
+temps pour trouver le voisin dans la troisieme boucle : 0.061779 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0598667 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0615965 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0631408 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0616942 s
+temps pour trouver le voisin dans la troisieme boucle : 0.063966 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0645772 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0630021 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0649805 s
+temps pour trouver le voisin dans la pause de gradient : 0.0652082 s
+temps pour trouver le voisin dans la pause de gradient : 0.0844821 s
+temps pour trouver le voisin dans la pause de gradient : 0.0649674 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0650878 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0637261 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0654039 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0653304 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0633735 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0716805 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0642666 s
+temps pour trouver le voisin dans la troisieme boucle : 0.065872 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0658862 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0657606 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0641798 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0662072 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0662262 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0644359 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0720806 s
+temps pour trouver le voisin dans la pause de gradient : 0.059425 s
+temps pour trouver le voisin dans la pause de gradient : 0.0619525 s
+temps pour trouver le voisin dans la troisieme boucle : 0.065659 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0659928 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0645831 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0659831 s
+temps pour trouver le voisin dans la troisieme boucle : 0.066056 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0638706 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0775524 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0669388 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0622459 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0642425 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0641568 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0700933 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0665169 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0622056 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0626676 s
+temps pour trouver le voisin dans la pause de gradient : 0.0734456 s
+temps pour trouver le voisin dans la pause de gradient : 0.0627084 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0617069 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0608856 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0645502 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0638895 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0806909 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0829461 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0609948 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0659207 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0695441 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0774296 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0647507 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0788745 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0653496 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0674659 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0874269 s
+temps pour trouver le voisin dans la pause de gradient : 0.0634286 s
+temps pour trouver le voisin dans la pause de gradient : 0.0738174 s
+temps pour trouver le voisin dans la pause de gradient : 0.0687217 s
+temps pour trouver le voisin dans la pause de gradient : 0.0670841 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0680258 s
+temps pour trouver le voisin dans la troisieme boucle : 0.063399 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0616762 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0703016 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0734812 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0601045 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0693003 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0669709 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0767037 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0656377 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0655844 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0603314 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0660385 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0653676 s
+temps pour trouver le voisin dans la pause de gradient : 0.061906 s
+temps pour trouver le voisin dans la pause de gradient : 0.0642851 s
+temps pour trouver le voisin dans la pause de gradient : 0.0652081 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0684221 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0661142 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0696325 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0643544 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0662739 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0659074 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0702292 s
+temps pour trouver le voisin dans la troisieme boucle : 0.076942 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0652221 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0643455 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0803736 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0665691 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0763845 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0667537 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0684088 s
+temps pour trouver le voisin dans la pause de gradient : 0.0748851 s
+temps pour trouver le voisin dans la pause de gradient : 0.0674401 s
+temps pour trouver le voisin dans la pause de gradient : 0.1011032 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0655817 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0628989 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0631913 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0974761 s
+temps pour trouver le voisin dans la troisieme boucle : 0.069702 s
+temps pour trouver le voisin dans la troisieme boucle : 0.076121 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0698268 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0653459 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0681237 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0660187 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0682936 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0827527 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0665018 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0690681 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0677202 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0668557 s
+temps pour trouver le voisin dans la troisieme boucle : 0.0678442 s
+temps pour trouver le voisin dans la pause de gradient : 0.0681618 s
+temps pour trouver le voisin dans la pause de gradient : 0.0637056 s
+temps pour trouver le voisin dans la pause de gradient : 0.0781219 s
