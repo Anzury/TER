@@ -49,16 +49,22 @@ function main()
             # close(io)
 
             # data = loadinstance(string(target, folder[1], "/", files))
-            target = "../data/100_60/100_60_[1,4]_3300_3.xlsx"
+            # target = "../data/100_60/100_60_[1,4]_3300_3.xlsx"
             # target = "../data/30_30/30_30_[1,6]_2400_1.xlsx"
-            # target = "../data/75_50/75_50_[1,5]_3300_1.xlsx"
+            target = "../data/75_50/75_50_[1,5]_3300_1.xlsx"
             # target = "../data/120_90/120_90_[1,4]_4100_1.xlsx"
             # target = "../data/data_reelles/OPTICLASS_trafic_05_24_PF.xlsx"
             # target = "../data/12_20/12_20_[1,6]_1700_1.xlsx"
             data = loadinstance(target)
             # println("id: ",basename(string(target, folder[1], "/", files)[1:end-5]))
+            # for k in 5:5:20
+            #     println("k = ",k)
+            #     t = @elapsed sol,solutions = heuristique(data,3,0.2,0.02,150,k)
+            #     println("Temps: ", t,"s")
+            #     plotsolutions(solutions, target)
+            # end
             println("id: ",basename(target)[1:end-5])
-            t = @elapsed sol,solutions = heuristique(data,3,0.2,0.02,150,10)
+            t = @elapsed sol,solutions = heuristique(data,3,0.3,0.02,150,10)
             println("Temps: ", t,"s")
             plotsolutions(solutions, target)
     #     end
