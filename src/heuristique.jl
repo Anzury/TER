@@ -404,7 +404,7 @@ end
 """
 compute the value of a solution s by summing the number of mails in each output and computing the difference between the maximum and the minimum
 """
-function f1(s::Matrix{Int64})
+function f1(s::Matrix)
     return maximum(sum(s,dims=1)) - minimum(sum(s,dims=1))
 end
 
@@ -413,7 +413,7 @@ Ck = the sum of the batch for the output k
 C* = the mean of the Ck for each outputs k
 f(s) compute the sum of the difference between Ck and C* for each output k divided by the number of outputs
 """
-function f2(s::Matrix{Int64})
+function f2(s::Matrix)
     Ck = sum(s,dims=1)
     C = mean(Ck)
     return sum(abs.(Ck .- C))/size(s)[2]
@@ -424,13 +424,13 @@ Ck = the sum of the batch for the output k
 C* = the mean of the Ck for each outputs k
 f(s) compute the square root of the sum of the difference between Ck and C* squared for each output k divided by the number of outputs
 """
-function f3(s::Matrix{Int64})
+function f3(s::Matrix)
     Ck = sum(s,dims=1)
     C = mean(Ck)
     return sqrt(sum((Ck .- C).^2))/size(s)[2]
 end
 
-function f(num::Int64,s::Matrix{Int64})
+function f(num::Int64,s::Matrix)
     if num == 1
         return f1(s)
     elseif num == 2
