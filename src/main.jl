@@ -64,9 +64,14 @@ function main()
             #     plotsolutions(solutions, target)
             # end
             println("id: ",basename(target)[1:end-5])
-            t = @elapsed sol,solutions = heuristique(data,3,0.3,0.02,150,10)
+            fonctionobjectif = 3
+            pourcentage = 0.05
+            decroissance = 0.02
+            nbiterstagnant = 150
+            nbiterameliore = 10
+            t = @elapsed sol,solutions = heuristique(data,fonctionobjectif,pourcentage,decroissance,nbiterstagnant,nbiterameliore)
             println("Temps: ", t,"s")
-            plotsolutions(solutions, target)
+            plotsolutions(solutions, target, fonctionobjectif, pourcentage, decroissance, nbiterstagnant, nbiterameliore)
     #     end
     # end
 
