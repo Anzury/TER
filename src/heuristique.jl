@@ -15,12 +15,13 @@ non-empty output k in round r of solution s.
 • O(r,k)→ (s) is the set of direct right empty outputs of
 the non-empty output k in round r of solution s.
 """
-function neighbour(instance::Matrix,τ,objfunc::Int64,verbose::Bool=false,roundsorder=1:size(instance)[1])
+function neighbour(instance::Matrix,outputs,τ,objfunc::Int64,verbose::Bool=false,roundsorder=1:size(instance)[1])
     #initialisation
     s0 = instance
     i = 0
     r = 1
     s = deepcopy(s0)
+    outputsload = deepcopy(outputs)
     for r in roundsorder
         if verbose
             println("round r = ",r)
@@ -38,8 +39,7 @@ function neighbour(instance::Matrix,τ,objfunc::Int64,verbose::Bool=false,rounds
         end
         #compute the most loaded output among the movables ones of round r for solution s(i)
         if !isempty(movables)
-            # k,mostload = mostloadedoutput(s,movables,r)
-            k = movables[argmax(vec(sum(s[:,movables],dims=1)))]
+            k = movables[argmax(vec(outputsload[movables]))]
         else
             continue
         end
@@ -58,115 +58,85 @@ function neighbour(instance::Matrix,τ,objfunc::Int64,verbose::Bool=false,rounds
         if verbose
             println("moves possible to the right for batch in output k: ",Oright)
         end
-        #compute the set of direct right empty outputs of the non-empty output k in round r of solution s
-        Oleft = []
-        if k > 1
-            j = k - 1
-            while j >= 1 && s[r,j] == 0
-                    push!(Oleft,j)
-                    j = j-1
-            end
-        end
-        if verbose
-            println("moves possible to the left for batch in output k: ",Oleft)
-        end
         #if O(r,k)→ (s(i)) ̸= ∅, then choose the least loaded output q ∈O(r,k)→ (s(i)) and go to Step 4.
         if !isempty(Oright)
-            # q,leastload = leastloadedoutput(s,Oright)
-            q = Oright[argmin(vec(sum(s[:,Oright],dims=1)))]
+            q = Oright[argmin(vec(outputsload[Oright]))]
             if verbose
                 println("choose the least loaded output q ∈O(r,k)→ (s(i))")
                 println("least loaded output q = ",q)
             end
             #Let s(T ) be a solution obtained from solution s(i) by shifting the mail batch from output k to output q for round r.
-            val = f(objfunc,s)
-            s[r,q] = s[r,k]
-            s[r,k] = 0
+            val = f(objfunc,outputsload)
+            outputsload[k] = outputsload[k] - s[r,k]
+            outputsload[q] = outputsload[q] + s[r,k]
             if verbose
                 println("updated round sT = ",s[r,:])
             end
             #If f(s(T )) < f(s(i)) + τ, then move to a new current solution, i.e., set i := i + 1 and s(i) := s(T ).
-            if f(objfunc,s) < val + τ
+            if f(objfunc,outputsload) < val + τ
                 i = i+1
+                s[r,q] = s[r,k]
+                s[r,k] = 0
                 if verbose
-                    println("f(sT) = ",f(objfunc,s)," f(s) = ",val)
+                    println("f(sT) = ",f(objfunc,outputsload)," f(s) = ",val)
                     println("update s")
                 end
             elseif verbose
                 println("no update")
-                s[r,k] = s[r,q]
-                s[r,q] = 0
+                outputsload[k] = outputsload[k] + s[r,k]
+                outputsload[q] = outputsload[q] - s[r,k]
             else
-                s[r,k] = s[r,q]
-                s[r,q] = 0
+                outputsload[k] = outputsload[k] + s[r,k]
+                outputsload[q] = outputsload[q] - s[r,k]
             end
-        #if O(r,k)← (s(i)) ̸= ∅, then choose the least loaded output q ∈O(r,k)← (s(i)), otherwise go to Step 5.
-        elseif !isempty(Oleft)
-            # q,leastload = leastloadedoutput(s,Oleft)
-            q = Oleft[argmin(vec(sum(s[:,Oleft],dims=1)))]
-            if verbose
-                println("choose the least loaded output q ∈O(r,k)← (s(i))")
-                println("least loaded output q = ",q)
-            end
-            #Let s(T ) be a solution obtained from solution s(i) by shifting the mail batch from output k to output q for round r.
-            val = f(objfunc,s)
-            s[r,q] = s[r,k]
-            s[r,k] = 0
-            if verbose
-                println("updated round sT = ",s[r,:])
-            end
-            #If f(s(T )) < f(s(i)) + τ, then move to a new current solution, i.e., set i := i + 1 and s(i) := s(T ).
-            if f(objfunc,s) < val + τ
-                i = i+1
-                if verbose
-                    println("f(sT) = ",f(objfunc,s)," f(s) = ",val)
-                    println("update s")
+        else
+            #compute the set of direct right empty outputs of the non-empty output k in round r of solution s
+            Oleft = []
+            if k > 1
+                j = k - 1
+                while j >= 1 && s[r,j] == 0
+                        push!(Oleft,j)
+                        j = j-1
                 end
-            elseif verbose
-                println("no update")
-                s[r,k] = s[r,q]
-                s[r,q] = 0
-            else
-                s[r,k] = s[r,q]
-                s[r,q] = 0
             end
-        end
-    end
-    return s
-end
-
-"""
-compute the least loaded output of a solution s by finding the minimum of the sum of each column
-"""
-function leastloadedoutput(s::Matrix,set)
-    min = sum(s[:,set[1]])
-    output = set[1]
-    for j in set[2:end]
-        load = sum(s[:,j])
-        if load < min
-            min = load
-            output = j
-        end
-    end
-    return output, min
-end
-
-"""
-compute the most loaded output of a solution among the non-empty ones of round r for solution s by finding the maximum of the sum of each column
-"""
-function mostloadedoutput(s::Matrix,set,r::Int64)
-    max = sum(s[:,set[1]])
-    output = set[1]
-    for j in set[2:end]
-        if s[r,j] != 0 
-            load = sum(s[:,j])
-            if load > max
-                max = load
-                output = j
+            if verbose
+                println("moves possible to the left for batch in output k: ",Oleft)
             end
-        end
+            #if O(r,k)← (s(i)) ̸= ∅, then choose the least loaded output q ∈O(r,k)← (s(i)), otherwise go to Step 5.
+            if !isempty(Oleft)
+                q = Oleft[argmin(vec(outputsload[Oleft]))]
+                if verbose
+                    println("choose the least loaded output q ∈O(r,k)← (s(i))")
+                    println("least loaded output q = ",q)
+                end
+                #Let s(T ) be a solution obtained from solution s(i) by shifting the mail batch from output k to output q for round r.
+                val = f(objfunc,outputsload)
+                outputsload[k] = outputsload[k] - s[r,k]
+                outputsload[q] = outputsload[q] + s[r,k]
+                if verbose
+                    println("updated round sT = ",s[r,:])
+                end
+                #If f(s(T )) < f(s(i)) + τ, then move to a new current solution, i.e., set i := i + 1 and s(i) := s(T ).
+                if f(objfunc,outputsload) < val + τ
+                    i = i+1
+                    s[r,q] = s[r,k]
+                    s[r,k] = 0
+                    if verbose
+                        println("f(sT) = ",f(objfunc,outputsload)," f(s) = ",val)
+                        println("update s")
+                    end
+                elseif verbose
+                    println("no update")
+                    outputsload[k] = outputsload[k] + s[r,k]
+                    outputsload[q] = outputsload[q] - s[r,k]
+                else
+                    outputsload[k] = outputsload[k] + s[r,k]
+                    outputsload[q] = outputsload[q] - s[r,k]
+                end
+            end
+        end 
     end
-    return output, max
+    return s,outputsload
 end
 
 """
@@ -212,7 +182,7 @@ s(B) := s∗. If f(s∗) < f(s), then reset s := s∗
 and repeat Step 3.2. Otherwise, stop and return
 the best found solution s(B).
 """
-function heuristique(instance::Matrix,objfunc::Int64,pourcentage::Float64,∆::Float64 = 0.02,nbiterstagnanmax::Int64 = 50,iteramelio::Int64 = 10,verbose::Bool=false,temps::Bool=false)
+function heuristique(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float64,∆::Float64 = 0.02,nbiterstagnanmax::Int64 = 50,iteramelio::Int64 = 10,verbose::Bool=false,temps::Bool=false)
     # sortperm = sortrounds(instance)
     # sortedrounds = collect(1:size(instance)[1])[sortperm]
     if temps
@@ -227,38 +197,43 @@ function heuristique(instance::Matrix,objfunc::Int64,pourcentage::Float64,∆::F
     # Stage 1
     # 1.1
     τ = 0
-    s = instance
-    s_best = instance
-    solutions = [f(objfunc,s)]
+    s = deepcopy(instance)
+    s_best = deepcopy(instance)
+    loads_s = sum(s,dims=1)
+    loads_s_star = loads_s
+    loads_s_best = loads_s
+    solutions = [f(objfunc,loads_s)]
     if verbose
         println("step 1.2")
     end
     # 1.2
     nbwhile12 = 0
-    tempboucle = @elapsed s_star = neighbour(s,τ,objfunc,verbose,sortedrounds)
+    tempboucle = @elapsed s_star,loads_s_star = neighbour(s,loads_s,τ,objfunc,verbose,sortedrounds)
     if temps
         println(io,"temps pour trouver le voisin initial : ",tempboucle," s")
     end
-    push!(solutions,f(objfunc,s_star))
+    push!(solutions,f(objfunc,loads_s_star))
     aumoinuneiteration = false
-    while !aumoinuneiteration || f(objfunc,s_star) < f(objfunc,s)
+    while !aumoinuneiteration || f(objfunc,loads_s_star) < f(objfunc,loads_s)
         aumoinuneiteration = true
         nbwhile12 = nbwhile12 + 1
         nombrewhile = nombrewhile + 1
         s = s_star
+        loads_s = loads_s_star
         s_best = s_star
-        tempboucle = @elapsed s_star = neighbour(s,τ,objfunc,verbose,sortedrounds)
+        loads_s_best = loads_s_star
+        tempboucle = @elapsed s_star,loads_s_star = neighbour(s,loads_s,τ,objfunc,verbose,sortedrounds)
         if temps
             println(io,"temps pour trouver le voisin dans la premiere boucle : ",tempboucle," s")
         end
     end
-    push!(solutions,f(objfunc,s_best))
+    push!(solutions,f(objfunc,loads_s_best))
     if verbose
         println("stage 2")
     end
     # Stage 2
     # 2.1
-    τ = pourcentage*f(objfunc,s_best)
+    τ = pourcentage*f(objfunc,loads_s_best)
     if verbose
         println("valeur τ initialisé :",τ)
     end
@@ -267,12 +242,12 @@ function heuristique(instance::Matrix,objfunc::Int64,pourcentage::Float64,∆::F
     end
     # 2.2
     nbwhile22 = 0
-    tempboucle = @elapsed s_star = neighbour(s_star,τ,objfunc,verbose,sortedrounds)
+    tempboucle = @elapsed s_star,loads_s_star = neighbour(s_star,loads_s_star,τ,objfunc,verbose,sortedrounds)
     if temps
         println(io,"temps pour trouver le voisin initial dans la deuxieme boucle : ",tempboucle," s")
     end
     aumoinuneiteration = false
-    while !aumoinuneiteration || f(objfunc,s_star) < f(objfunc,s)
+    while !aumoinuneiteration || f(objfunc,loads_s_star) < f(objfunc,loads_s)
         aumoinuneiteration = true
         nbwhile22 = nbwhile22 + 1
         nombrewhile = nombrewhile + 1
@@ -280,16 +255,18 @@ function heuristique(instance::Matrix,objfunc::Int64,pourcentage::Float64,∆::F
             println("solution améliorée")
         end
         s = s_star
-        tempboucle = @elapsed s_star = neighbour(s,τ,objfunc,verbose,sortedrounds)
+        loads_s = loads_s_star
+        tempboucle = @elapsed s_star,loads_s_star = neighbour(s,loads_s,τ,objfunc,verbose,sortedrounds)
         if temps
             println(io,"temps pour trouver le voisin dans la deuxieme boucle : ",tempboucle," s")
         end
-        push!(solutions,f(objfunc,s_star))
+        push!(solutions,f(objfunc,loads_s_star))
     end
-    if f(objfunc,s_star) < f(objfunc,s_best)
+    if f(objfunc,loads_s_star) < f(objfunc,loads_s_best)
         s_best = s_star
+        loads_s_best = loads_s_star
     end
-    push!(solutions,f(objfunc,s_best))
+    push!(solutions,f(objfunc,loads_s_best))
     if verbose
         println("step 2.3")
     end
@@ -302,15 +279,16 @@ function heuristique(instance::Matrix,objfunc::Int64,pourcentage::Float64,∆::F
     τ = τ - ∆
     tempτ = 0
     s = s_star
+    loads_s = loads_s_star
     pausedegrad = iteramelio
     while τ > 0 && nbiterstagnanmax2 > 0
         nbtau = nbtau + 1
-        tempboucle = @elapsed s_star = neighbour(s,τ,objfunc,verbose,sortedrounds)
+        tempboucle = @elapsed s_star,loads_s_star = neighbour(s,loads_s,τ,objfunc,verbose,sortedrounds)
         if temps
             println(io,"temps pour trouver le voisin dans la troisieme boucle : ",tempboucle," s")
         end
         aumoinuneiteration = false
-        while !aumoinuneiteration || f(objfunc,s_star) < f(objfunc,s)
+        while !aumoinuneiteration || f(objfunc,loads_s_star) < f(objfunc,loads_s)
             pausedegrad = pausedegrad - 1
             aumoinuneiteration = true
             nbwhile23 = nbwhile23 + 1
@@ -319,33 +297,36 @@ function heuristique(instance::Matrix,objfunc::Int64,pourcentage::Float64,∆::F
                 println("solution améliorée")
             end
             s = s_star
-            tempboucle = @elapsed s_star = neighbour(s,τ,objfunc,verbose,sortedrounds)
+            loads_s = loads_s_star
+            tempboucle = @elapsed s_star,loads_s_star = neighbour(s,loads_s,τ,objfunc,verbose,sortedrounds)
             if temps
                 println(io,"temps pour trouver le voisin dans la troisieme boucle : ",tempboucle," s")
             end
             if pausedegrad == 0
                 nbpausedegrad = nbpausedegrad + 1
                 aumoinuneiteration = false
-                tempboucle = @elapsed s_star = neighbour(s,tempτ,objfunc,verbose,sortedrounds)
+                tempboucle = @elapsed s_star,loads_s_star = neighbour(s,loads_s,tempτ,objfunc,verbose,sortedrounds)
                 if temps
                     println(io,"temps pour trouver le voisin dans la pause de gradient : ",tempboucle," s")
                 end
-                while !aumoinuneiteration || f(objfunc,s_star) < f(objfunc,s) 
+                while !aumoinuneiteration || f(objfunc,loads_s_star) < f(objfunc,loads_s) 
                     aumoinuneiteration = true
                     nbwhilepausedegrad = nbwhilepausedegrad + 1
                     nombrewhile = nombrewhile + 1
                     s = s_star
-                    tempboucle = @elapsed s_star = neighbour(s,tempτ,objfunc,verbose,sortedrounds)
+                    loads_s = loads_s_star
+                    tempboucle = @elapsed s_star,loads_s_star = neighbour(s,loads_s,tempτ,objfunc,verbose,sortedrounds)
                     if temps
                         println(io,"temps pour trouver le voisin dans la pause de gradient : ",tempboucle," s")
                     end
-                    push!(solutions,f(objfunc,s_star))
+                    push!(solutions,f(objfunc,loads_s_star))
                 end
                 pausedegrad = iteramelio
             end
-            push!(solutions,f(objfunc,s_star))
-            if f(objfunc,s_star) < f(objfunc,s_best)
+            push!(solutions,f(objfunc,loads_s_star))
+            if f(objfunc,loads_s_star) < f(objfunc,loads_s_best)
                 s_best = s_star
+                loads_s_best = loads_s_star
                 nbiterstagnanmax2 = nbiterstagnanmax
             end
             nbiterstagnanmax2 = nbiterstagnanmax2 - 1
@@ -356,7 +337,7 @@ function heuristique(instance::Matrix,objfunc::Int64,pourcentage::Float64,∆::F
         end
 
     end
-    push!(solutions,f(objfunc,s_best))
+    push!(solutions,f(objfunc,loads_s_best))
     if verbose
         println("stage 3")
     end
@@ -368,20 +349,22 @@ function heuristique(instance::Matrix,objfunc::Int64,pourcentage::Float64,∆::F
     end
     # 3.2
     nbwhile32 = 0
-    s_star = neighbour(s,τ,objfunc,verbose,sortedrounds)
+    s_star,loads_s_star = neighbour(s,loads_s,τ,objfunc,verbose,sortedrounds)
     aumoinuneiteration = false
-    while !aumoinuneiteration || f(objfunc,s_star) < f(objfunc,s)
+    while !aumoinuneiteration || f(objfunc,loads_s_star) < f(objfunc,loads_s)
         aumoinuneiteration = true
         nbwhile32 = nbwhile32 + 1
         nombrewhile = nombrewhile + 1
         s = s_star
-        s_star = neighbour(s,τ,objfunc,verbose,sortedrounds)
-        push!(solutions,f(objfunc,s_star))
+        loads_s = loads_s_star
+        s_star,loads_s_star = neighbour(s,loads_s,τ,objfunc,verbose,sortedrounds)
+        push!(solutions,f(objfunc,loads_s_star))
     end
-    if f(objfunc,s_star) < f(objfunc,s_best)
+    if f(objfunc,loads_s_star) < f(objfunc,loads_s_best)
         s_best = s_star
+        loads_s_best = loads_s_star
     end
-    push!(solutions,f(objfunc,s_best))
+    push!(solutions,f(objfunc,loads_s_best))
     println("nombre de while :",nombrewhile)
     println("nombre de while 1.2 :",nbwhile12)
     println("nombre de while 2.2 :",nbwhile22)
@@ -390,11 +373,15 @@ function heuristique(instance::Matrix,objfunc::Int64,pourcentage::Float64,∆::F
     println("nombre de while pause degrad :",nbwhilepausedegrad)
     println("nombre de while 3.2 :",nbwhile32)
     println("nombre de tau :",nbtau)
-    println("value avec f1 :",f1(s_best))
-    println("value avec f2 :",f2(s_best))
-    println("value avec f3 :",f3(s_best))
+    # println("value avec f1 :",f1(s_best))
+    println(iomain,"f1= ",f1(s_best))
+    # println("value avec f2 :",f2(s_best))
+    println(iomain,"f2= ",f2(s_best))
+    # println("value avec f3 :",f3(s_best))
+    println(iomain,"f3= ",f3(s_best))
     # display(s_best)
-    println(sum(s_best,dims=1))
+    # println(sum(s_best,dims=1))
+    println(loads_s_best)
     if temps
         close(io)
     end
@@ -404,8 +391,8 @@ end
 """
 compute the value of a solution s by summing the number of mails in each output and computing the difference between the maximum and the minimum
 """
-function f1(s::Matrix)
-    return maximum(sum(s,dims=1)) - minimum(sum(s,dims=1))
+function f1(loads)
+    return maximum(loads) - minimum(loads)
 end
 
 """
@@ -413,10 +400,10 @@ Ck = the sum of the batch for the output k
 C* = the mean of the Ck for each outputs k
 f(s) compute the sum of the difference between Ck and C* for each output k divided by the number of outputs
 """
-function f2(s::Matrix)
-    Ck = sum(s,dims=1)
+function f2(loads)
+    Ck = loads
     C = mean(Ck)
-    return sum(abs.(Ck .- C))/size(s)[2]
+    return sum(abs.(Ck .- C))/size(loads)
 end
 
 """
@@ -424,18 +411,18 @@ Ck = the sum of the batch for the output k
 C* = the mean of the Ck for each outputs k
 f(s) compute the square root of the sum of the difference between Ck and C* squared for each output k divided by the number of outputs
 """
-function f3(s::Matrix)
-    Ck = sum(s,dims=1)
+function f3(loads)
+    Ck = loads
     C = mean(Ck)
-    return sqrt(sum((Ck .- C).^2))/size(s)[2]
+    return sqrt(sum((Ck .- C).^2))/size(loads)
 end
 
-function f(num::Int64,s::Matrix)
+function f(num::Int64,loads)
     if num == 1
-        return f1(s)
+        return f1(loads)
     elseif num == 2
-        return f2(s)
+        return f2(loads)
     elseif num == 3
-        return f3(s)
+        return f3(loads)
     end
 end

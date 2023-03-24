@@ -21,19 +21,19 @@ function main()
     println("\nEtudiants : Adrien Pichon et Nicolas Compère\n")
 
     # Collecting the names of instances to solve located in the folder Data ----
-    target = "../data/"
-    fnames = getfname(target)
+    # target = "../data/"
+    # fnames = getfname(target)
 
-    allfnames = []
-    for name in fnames
-        push!(allfnames, [name, getfname(string(target, "/", name))])
-    end
+    # allfnames = []
+    # for name in fnames
+    #     push!(allfnames, [name, getfname(string(target, "/", name))])
+    # end
     
-    println("")
-    for folder in allfnames
-        for files in folder[2]
+    # println("")
+    # for folder in allfnames
+    #     for files in folder[2]
 
-            # target = "../data/100_60/100_60_[1,4]_3300_3.xlsx"
+            target = "../data/100_60/100_60_[1,4]_3300_3.xlsx"
             # target = "../data/30_30/30_30_[1,6]_2400_1.xlsx"
             # target = "../data/75_50/75_50_[1,5]_3300_1.xlsx"
             # target = "../data/120_90/120_90_[1,4]_4100_1.xlsx"
@@ -56,33 +56,43 @@ function main()
             # println(io, solution_summary(MILP, verbose=true))
             # close(io)
 
-            # data = loadinstance(target)
-            data = loadinstance(string(target, folder[1], "/", files))
+            data = loadinstance(target)
+            # data = loadinstance(string(target, folder[1], "/", files))
 
-            # println("id: ",basename(target)[1:end-5])
-            id = basename(string(target, folder[1], "/", files)[1:end-5])
-            println("id: ",id)
+            println("id: ",basename(target)[1:end-5])
+            # id = basename(string(target, folder[1], "/", files)[1:end-5])
+            # println("id: ",id)
 
             fonctionobjectif = 3
             pourcentage = 0.5
             decroissance = 0.02
-            nbiterstagnant = 150
-            io = open("../resultsheuristique/$id.txt", "w")
-            println(io,"fonctionobjectif= ", fonctionobjectif)
-            println(io,"pourcentage= ", pourcentage)
-            println(io,"decroissance= ", decroissance)
-            println(io,"nbiterstagnant= ", nbiterstagnant)
-            for nbiterameliore in 5:5:25
-                println("nbiterameliore= ", nbiterameliore)
-                println(io,"nbiterameliore= ", nbiterameliore)
-                t1 = @elapsed sol,solutions = heuristique2(data,io,fonctionobjectif,pourcentage,decroissance,nbiterstagnant,nbiterameliore)
-                println("Temps avec heuristique: ", t1,"s")
-                println(io,"temps= ", t1,"s")
-                # plotsolutions(solutions, target, fonctionobjectif, pourcentage, decroissance, nbiterstagnant, nboiterameliore)
-            end
-            close(io)
-        end
-    end
+            nbiterstagnant = 50
+            # io = open("../resultsheuristique/$id.txt", "w")
+            io = stdout
+            # println(io,"fonctionobjectif= ", fonctionobjectif)
+            # println(io,"pourcentage= ", pourcentage)
+            # println(io,"decroissance= ", decroissance)
+            # println(io,"nbiterstagnant= ", nbiterstagnant)
+            # for nbiterameliore in 10:5:15
+            #     println("nbiterameliore= ", nbiterameliore)
+            #     # println(io,"nbiterameliore= ", nbiterameliore)
+            #     t1 = @elapsed sol,solutions = heuristique2(data,io,fonctionobjectif,pourcentage,decroissance,nbiterstagnant,nbiterameliore)
+            #     println("Temps avec heuristique: ", t1,"s")
+            #     # println(io,"temps= ", t1,"s")
+            #     plotsolutions(solutions,sol, target, fonctionobjectif, pourcentage, decroissance, nbiterstagnant, nbiterameliore)
+            # end
+            println("nbiterameliore= ", 10)
+            t1 = @elapsed sol,solutions = heuristique2(data,io,fonctionobjectif,pourcentage,decroissance,nbiterstagnant,10)
+            println("Temps avec heuristique2: ", t1,"s")
+            plotsolutions(solutions,f(3,sum(sol,dims=1)), target, fonctionobjectif, pourcentage, decroissance, nbiterstagnant, 10)
+            println("nbiterameliore= ", 10)
+            t1 = @elapsed sol,solutions = heuristique(data,io,fonctionobjectif,pourcentage,decroissance,nbiterstagnant,10)
+            println("Temps avec heuristique: ", t1,"s")
+            plotsolutions(solutions,f(3,sum(sol,dims=1)), target, fonctionobjectif, pourcentage, decroissance, nbiterstagnant, 10)
+
+            # close(io)
+    #     end
+    # end
 
     return nothing
 end

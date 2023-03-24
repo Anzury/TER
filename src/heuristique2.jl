@@ -47,31 +47,36 @@ function neighbour2(instance::Matrix,outputs,τ,objfunc::Int64,verbose::Bool=fal
             println("most loaded output k: ",k)
         end
         #compute the set of direct left empty outputs of the non-empty output k in round r of solution s
-        Oright = []
+        moves = []
         if k < size(s0)[2]
             j = k + 1
             while j <= size(s0)[2] && s[r,j] == 0
-                    push!(Oright,j)
+                    push!(moves,j)
                     j = j+1
             end
         end
+        if k > 1
+            j = k - 1
+            while j >= 1 && s[r,j] == 0
+                    push!(moves,j)
+                    j = j-1
+            end
+        end
         if verbose
-            println("moves possible to the right for batch in output k: ",Oright)
+            println("moves possible for batch in output k: ",moves)
+            println("outputsload: ",outputsload)
         end
         #if O(r,k)→ (s(i)) ̸= ∅, then choose the least loaded output q ∈O(r,k)→ (s(i)) and go to Step 4.
-        if !isempty(Oright)
-            q = Oright[argmin(vec(outputsload[Oright]))]
+        if !isempty(moves)
+            q = moves[argmin(vec(outputsload[moves]))]
             if verbose
-                println("choose the least loaded output q ∈O(r,k)→ (s(i))")
+                println("choose the least loaded output q ∈O(r,k)")
                 println("least loaded output q = ",q)
             end
             #Let s(T ) be a solution obtained from solution s(i) by shifting the mail batch from output k to output q for round r.
             val = f(objfunc,outputsload)
             outputsload[k] = outputsload[k] - s[r,k]
             outputsload[q] = outputsload[q] + s[r,k]
-            if verbose
-                println("updated round sT = ",s[r,:])
-            end
             #If f(s(T )) < f(s(i)) + τ, then move to a new current solution, i.e., set i := i + 1 and s(i) := s(T ).
             if f(objfunc,outputsload) < val + τ
                 i = i+1
@@ -80,6 +85,7 @@ function neighbour2(instance::Matrix,outputs,τ,objfunc::Int64,verbose::Bool=fal
                 if verbose
                     println("f(sT) = ",f(objfunc,outputsload)," f(s) = ",val)
                     println("update s")
+                    println("updated round sT = ",s[r,:])
                 end
             elseif verbose
                 println("no update")
@@ -88,51 +94,6 @@ function neighbour2(instance::Matrix,outputs,τ,objfunc::Int64,verbose::Bool=fal
             else
                 outputsload[k] = outputsload[k] + s[r,k]
                 outputsload[q] = outputsload[q] - s[r,k]
-            end
-        else
-            #compute the set of direct right empty outputs of the non-empty output k in round r of solution s
-            Oleft = []
-            if k > 1
-                j = k - 1
-                while j >= 1 && s[r,j] == 0
-                        push!(Oleft,j)
-                        j = j-1
-                end
-            end
-            if verbose
-                println("moves possible to the left for batch in output k: ",Oleft)
-            end
-            #if O(r,k)← (s(i)) ̸= ∅, then choose the least loaded output q ∈O(r,k)← (s(i)), otherwise go to Step 5.
-            if !isempty(Oleft)
-                q = Oleft[argmin(vec(outputsload[Oleft]))]
-                if verbose
-                    println("choose the least loaded output q ∈O(r,k)← (s(i))")
-                    println("least loaded output q = ",q)
-                end
-                #Let s(T ) be a solution obtained from solution s(i) by shifting the mail batch from output k to output q for round r.
-                val = f(objfunc,outputsload)
-                outputsload[k] = outputsload[k] - s[r,k]
-                outputsload[q] = outputsload[q] + s[r,k]
-                if verbose
-                    println("updated round sT = ",s[r,:])
-                end
-                #If f(s(T )) < f(s(i)) + τ, then move to a new current solution, i.e., set i := i + 1 and s(i) := s(T ).
-                if f(objfunc,outputsload) < val + τ
-                    i = i+1
-                    s[r,q] = s[r,k]
-                    s[r,k] = 0
-                    if verbose
-                        println("f(sT) = ",f(objfunc,outputsload)," f(s) = ",val)
-                        println("update s")
-                    end
-                elseif verbose
-                    println("no update")
-                    outputsload[k] = outputsload[k] + s[r,k]
-                    outputsload[q] = outputsload[q] - s[r,k]
-                else
-                    outputsload[k] = outputsload[k] + s[r,k]
-                    outputsload[q] = outputsload[q] - s[r,k]
-                end
             end
         end 
     end
@@ -373,14 +334,14 @@ function heuristique2(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
     println("nombre de while pause degrad :",nbwhilepausedegrad)
     println("nombre de while 3.2 :",nbwhile32)
     println("nombre de tau :",nbtau)
-    println("value avec f1 :",f1(s_best))
+    # println("value avec f1 :",f1(s_best))
     println(iomain,"f1= ",f1(s_best))
-    println("value avec f2 :",f2(s_best))
+    # println("value avec f2 :",f2(s_best))
     println(iomain,"f2= ",f2(s_best))
-    println("value avec f3 :",f3(s_best))
+    # println("value avec f3 :",f3(s_best))
     println(iomain,"f3= ",f3(s_best))
     # display(s_best)
-    println(sum(s_best,dims=1))
+    # println(sum(s_best,dims=1))
     println(loads_s_best)
     if temps
         close(io)
@@ -403,7 +364,7 @@ f(s) compute the sum of the difference between Ck and C* for each output k divid
 function f2(loads)
     Ck = loads
     C = mean(Ck)
-    return sum(abs.(Ck .- C))/size(s)[2]
+    return sum(abs.(Ck .- C))/length(loads)
 end
 
 """
@@ -414,7 +375,7 @@ f(s) compute the square root of the sum of the difference between Ck and C* squa
 function f3(loads)
     Ck = loads
     C = mean(Ck)
-    return sqrt(sum((Ck .- C).^2))/size(s)[2]
+    return sqrt(sum((Ck .- C).^2))/length(loads)
 end
 
 function f(num::Int64,loads)
