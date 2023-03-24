@@ -18,84 +18,102 @@ the non-empty output k in round r of solution s.
 function neighbour2(instance::Matrix,outputs,τ,objfunc::Int64,verbose::Bool=false,roundsorder=1:size(instance)[1])
     #initialisation
     s0 = instance
-    i = 0
     r = 1
     s = deepcopy(s0)
     outputsload = deepcopy(outputs)
     for r in roundsorder
-        if verbose
-            println("round r = ",r)
-            println("round :",s[r,:])
-        end
-        # compute the batches of round r that can be mouved
-        movables = []
-        for j = 1:size(s0)[2]
-            if s[r,j] != 0 && ((j+1<=size(s0)[2] && s[r,j+1]==0) || (j-1>=1 && s[r,j-1]==0))
-                push!(movables,j)
-            end
-        end
-        if verbose
-            println("movables batches: ",movables)
-        end
-        #compute the most loaded output among the movables ones of round r for solution s(i)
-        if !isempty(movables)
-            k = movables[argmax(vec(outputsload[movables]))]
-        else
-            continue
-        end
-        if verbose
-            println("most loaded output k: ",k)
-        end
-        #compute the set of direct left empty outputs of the non-empty output k in round r of solution s
-        moves = []
-        if k < size(s0)[2]
-            j = k + 1
-            while j <= size(s0)[2] && s[r,j] == 0
-                    push!(moves,j)
-                    j = j+1
-            end
-        end
-        if k > 1
-            j = k - 1
-            while j >= 1 && s[r,j] == 0
-                    push!(moves,j)
-                    j = j-1
-            end
-        end
-        if verbose
-            println("moves possible for batch in output k: ",moves)
-            println("outputsload: ",outputsload)
-        end
-        #if O(r,k)→ (s(i)) ̸= ∅, then choose the least loaded output q ∈O(r,k)→ (s(i)) and go to Step 4.
-        if !isempty(moves)
-            q = moves[argmin(vec(outputsload[moves]))]
+        i = 0
+        value = f(objfunc,outputsload)
+        valueupdate = value-0.1
+        while valueupdate < value && i < 5
+            value = f(objfunc,outputsload)
+            taboo = Set()
             if verbose
-                println("choose the least loaded output q ∈O(r,k)")
-                println("least loaded output q = ",q)
+                println("round r = ",r)
+                println("round :",s[r,:])
             end
-            #Let s(T ) be a solution obtained from solution s(i) by shifting the mail batch from output k to output q for round r.
-            val = f(objfunc,outputsload)
-            outputsload[k] = outputsload[k] - s[r,k]
-            outputsload[q] = outputsload[q] + s[r,k]
-            #If f(s(T )) < f(s(i)) + τ, then move to a new current solution, i.e., set i := i + 1 and s(i) := s(T ).
-            if f(objfunc,outputsload) < val + τ
-                i = i+1
-                s[r,q] = s[r,k]
-                s[r,k] = 0
-                if verbose
-                    println("f(sT) = ",f(objfunc,outputsload)," f(s) = ",val)
-                    println("update s")
-                    println("updated round sT = ",s[r,:])
+            # compute the batches of round r that can be mouved
+            movables = []
+            for j = 1:size(s0)[2]
+                if s[r,j] != 0 && ((j+1<=size(s0)[2] && s[r,j+1]==0) || (j-1>=1 && s[r,j-1]==0))
+                    push!(movables,j)
                 end
-            elseif verbose
-                println("no update")
-                outputsload[k] = outputsload[k] + s[r,k]
-                outputsload[q] = outputsload[q] - s[r,k]
-            else
-                outputsload[k] = outputsload[k] + s[r,k]
-                outputsload[q] = outputsload[q] - s[r,k]
             end
-        end 
+            if verbose
+                println("movables batches: ",movables)
+            end
+            #compute the most loaded output among the movables ones of round r for solution s(i)
+            if !isempty(movables)
+                k = movables[argmax(vec(outputsload[movables]))]
+            else
+                continue
+            end
+            if verbose
+                println("most loaded output k: ",k)
+            end
+            #compute the set of direct left empty outputs of the non-empty output k in round r of solution s
+            moves = []
+            if k < size(s0)[2]
+                j = k + 1
+                while j <= size(s0)[2] && s[r,j] == 0
+                        push!(moves,j)
+                        j = j+1
+                end
+            end
+            if k > 1
+                j = k - 1
+                while j >= 1 && s[r,j] == 0
+                        push!(moves,j)
+                        j = j-1
+                end
+            end
+            sort!(moves)
+            # removes elements in taboo from moves
+            for t in taboo
+                if t in moves
+                    deleteat!(moves,findall(x->x==t,moves))
+                end
+            end
+            if verbose
+                println("moves possible for batch in output k: ",moves)
+                println("outputsload: ",outputsload)
+            end
+            #if O(r,k)→ (s(i)) ̸= ∅, then choose the least loaded output q ∈O(r,k)→ (s(i)) and go to Step 4.
+            if !isempty(moves)
+                q = moves[argmin(vec(outputsload[moves]))]
+                if verbose
+                    println("choose the least loaded output q ∈O(r,k)")
+                    println("least loaded output q = ",q)
+                end
+                #Let s(T ) be a solution obtained from solution s(i) by shifting the mail batch from output k to output q for round r.
+                val = f(objfunc,outputsload)
+                outputsload[k] = outputsload[k] - s[r,k]
+                outputsload[q] = outputsload[q] + s[r,k]
+                #If f(s(T )) < f(s(i)) + τ, then move to a new current solution, i.e., set i := i + 1 and s(i) := s(T ).
+                if f(objfunc,outputsload) < val + τ
+                    i = i+1
+                    s[r,q] = s[r,k]
+                    s[r,k] = 0
+                    valueupdate = f(objfunc,outputsload)
+                    push!(taboo,k)
+                    if length(taboo) > 2
+                        popfirst!(taboo)
+                    end
+                    if verbose
+                        println("f(sT) = ",f(objfunc,outputsload)," f(s) = ",val)
+                        println("update s")
+                        println("updated round sT = ",s[r,:])
+                    end
+                elseif verbose
+                    println("no update")
+                    outputsload[k] = outputsload[k] + s[r,k]
+                    outputsload[q] = outputsload[q] - s[r,k]
+                else
+                    outputsload[k] = outputsload[k] + s[r,k]
+                    outputsload[q] = outputsload[q] - s[r,k]
+                end
+            end
+        end
     end
     return s,outputsload
 end
