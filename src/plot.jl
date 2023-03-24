@@ -4,6 +4,6 @@ using PyPlot
 function plotsolutions(solutions,sol, target, fonctionobjectif, pourcentage, decroissance, nbiterstagnant, nbiterameliore)
     figure("evolution of solutions for $target")
     title(string("f(s) for ", fonctionobjectif, " ", pourcentage, " ", decroissance, " ", nbiterstagnant))
-    plot(solutions, label="nbiterameliore= $nbiterameliore")
+    plot(solutions, label="nbiterameliore= $nbiterameliore, best sol= $sol")
     legend(loc=1, fontsize ="small")
 end

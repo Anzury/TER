@@ -161,8 +161,8 @@ function heuristique2(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
     s = deepcopy(instance)
     s_best = deepcopy(instance)
     loads_s = sum(s,dims=1)
-    loads_s_star = loads_s
-    loads_s_best = loads_s
+    loads_s_star = deepcopy(loads_s)
+    loads_s_best = deepcopy(loads_s)
     solutions = [f(objfunc,loads_s)]
     if verbose
         println("step 1.2")
@@ -296,7 +296,6 @@ function heuristique2(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
         if verbose
             println("valeur τ changée :",τ)
         end
-
     end
     push!(solutions,f(objfunc,loads_s_best))
     if verbose
@@ -334,12 +333,12 @@ function heuristique2(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
     println("nombre de while pause degrad :",nbwhilepausedegrad)
     println("nombre de while 3.2 :",nbwhile32)
     println("nombre de tau :",nbtau)
-    # println("value avec f1 :",f1(s_best))
-    println(iomain,"f1= ",f1(s_best))
-    # println("value avec f2 :",f2(s_best))
-    println(iomain,"f2= ",f2(s_best))
-    # println("value avec f3 :",f3(s_best))
-    println(iomain,"f3= ",f3(s_best))
+    # println("value avec f1 :",f1(loads_s_best))
+    println(iomain,"f1= ",f1(loads_s_best))
+    # println("value avec f2 :",f2(loads_s_best))
+    println(iomain,"f2= ",f2(loads_s_best))
+    # println("value avec f3 :",f3(loads_s_best))
+    println(iomain,"f3= ",f3(loads_s_best))
     # display(s_best)
     # println(sum(s_best,dims=1))
     println(loads_s_best)
