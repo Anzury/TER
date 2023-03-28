@@ -9,6 +9,7 @@ include("loadinstance.jl")
 # include("writeinstance.jl")
 include("heuristique.jl")
 include("heuristique2.jl")
+include("heuristique3.jl")
 include("plot.jl")
 
 """
@@ -81,7 +82,7 @@ function main()
                 println("Temps avec heuristique: ", t1,"s")
                 plotsolutions(solutions,f(3,sum(sol,dims=1)), target, fonctionobjectif, pourcentage, decroissance, nbiterstagnant, nbiterameliore)
                 println("nbiterameliore= ", nbiterameliore)
-                t1 = @elapsed sol,solutions = heuristique2(data,io,fonctionobjectif,pourcentage,decroissance,nbiterstagnant,nbiterameliore)
+                t1 = @elapsed sol,solutions = heuristique3(data,io,fonctionobjectif,pourcentage,decroissance,nbiterstagnant,nbiterameliore)
                 println("Temps avec heuristique2: ", t1,"s")
                 plotsolutions(solutions,f(3,sum(sol,dims=1)), target, fonctionobjectif, pourcentage, decroissance, nbiterstagnant, nbiterameliore)
             end
