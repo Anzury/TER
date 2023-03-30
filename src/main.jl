@@ -81,17 +81,19 @@ function main()
             println(io,"nbiterstagnant= ", nbiterstagnant)
             println(size(data))
 
-            for nbiterameliore in [10,15,100]
+            for nbiterameliore in [10,15,1000]
                 # println("nbiterameliore= ", nbiterameliore)
                 # t1 = @elapsed sol,solutions = heuristique2(data,io,fonctionobjectif,pourcentage,decroissance,nbiterstagnant,nbiterameliore)
                 # println("Temps avec heuristique2: ", t1,"s")
                 # plotsolutions(solutions,f(3,sum(sol,dims=1)), target, fonctionobjectif, pourcentage, decroissance, nbiterstagnant, nbiterameliore)
                 println("nbiterameliore= ", nbiterameliore)
+                println(io,"nbiterameliore= ", nbiterameliore)
                 # println(io,"\npourcentage= ", pourcentage)
                 t1 = @elapsed sol,solutions = heuristique3(data,io,fonctionobjectif,pourcentage,decroissance,nbiterstagnant,nbiterameliore)
                 println("f1= ",f(1,sum(sol,dims=1)))
                 println("f3= ",f(3,sum(sol,dims=1)))
                 println("Temps avec heuristique3: ", t1,"s")
+                println(io,"Temps= ", t1,"s")
                 # plotsolutions(solutions,f(3,sum(sol,dims=1)), target, fonctionobjectif, pourcentage, decroissance, nbiterstagnant, nbiterameliore)
                 # show(io,"text/plain",sol)
             end
