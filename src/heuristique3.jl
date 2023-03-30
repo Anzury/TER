@@ -319,14 +319,14 @@ function heuristique3(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
         loads_s_best = loads_s_star
     end
     push!(solutions,f(objfunc,loads_s_best))
-    println("nombre de while :",nombrewhile)
-    println("nombre de while 1.2 :",nbwhile12)
-    println("nombre de while 2.2 :",nbwhile22)
-    println("nombre de while 2.3 :",nbwhile23)
-    println("nombre de pause degrad :",nbpausedegrad)
-    println("nombre de while pause degrad :",nbwhilepausedegrad)
-    println("nombre de while 3.2 :",nbwhile32)
-    println("nombre de tau :",nbtau)
+    # println("nombre de while :",nombrewhile)
+    # println("nombre de while 1.2 :",nbwhile12)
+    # println("nombre de while 2.2 :",nbwhile22)
+    # println("nombre de while 2.3 :",nbwhile23)
+    # println("nombre de pause degrad :",nbpausedegrad)
+    # println("nombre de while pause degrad :",nbwhilepausedegrad)
+    # println("nombre de while 3.2 :",nbwhile32)
+    # println("nombre de tau :",nbtau)
     # println("value avec f1 :",f1(s_best))
     println(iomain,"f1= ",f1(loads_s_best))
     # println("value avec f2 :",f2(s_best))
@@ -334,8 +334,8 @@ function heuristique3(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
     # println("value avec f3 :",f3(s_best))
     println(iomain,"f3= ",f3(loads_s_best))
     # display(s_best)
-    println(sum(s_best,dims=1))
-    println(loads_s_best)
+    # println(sum(s_best,dims=1))
+    # println(loads_s_best)
     return s_best,solutions
 end
 

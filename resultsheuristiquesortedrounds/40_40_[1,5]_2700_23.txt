@@ -1,0 +1,13 @@
+fonctionobjectif= 3
+pourcentage= 10.0
+decroissance= 0.02
+nbiterstagnant= 100
+f1= 40
+f2= 7.525
+f3= 1.5227442332841061
+f1= 30
+f2= 6.175
+f3= 1.301441508482037
+f1= 50
+f2= 7.675
+f3= 1.7871066000661517
