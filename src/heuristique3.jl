@@ -108,11 +108,10 @@ function neighbour3(instance::Matrix,outputs,τ,objfunc::Int64,verbose::Bool=fal
                     println("updated round sT = ",s[r,:])
                     println("f(sT) = ",f(objfunc,outputsload)," f(s) = ",val)
                 end
-            elseif verbose
-                println("no update")
-                outputsload[k] = outputsload[k] + s[r,k]
-                outputsload[q] = outputsload[q] - s[r,k]
             else
+                if verbose
+                    println("no update")
+                end
                 outputsload[k] = outputsload[k] + s[r,k]
                 outputsload[q] = outputsload[q] - s[r,k]
             end
@@ -165,9 +164,9 @@ and repeat Step 3.2. Otherwise, stop and return
 the best found solution s(B).
 """
 function heuristique3(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float64,∆::Float64 = 0.02,nbiterstagnanmax::Int64 = 50,iteramelio::Int64 = 10,verbose::Bool=false)
-    # sortperm = sortrounds(instance)
-    # sortedrounds = collect(1:size(instance)[1])[sortperm]
-    sortedrounds = 1:size(instance)[1]
+    sortperm = sortrounds(instance)
+    sortedrounds = collect(1:size(instance)[1])[sortperm]
+    # sortedrounds = 1:size(instance)[1]
     nombrewhile = 0
     if verbose
         println("sorted rounds: ",sortedrounds)
@@ -335,7 +334,7 @@ function heuristique3(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
     # println("value avec f3 :",f3(s_best))
     println(iomain,"f3= ",f3(loads_s_best))
     # display(s_best)
-    # println(sum(s_best,dims=1))
+    println(sum(s_best,dims=1))
     println(loads_s_best)
     return s_best,solutions
 end
