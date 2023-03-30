@@ -37,9 +37,9 @@ function main()
             # target = "../data/100_60/100_60_[1,4]_3300_3.xlsx"
             # target = "../data/30_30/30_30_[1,6]_2400_1.xlsx"
             # target = "../data/75_50/75_50_[1,5]_3300_1.xlsx"
-            target = "../data/120_90/120_90_[1,4]_4100_1.xlsx"
+            # target = "../data/120_90/120_90_[1,4]_4100_1.xlsx"
             # target = "../data/data_reelles/OPTICLASS_trafic_05_24_PF.xlsx"
-            # target = "../data/data_reelles/OPTICLASS_trafic_06_27_PF.xlsx"
+            target = "../data/data_reelles/OPTICLASS_trafic_06_27_PF.xlsx"
             # target = "../data/12_20/12_20_[1,6]_1700_1.xlsx"
 
             # data = loadinstanceMILP(string(target, folder[1], "/", files))
@@ -64,33 +64,36 @@ function main()
             println("id: ",basename(target)[1:end-5])
             # id = basename(string(target, folder[1], "/", files)[1:end-5])
             # println("id: ",id)
+            id = basename(target)[1:end-5]
 
             fonctionobjectif = 3
-            pourcentage = 0.3
+            pourcentage = 10.0
             decroissance = 0.02
-            nbiterstagnant = 100
+            nbiterstagnant = 1000
             # io = open("../resultsheuristique/$id.txt", "w")
-            io = stdout
+            io = open("./test$id.txt", "a")
             # println(io,"fonctionobjectif= ", fonctionobjectif)
             # println(io,"pourcentage= ", pourcentage)
             # println(io,"decroissance= ", decroissance)
             # println(io,"nbiterstagnant= ", nbiterstagnant)
             println(size(data))
-            for nbiterameliore in [10, 15, 10000]
+            for nbiterameliore in [10]
+                # println("nbiterameliore= ", nbiterameliore)
+                # t1 = @elapsed sol,solutions = heuristique2(data,io,fonctionobjectif,pourcentage,decroissance,nbiterstagnant,nbiterameliore)
+                # println("Temps avec heuristique: ", t1,"s")
+                # plotsolutions(solutions,f(3,sum(sol,dims=1)), target, fonctionobjectif, pourcentage, decroissance, nbiterstagnant, nbiterameliore)
                 println("nbiterameliore= ", nbiterameliore)
-                t1 = @elapsed sol,solutions = heuristique(data,io,fonctionobjectif,pourcentage,decroissance,nbiterstagnant,nbiterameliore)
-                println("Temps avec heuristique: ", t1,"s")
-                plotsolutions(solutions,f(3,sum(sol,dims=1)), target, fonctionobjectif, pourcentage, decroissance, nbiterstagnant, nbiterameliore)
-                println("nbiterameliore= ", nbiterameliore)
+                println(io,"\npourcentage= ", pourcentage)
                 t1 = @elapsed sol,solutions = heuristique3(data,io,fonctionobjectif,pourcentage,decroissance,nbiterstagnant,nbiterameliore)
                 println("Temps avec heuristique2: ", t1,"s")
                 plotsolutions(solutions,f(3,sum(sol,dims=1)), target, fonctionobjectif, pourcentage, decroissance, nbiterstagnant, nbiterameliore)
+                show(io,"text/plain",sol)
             end
             # println("nbiterameliore= ", 10)
             # t1 = @elapsed sol,solutions = heuristique(data,io,fonctionobjectif,pourcentage,decroissance,nbiterstagnant,10000)
             # println("Temps avec heuristique: ", t1,"s")
             # plotsolutions(solutions,f(3,sum(sol,dims=1)), target, fonctionobjectif, pourcentage, decroissance, nbiterstagnant, 10000)
-            # close(io)
+            close(io)
     #     end
     # end
 

@@ -30,7 +30,6 @@ function neighbour3(instance::Matrix,outputs,τ,objfunc::Int64,verbose::Bool=fal
         # compute the batches of round r that can be mouved and the most loaded
         # output among the movables batches
         movables = []
-        sizehint!(movables, size(s0)[2])
         maxLoad, k = -1, -1
         for j = 1:size(s0)[2]
             if s[r,j] != 0 && ((j+1<=size(s0)[2] && s[r,j+1]==0) || (j-1>=1 && s[r,j-1]==0))
@@ -52,8 +51,7 @@ function neighbour3(instance::Matrix,outputs,τ,objfunc::Int64,verbose::Bool=fal
 
         #compute the set of direct left empty outputs of the non-empty output k in round r of solution s
         moves, ridx, lidx = [], -1, -1
-        sizehint!(movables, size(s0)[2])
-        if k < size(s0)[2] && k != -1
+        if k < size(s0)[2]
             j = k + 1
             while j <= size(s0)[2] && s[r,j] == 0
                 push!(moves,j)
@@ -78,10 +76,10 @@ function neighbour3(instance::Matrix,outputs,τ,objfunc::Int64,verbose::Bool=fal
         idxminloadl, idxminloadr = -1, -1
         i = 1
         for idx in moves
-            if ridx != -1 && idx >= ridx && minloadr >= outputsload[idx]
+            if ridx != -1 && idx >= ridx && minloadr > outputsload[idx]
                 idxminloadr, minloadr = i, outputsload[idx]
             end
-            if ridx == -1 && lidx != -1 && idx <= lidx && minloadl >= outputsload[idx]
+            if ridx == -1 && lidx != -1 && idx <= lidx && minloadl > outputsload[idx]
                 idxminloadl, minloadl = i, outputsload[idx]
             end
             i = i+1
@@ -95,24 +93,20 @@ function neighbour3(instance::Matrix,outputs,τ,objfunc::Int64,verbose::Bool=fal
         # if !isempty(moves)
             q = moves[idxminloadr]
             if verbose
-                println("choose the least loaded output q ∈O(r,k)→ (s(i))")
                 println("least loaded output q = ",q)
             end
             #Let s(T ) be a solution obtained from solution s(i) by shifting the mail batch from output k to output q for round r.
             val = f(objfunc,outputsload)
             outputsload[k] = outputsload[k] - s[r,k]
             outputsload[q] = outputsload[q] + s[r,k]
-            if verbose
-                println("updated round sT = ",s[r,:])
-            end
             #If f(s(T )) < f(s(i)) + τ, then move to a new current solution, i.e., set i := i + 1 and s(i) := s(T ).
             if f(objfunc,outputsload) < val + τ
                 i = i+1
                 s[r,q] = s[r,k]
                 s[r,k] = 0
                 if verbose
+                    println("updated round sT = ",s[r,:])
                     println("f(sT) = ",f(objfunc,outputsload)," f(s) = ",val)
-                    println("update s")
                 end
             elseif verbose
                 println("no update")
@@ -170,12 +164,9 @@ s(B) := s∗. If f(s∗) < f(s), then reset s := s∗
 and repeat Step 3.2. Otherwise, stop and return
 the best found solution s(B).
 """
-function heuristique3(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float64,∆::Float64 = 0.02,nbiterstagnanmax::Int64 = 50,iteramelio::Int64 = 10,verbose::Bool=false,temps::Bool=false)
+function heuristique3(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float64,∆::Float64 = 0.02,nbiterstagnanmax::Int64 = 50,iteramelio::Int64 = 10,verbose::Bool=false)
     # sortperm = sortrounds(instance)
     # sortedrounds = collect(1:size(instance)[1])[sortperm]
-    if temps
-        io = open("temps.txt", "w")
-    end
     sortedrounds = 1:size(instance)[1]
     nombrewhile = 0
     if verbose
@@ -196,10 +187,7 @@ function heuristique3(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
     end
     # 1.2
     nbwhile12 = 0
-    tempboucle = @elapsed s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
-    if temps
-        println(io,"temps pour trouver le voisin initial : ",tempboucle," s")
-    end
+    s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
     push!(solutions,f(objfunc,loads_s_star))
     aumoinuneiteration = false
     while !aumoinuneiteration || f(objfunc,loads_s_star) < f(objfunc,loads_s)
@@ -210,10 +198,7 @@ function heuristique3(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
         loads_s = loads_s_star
         s_best = s_star
         loads_s_best = loads_s_star
-        tempboucle = @elapsed s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
-        if temps
-            println(io,"temps pour trouver le voisin dans la premiere boucle : ",tempboucle," s")
-        end
+        s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
     end
     push!(solutions,f(objfunc,loads_s_best))
     if verbose
@@ -230,10 +215,7 @@ function heuristique3(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
     end
     # 2.2
     nbwhile22 = 0
-    tempboucle = @elapsed s_star,loads_s_star = neighbour3(s_star,loads_s_star,τ,objfunc,verbose,sortedrounds)
-    if temps
-        println(io,"temps pour trouver le voisin initial dans la deuxieme boucle : ",tempboucle," s")
-    end
+    s_star,loads_s_star = neighbour3(s_star,loads_s_star,τ,objfunc,verbose,sortedrounds)
     aumoinuneiteration = false
     while !aumoinuneiteration || f(objfunc,loads_s_star) < f(objfunc,loads_s)
         aumoinuneiteration = true
@@ -244,10 +226,7 @@ function heuristique3(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
         end
         s = s_star
         loads_s = loads_s_star
-        tempboucle = @elapsed s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
-        if temps
-            println(io,"temps pour trouver le voisin dans la deuxieme boucle : ",tempboucle," s")
-        end
+        s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
         push!(solutions,f(objfunc,loads_s_star))
     end
     if f(objfunc,loads_s_star) < f(objfunc,loads_s_best)
@@ -271,10 +250,7 @@ function heuristique3(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
     pausedegrad = iteramelio
     while τ > 0 && nbiterstagnanmax2 > 0
         nbtau = nbtau + 1
-        tempboucle = @elapsed s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
-        if temps
-            println(io,"temps pour trouver le voisin dans la troisieme boucle : ",tempboucle," s")
-        end
+        s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
         aumoinuneiteration = false
         while !aumoinuneiteration || f(objfunc,loads_s_star) < f(objfunc,loads_s)
             pausedegrad = pausedegrad - 1
@@ -286,27 +262,18 @@ function heuristique3(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
             end
             s = s_star
             loads_s = loads_s_star
-            tempboucle = @elapsed s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
-            if temps
-                println(io,"temps pour trouver le voisin dans la troisieme boucle : ",tempboucle," s")
-            end
+            s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
             if pausedegrad == 0
                 nbpausedegrad = nbpausedegrad + 1
                 aumoinuneiteration = false
-                tempboucle = @elapsed s_star,loads_s_star = neighbour3(s,loads_s,tempτ,objfunc,verbose,sortedrounds)
-                if temps
-                    println(io,"temps pour trouver le voisin dans la pause de gradient : ",tempboucle," s")
-                end
+                s_star,loads_s_star = neighbour3(s,loads_s,tempτ,objfunc,verbose,sortedrounds)
                 while !aumoinuneiteration || f(objfunc,loads_s_star) < f(objfunc,loads_s)
                     aumoinuneiteration = true
                     nbwhilepausedegrad = nbwhilepausedegrad + 1
                     nombrewhile = nombrewhile + 1
                     s = s_star
                     loads_s = loads_s_star
-                    tempboucle = @elapsed s_star,loads_s_star = neighbour(s,loads_s,tempτ,objfunc,verbose,sortedrounds)
-                    if temps
-                        println(io,"temps pour trouver le voisin dans la pause de gradient : ",tempboucle," s")
-                    end
+                    s_star,loads_s_star = neighbour(s,loads_s,tempτ,objfunc,verbose,sortedrounds)
                     push!(solutions,f(objfunc,loads_s_star))
                 end
                 pausedegrad = iteramelio
@@ -370,9 +337,6 @@ function heuristique3(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
     # display(s_best)
     # println(sum(s_best,dims=1))
     println(loads_s_best)
-    if temps
-        close(io)
-    end
     return s_best,solutions
 end
 
