@@ -61,14 +61,13 @@ function neighbour3(instance::Matrix,outputs,τ,objfunc::Int64,verbose::Bool=fal
         if verbose
             println("shifting outputs: ",shiftingoutputs)
         end
-        oldround = deepcopy(s[r,:])
         oldoutputsload = deepcopy(outputsload)
-        for j in 1:lastindex(outputsload)
+        for j in shiftingoutputs
             outputsload[j] -= s[r,j]
         end
         shiftedoutputs = circshift(shiftingoutputs,rotation)
         for j in 1:lastindex(shiftingoutputs)
-            s[r,shiftingoutputs[j]] = oldround[shiftedoutputs[j]]
+            s[r,shiftingoutputs[j]] = instance[r,shiftedoutputs[j]]
             outputsload[shiftingoutputs[j]] += s[r,shiftingoutputs[j]]
         end
         if f(objfunc,outputsload) < f(objfunc,oldoutputsload) + τ   
@@ -78,11 +77,14 @@ function neighbour3(instance::Matrix,outputs,τ,objfunc::Int64,verbose::Bool=fal
             end
             continue
         else
+            if verbose
+                println("no new solution found")
+            end
             for j in 1:lastindex(outputsload)
                 outputsload[j] = oldoutputsload[j]
             end
             for j in 1:size(s0)[2]
-                s[r,j] = oldround[j]
+                s[r,j] = instance[r,j]
             end
         end
     end
