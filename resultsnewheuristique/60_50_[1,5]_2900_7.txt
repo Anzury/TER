@@ -1,0 +1,20 @@
+fonctionobjectif= 3
+pourcentage= 0.05
+decroissance= 2.0e-5
+nbiterstagnant= 50
+taille matrice: (60, 50)
+nbiterameliore= 10
+f1= 20
+f2= 5.471999999999993
+f3= 0.9191300234460846
+Temps= 0.139582s
+nbiterameliore= 15
+f1= 20
+f2= 5.471999999999993
+f3= 0.9191300234460846
+Temps= 0.1327454s
+nbiterameliore= 100000000
+f1= 20
+f2= 5.471999999999993
+f3= 0.9191300234460846
+Temps= 0.1096267s
