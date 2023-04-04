@@ -20,10 +20,15 @@ function neighbour3(instance::Matrix,outputs,τ,objfunc::Int64,verbose::Bool=fal
         if verbose
             println("round r = ",r)
             println("round :",s[r,:])
+            println("outputsload :",outputsload)
+            println("calculated outputsloads :",sum(s,dims=1))
         end
         # let q be the least loaded output among the empty batches in round r of solution s(i)
         #compute the empty outputs in round r
         emptyoutputs = findall(x->x==0,vec(s[r,:]))
+        if verbose
+            println("empty outputs: ",emptyoutputs)
+        end
         if isempty(emptyoutputs)
             continue
         end
@@ -43,8 +48,9 @@ function neighbour3(instance::Matrix,outputs,τ,objfunc::Int64,verbose::Bool=fal
         # obtain s(T) by moving the empty batch from output q to output k in round r of solution s(i) 
         # and update the solution s(i) by shifting the non-empty batch between outputs k and q.
         #compute the movement on outputsload
+        rotation = sign(q-k)
         shiftingoutputs = []
-        for j in k:q
+        for j in k:rotation:q
             if j == q
                 push!(shiftingoutputs,j)
             elseif j in nonemptyoutputs
@@ -60,7 +66,6 @@ function neighbour3(instance::Matrix,outputs,τ,objfunc::Int64,verbose::Bool=fal
         for j in 1:lastindex(outputsload)
             outputsload[j] -= s[r,j]
         end
-        rotation = sign(q-k)
         shiftedoutputs = circshift(shiftingoutputs,rotation)
         for j in 1:lastindex(shiftingoutputs)
             s[r,shiftingoutputs[j]] = oldround[shiftedoutputs[j]]
@@ -236,7 +241,7 @@ function heuristique3(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
                     nombrewhile = nombrewhile + 1
                     s = s_star
                     loads_s = loads_s_star
-                    s_star,loads_s_star = neighbour(s,loads_s,tempτ,objfunc,verbose,sortedrounds)
+                    s_star,loads_s_star = neighbour3(s,loads_s,tempτ,objfunc,verbose,sortedrounds)
                     push!(solutions,f(objfunc,loads_s_star))
                 end
                 pausedegrad = iteramelio
