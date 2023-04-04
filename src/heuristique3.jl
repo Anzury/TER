@@ -1,19 +1,13 @@
 using Statistics
 """
-Function neighbour(instance::Matrix, τ)
+Function neighbour3(instance::Matrix, τ)
 Input: An initial solution s(0) and a tolerance value τ.
 Output: A potentially new solution better than s(0).
 1. Set i := 0 and r := 1.
-2. Let k be the most loaded output among the non-empty ones of round r for solution s(i). If O(r,k)→ (s(i)) ̸= ∅, then
-choose the least loaded output q ∈O(r,k)→ (s(i)) and go to Step 4.
-3. If O(r,k)← (s(i)) ̸= ∅, then choose the least loaded output q ∈O(r,k)← (s(i)), otherwise go to Step 5.
-4. Let s(T ) be a solution obtained from solution s(i) by shifting the mail batch from output k to output q for round
-r. If f(s(T )) < f(s(i)) + τ, then move to a new current solution, i.e., set i := i + 1 and s(i) := s(T ).
-5. If r < |R|, then set r := r + 1 and go to Step 2. Otherwise, stop and return solution s(i).
-• O(r,k)← (s) is the set of direct left empty outputs of the
-non-empty output k in round r of solution s.
-• O(r,k)→ (s) is the set of direct right empty outputs of
-the non-empty output k in round r of solution s.
+2. let q be the least loaded output among the empty batches in round r of solution s(i). let k be the most loaded output among the non-empty batches in round r of solution s(i).
+3. obtain s(T) by moving the empty batch from output q to output k in round r of solution s(i) and update the solution s(i) by shifting the non-empty batch between outputs k and q.
+4. If f(s(T )) < f(s(i)) + τ, then move to a new current solution, i.e., set i := i + 1 and s(i) := s(T ).
+5. If r < |R|, then set r := r + 1 Otherwise, stop and return solution s(i).
 """
 function neighbour3(instance::Matrix,outputs,τ,objfunc::Int64,verbose::Bool=false,roundsorder=1:size(s0)[1])
     #initialisation
@@ -27,93 +21,63 @@ function neighbour3(instance::Matrix,outputs,τ,objfunc::Int64,verbose::Bool=fal
             println("round r = ",r)
             println("round :",s[r,:])
         end
-        # compute the batches of round r that can be mouved and the most loaded
-        # output among the movables batches
-        movables = []
-        maxLoad, k = -1, -1
-        for j = 1:size(s0)[2]
-            if s[r,j] != 0 && ((j+1<=size(s0)[2] && s[r,j+1]==0) || (j-1>=1 && s[r,j-1]==0))
-                push!(movables,j)
-                if outputsload[j] > maxLoad
-                    maxLoad, k = outputsload[j], j
-                end
-            end
-        end
-        if k == -1
+        # let q be the least loaded output among the empty batches in round r of solution s(i)
+        #compute the empty outputs in round r
+        emptyoutputs = findall(x->x==0,vec(s[r,:]))
+        if isempty(emptyoutputs)
             continue
         end
+        q = emptyoutputs[argmin(outputsload[emptyoutputs])]
         if verbose
-            println("movables batches: ",movables)
+            println("least loaded output q: ",q)
         end
+
+        # let k be the most loaded output among the non-empty batches in round r of solution s(i)
+        #compute the non-empty outputs in round r
+        nonemptyoutputs = findall(x->x!=0,vec(s[r,:]))
+        k = nonemptyoutputs[argmax(outputsload[nonemptyoutputs])]
         if verbose
             println("most loaded output k: ",k)
         end
 
-        #compute the set of direct left empty outputs of the non-empty output k in round r of solution s
-        moves, ridx, lidx = [], -1, -1
-        if k < size(s0)[2]
-            j = k + 1
-            while j <= size(s0)[2] && s[r,j] == 0
-                push!(moves,j)
-                if ridx == -1
-                    ridx = j
-                end
-                j = j+1
+        # obtain s(T) by moving the empty batch from output q to output k in round r of solution s(i) 
+        # and update the solution s(i) by shifting the non-empty batch between outputs k and q.
+        #compute the movement on outputsload
+        shiftingoutputs = []
+        for j in k:q
+            if j == q
+                push!(shiftingoutputs,j)
+            elseif j in nonemptyoutputs
+                push!(shiftingoutputs,j)
             end
         end
-        if k > 1
-            j = k - 1
-            while j >= 1 && s[r,j] == 0
-                push!(moves,j)
-                if lidx == -1
-                    lidx = j
-                end
-                j = j-1
-            end
+        sort!(shiftingoutputs)
+        if verbose
+            println("shifting outputs: ",shiftingoutputs)
         end
-
-        minloadl, minloadr = typemax(Int64), typemax(Int64)
-        idxminloadl, idxminloadr = -1, -1
-        i = 1
-        for idx in moves
-            if ridx != -1 && idx >= ridx && minloadr > outputsload[idx]
-                idxminloadr, minloadr = i, outputsload[idx]
-            end
-            if ridx == -1 && lidx != -1 && idx <= lidx && minloadl > outputsload[idx]
-                idxminloadl, minloadl = i, outputsload[idx]
-            end
-            i = i+1
+        oldround = deepcopy(s[r,:])
+        oldoutputsload = deepcopy(outputsload)
+        for j in 1:lastindex(outputsload)
+            outputsload[j] -= s[r,j]
         end
-
-        if minloadl < minloadr
-            minloadr, idxminloadr = minloadl, idxminloadl
+        rotation = sign(q-k)
+        shiftedoutputs = circshift(shiftingoutputs,rotation)
+        for j in 1:lastindex(shiftingoutputs)
+            s[r,shiftingoutputs[j]] = oldround[shiftedoutputs[j]]
+            outputsload[shiftingoutputs[j]] += s[r,shiftingoutputs[j]]
         end
-
-        if idxminloadr != -1
-        # if !isempty(moves)
-            q = moves[idxminloadr]
+        if f(objfunc,outputsload) < f(objfunc,oldoutputsload) + τ   
             if verbose
-                println("least loaded output q = ",q)
+                println("new solution found")
+                println("new round: ",s[r,:])
             end
-            #Let s(T ) be a solution obtained from solution s(i) by shifting the mail batch from output k to output q for round r.
-            val = f(objfunc,outputsload)
-            outputsload[k] = outputsload[k] - s[r,k]
-            outputsload[q] = outputsload[q] + s[r,k]
-            #If f(s(T )) < f(s(i)) + τ, then move to a new current solution, i.e., set i := i + 1 and s(i) := s(T ).
-            if f(objfunc,outputsload) < val + τ
-                i = i+1
-                s[r,q] = s[r,k]
-                s[r,k] = 0
-                if verbose
-                    println("updated round sT = ",s[r,:])
-                    println("f(sT) = ",f(objfunc,outputsload)," f(s) = ",val)
-                end
-            else
-                if verbose
-                    println("no update")
-                end
-                outputsload[k] = outputsload[k] + s[r,k]
-                outputsload[q] = outputsload[q] - s[r,k]
+            continue
+        else
+            for j in 1:lastindex(outputsload)
+                outputsload[j] = oldoutputsload[j]
+            end
+            for j in 1:size(s0)[2]
+                s[r,j] = oldround[j]
             end
         end
     end
@@ -284,6 +248,9 @@ function heuristique3(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
                 nbiterstagnanmax2 = nbiterstagnanmax
             end
             nbiterstagnanmax2 = nbiterstagnanmax2 - 1
+            if nbiterstagnanmax2 == 0
+                println("stagnation")
+            end
         end
         τ = τ - ∆
         if verbose
@@ -319,19 +286,19 @@ function heuristique3(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
         loads_s_best = loads_s_star
     end
     push!(solutions,f(objfunc,loads_s_best))
-    # println("nombre de while :",nombrewhile)
-    # println("nombre de while 1.2 :",nbwhile12)
-    # println("nombre de while 2.2 :",nbwhile22)
-    # println("nombre de while 2.3 :",nbwhile23)
-    # println("nombre de pause degrad :",nbpausedegrad)
-    # println("nombre de while pause degrad :",nbwhilepausedegrad)
-    # println("nombre de while 3.2 :",nbwhile32)
-    # println("nombre de tau :",nbtau)
-    # println("value avec f1 :",f1(s_best))
+    println("nombre de while :",nombrewhile)
+    println("nombre de while 1.2 :",nbwhile12)
+    println("nombre de while 2.2 :",nbwhile22)
+    println("nombre de while 2.3 :",nbwhile23)
+    println("nombre de pause degrad :",nbpausedegrad)
+    println("nombre de while pause degrad :",nbwhilepausedegrad)
+    println("nombre de while 3.2 :",nbwhile32)
+    println("nombre de tau :",nbtau)
+    # println("value avec f1 :",f1(loads_s_best))
     println(iomain,"f1= ",f1(loads_s_best))
-    # println("value avec f2 :",f2(s_best))
+    # println("value avec f2 :",f2(loads_s_best))
     println(iomain,"f2= ",f2(loads_s_best))
-    # println("value avec f3 :",f3(s_best))
+    # println("value avec f3 :",f3(loads_s_best))
     println(iomain,"f3= ",f3(loads_s_best))
     # display(s_best)
     # println(sum(s_best,dims=1))
