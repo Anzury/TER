@@ -39,8 +39,8 @@ function main()
             # target = "../data/75_50/75_50_[1,5]_3300_1.xlsx"
             # target = "../data/120_90/120_90_[1,4]_4100_1.xlsx"
             # target = "../data/data_reelles/OPTICLASS_trafic_05_24_PF.xlsx"
-            # target = "../data/data_reelles/OPTICLASS_trafic_06_27_PF.xlsx"
-            target = "../data/12_20/12_20_[1,6]_1700_1.xlsx"
+            target = "../data/data_reelles/OPTICLASS_trafic_06_27_PF.xlsx"
+            # target = "../data/12_20/12_20_[1,6]_1700_1.xlsx"
 
             # data = loadinstanceMILP(string(target, folder[1], "/", files))
             # data = loadinstanceMILP(target)
@@ -69,7 +69,7 @@ function main()
             fonctionobjectif = 3
             pourcentage = 0.05
             decroissance = 0.00002
-            nbiterstagnant = 200
+            nbiterstagnant = 50
 
             # io = open("../resultsheuristiquesortedrounds/$id.txt", "w")
             # io = open("./test$id.txt", "a")
@@ -93,7 +93,7 @@ function main()
                 # println("f1= ",f(1,sum(sol,dims=1)))
                 # println("f3= ",f(3,sum(sol,dims=1)))
                 println("Temps avec heuristique: ", t1,"s")
-                display(sol)
+                # display(sol)
                 # println(io,"Temps= ", t1,"s")
                 plotsolutions(solutions,f(3,sum(sol,dims=1)), target, fonctionobjectif, pourcentage, decroissance, nbiterstagnant, nbiterameliore)
                 # show(io,"text/plain",sol)
