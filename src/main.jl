@@ -70,7 +70,7 @@ function main()
             fonctionobjectif = 3
             pourcentage = 0.05
             decroissance = 0.00002
-            nbiterstagnant = 25
+            nbiterstagnant = 50
 
             # io = open("../resultsnewheuristique/$id.txt", "w")
             io = stdout
