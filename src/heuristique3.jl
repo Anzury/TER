@@ -21,14 +21,10 @@ function neighbour3(instance::Matrix,outputs,τ,objfunc::Int64,verbose::Bool=fal
             println("round r = ",r)
             println("round :",s[r,:])
             println("outputsload :",outputsload)
-            println("calculated outputsloads :",sum(s,dims=1))
         end
         # let q be the least loaded output among the empty batches in round r of solution s(i)
         #compute the empty outputs in round r
         emptyoutputs = findall(x->x==0,vec(s[r,:]))
-        if verbose
-            println("empty outputs: ",emptyoutputs)
-        end
         if isempty(emptyoutputs)
             continue
         end
@@ -40,6 +36,9 @@ function neighbour3(instance::Matrix,outputs,τ,objfunc::Int64,verbose::Bool=fal
         # let k be the most loaded output among the non-empty batches in round r of solution s(i)
         #compute the non-empty outputs in round r
         nonemptyoutputs = findall(x->x!=0,vec(s[r,:]))
+        if isempty(nonemptyoutputs)
+            continue
+        end
         k = nonemptyoutputs[argmax(outputsload[nonemptyoutputs])]
         if verbose
             println("most loaded output k: ",k)
@@ -50,14 +49,21 @@ function neighbour3(instance::Matrix,outputs,τ,objfunc::Int64,verbose::Bool=fal
         #compute the movement on outputsload
         rotation = sign(q-k)
         shiftingoutputs = []
-        for j in k:rotation:q
-            if j == q
-                push!(shiftingoutputs,j)
-            elseif j in nonemptyoutputs
-                push!(shiftingoutputs,j)
+        if rotation == 1
+            for j in k:q
+                if j == q || s[r,j] != 0
+                    push!(shiftingoutputs,j)
+                end
             end
+        elseif rotation == -1
+            for j in q:k
+                if j == q || s[r,j] != 0
+                    push!(shiftingoutputs,j)
+                end
+            end
+        else
+            println("error rotation != -1/1")
         end
-        sort!(shiftingoutputs)
         if verbose
             println("shifting outputs: ",shiftingoutputs)
         end
@@ -135,9 +141,9 @@ and repeat Step 3.2. Otherwise, stop and return
 the best found solution s(B).
 """
 function heuristique3(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float64,∆::Float64 = 0.02,nbiterstagnanmax::Int64 = 50,iteramelio::Int64 = 10,verbose::Bool=false)
-    sortperm = sortrounds(instance)
-    sortedrounds = collect(1:size(instance)[1])[sortperm]
-    # sortedrounds = 1:size(instance)[1]
+    # sortperm = sortrounds(instance)
+    # sortedrounds = collect(1:size(instance)[1])[sortperm]
+    sortedrounds = 1:size(instance)[1]
     nombrewhile = 0
     if verbose
         println("sorted rounds: ",sortedrounds)
@@ -301,11 +307,11 @@ function heuristique3(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
     println("nombre de while pause degrad :",nbwhilepausedegrad)
     println("nombre de while 3.2 :",nbwhile32)
     println("nombre de tau :",nbtau)
-    println("value avec f1 :",f1(loads_s_best))
+    # println("value avec f1 :",f1(loads_s_best))
     println(iomain,"f1= ",f1(loads_s_best))
-    println("value avec f2 :",f2(loads_s_best))
+    # println("value avec f2 :",f2(loads_s_best))
     println(iomain,"f2= ",f2(loads_s_best))
-    println("value avec f3 :",f3(loads_s_best))
+    # println("value avec f3 :",f3(loads_s_best))
     println(iomain,"f3= ",f3(loads_s_best))
     # display(s_best)
     # println(sum(s_best,dims=1))

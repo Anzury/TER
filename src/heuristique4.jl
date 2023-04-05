@@ -3,15 +3,18 @@ using Statistics
 Function neighbour4(instance::Matrix, τ)
 Input: An initial solution s(0) and a tolerance value τ.
 Output: A potentially new solution better than s(0).
-1. Set i := 0 and r := 1.
-2. let q be the least loaded output among the empty batches in round r of solution s(i). let k be the most loaded output among the non-empty batches in round r of solution s(i).
-3. obtain s(T) by moving the empty batch from output q to output k in round r of solution s(i) and update the solution s(i) by shifting the non-empty batch between outputs k and q.
-4. If f(s(T )) < f(s(i)) + τ, then move to a new current solution, i.e., set i := i + 1 and s(i) := s(T ).
-5. If r < |R|, then set r := r + 1 Otherwise, stop and return solution s(i).
+1. Set r := 1.
+2. Create a taboo list T and initialise it to the empty set.
+3. let q be the least loaded output among the empty batches in round r of solution s(i). let k be the most loaded output among the non-empty batches in round r of solution s(i).
+4. check if (q, k) ∈ T and if so chose the next pair (q, k) that is not in T.
+5. obtain s(T) by moving the empty batch from output q to output k in round r of solution s(i) and update the solution s(i) by shifting the non-empty batch between outputs k and q.
+6. If f(s(T )) < f(s(i)) + τ, then move to a new current solution, i.e., Set s(i) := s(T ) and add (q, k) to T. then return to step 3.
+7. If r < |R|, then set r := r + 1 Otherwise, stop and return solution s(i).
 """
 function neighbour4(instance::Matrix,outputs,τ,objfunc::Int64,verbose::Bool=false,roundsorder=1:size(s0)[1])
     #initialisation
     s0 = instance
+    i = 0
     r = 1
     s = deepcopy(instance)
     outputsload = deepcopy(outputs)
@@ -20,81 +23,97 @@ function neighbour4(instance::Matrix,outputs,τ,objfunc::Int64,verbose::Bool=fal
             println("round r = ",r)
             println("round :",s[r,:])
             println("outputsload :",outputsload)
-            println("calculated outputsloads :",sum(s,dims=1))
         end
-
-        # let q be the least loaded output among the empty batches in round r of solution s(i)
-        #compute the empty outputs in round r
-        # let k be the most loaded output among the non-empty batches in round r of solution s(i)
-        #compute the non-empty outputs in round r
-        minq = typemax(Int64)
-        q, k, maxk = -1, -1, -1
-        lensr = length(s[r,:])
-        emptyoutputs, nonemptyoutputs = [], []
-        for i in 1:lensr
-            if s[r,:][i] == 0
-                if outputsload[i] < minq
-                    q = i
-                    minq = outputsload[i]
-                end
-                push!(emptyoutputs, i)
-            else
-                if outputsload[i] > maxk
-                    k = i
-                    maxk = outputsload[i]
-                end
-                push!(nonemptyoutputs, i)
-            end
-        end
-        if isempty(emptyoutputs)
-            continue
-        end
-        if verbose
-            println("empty outputs: ",emptyoutputs)
-            println("least loaded output q: ",q)
-            println("most loaded output k: ",k)
-        end
-
-        # obtain s(T) by moving the empty batch from output q to output k in round r of solution s(i) 
-        # and update the solution s(i) by shifting the non-empty batch between outputs k and q.
-        #compute the movement on outputsload
-        rotation = sign(q-k)
-        shiftingoutputs = []
-        for j in k:rotation:q
-            if j == q || j in nonemptyoutputs
-                push!(shiftingoutputs,j)
-            end
-        end
-        sort!(shiftingoutputs)
-        if verbose
-            println("shifting outputs: ", shiftingoutputs)
-        end
-        oldoutputsload = deepcopy(outputsload)
-        for j in shiftingoutputs
-            outputsload[j] -= s[r,j]
-        end
-        shiftedoutputs = circshift(shiftingoutputs, rotation)
-        for j in 1:lastindex(shiftingoutputs)
-            s[r,shiftingoutputs[j]] = instance[r,shiftedoutputs[j]]
-            outputsload[shiftingoutputs[j]] += s[r,shiftingoutputs[j]]
-        end
-        if f(objfunc,outputsload) < f(objfunc,oldoutputsload) + τ   
-            if verbose
-                println("new solution found")
-                println("new round: ",s[r,:])
-            end
-            continue
-        else
-            for j in 1:lastindex(outputsload)
-                outputsload[j] = oldoutputsload[j]
-            end
+        taboo = []
+        while length(taboo) < size(s0)[2]/2
+            # let q be the least loaded output among the empty batches in round r of solution s(i)
+            #compute the empty outputs in round r
+            emptyoutputs = []
             for j in 1:size(s0)[2]
-                s[r,j] = instance[r,j]
+                if j ∉ taboo && s[r,j] == 0
+                    push!(emptyoutputs,j)
+                end
+            end
+            if isempty(emptyoutputs)
+                break
+            end
+            q = emptyoutputs[argmin(outputsload[emptyoutputs])]
+            if verbose
+                println("least loaded output q: ",q)
+            end
+
+            # let k be the most loaded output among the non-empty batches in round r of solution s(i)
+            #compute the non-empty outputs in round r
+            nonemptyoutputs = []
+            for j in 1:size(s0)[2]
+                if j ∉ taboo && s[r,j] != 0
+                    push!(nonemptyoutputs,j)
+                end
+            end
+            if isempty(nonemptyoutputs)
+                break
+            end
+            k = nonemptyoutputs[argmax(outputsload[nonemptyoutputs])]
+            if verbose
+                println("most loaded output k: ",k)
+            end
+
+            # obtain s(T) by moving the empty batch from output q to output k in round r of solution s(i) 
+            # and update the solution s(i) by shifting the non-empty batch between outputs k and q.
+            #compute the movement on outputsload
+            rotation = sign(q-k)
+            shiftingoutputs = []
+            if rotation == 1
+                for j in k:q
+                    if j == q || s[r,j] != 0
+                        push!(shiftingoutputs,j)
+                    end
+                end
+            elseif rotation == -1
+                for j in q:k
+                    if j == q || s[r,j] != 0
+                        push!(shiftingoutputs,j)
+                    end
+                end
+            else
+                println("error rotation != -1/1")
+            end
+            if verbose
+                println("shifting outputs: ",shiftingoutputs)
+            end
+            oldoutputsload = deepcopy(outputsload)
+            for j in shiftingoutputs
+                outputsload[j] -= s[r,j]
+            end
+            shiftedoutputs = circshift(shiftingoutputs,rotation)
+            for j in 1:lastindex(shiftingoutputs)
+                s[r,shiftingoutputs[j]] = instance[r,shiftedoutputs[j]]
+                outputsload[shiftingoutputs[j]] += s[r,shiftingoutputs[j]]
+            end
+            if f(objfunc,outputsload) < f(objfunc,oldoutputsload) + τ
+                if verbose
+                    println("new solution found")
+                end
+                push!(taboo,q,k)
+                continue
+            else
+                if verbose
+                    println("no new solution found")
+                end
+                push!(taboo,q,k)
+                #restore the old solution
+                for j in 1:lastindex(outputsload)
+                    outputsload[j] = oldoutputsload[j]
+                end
+                for j in 1:size(s0)[2]
+                    s[r,j] = instance[r,j]
+                end
             end
         end
     end
     return s,outputsload
 end
+
 
 """
 sort the rounds of a solution s by the number of non-empty outputs
@@ -140,9 +159,9 @@ and repeat Step 3.2. Otherwise, stop and return
 the best found solution s(B).
 """
 function heuristique4(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float64,∆::Float64 = 0.02,nbiterstagnanmax::Int64 = 50,iteramelio::Int64 = 10,verbose::Bool=false)
-    sortperm = sortrounds(instance)
-    sortedrounds = collect(1:size(instance)[1])[sortperm]
-    # sortedrounds = 1:size(instance)[1]
+    # sortperm = sortrounds(instance)
+    # sortedrounds = collect(1:size(instance)[1])[sortperm]
+    sortedrounds = 1:size(instance)[1]
     nombrewhile = 0
     if verbose
         println("sorted rounds: ",sortedrounds)
@@ -162,7 +181,7 @@ function heuristique4(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
     end
     # 1.2
     nbwhile12 = 0
-    s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
+    s_star,loads_s_star = neighbour4(s,loads_s,τ,objfunc,verbose,sortedrounds)
     push!(solutions,f(objfunc,loads_s_star))
     aumoinuneiteration = false
     while !aumoinuneiteration || f(objfunc,loads_s_star) < f(objfunc,loads_s)
@@ -173,7 +192,7 @@ function heuristique4(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
         loads_s = loads_s_star
         s_best = s_star
         loads_s_best = loads_s_star
-        s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
+        s_star,loads_s_star = neighbour4(s,loads_s,τ,objfunc,verbose,sortedrounds)
     end
     push!(solutions,f(objfunc,loads_s_best))
     if verbose
@@ -190,7 +209,7 @@ function heuristique4(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
     end
     # 2.2
     nbwhile22 = 0
-    s_star,loads_s_star = neighbour3(s_star,loads_s_star,τ,objfunc,verbose,sortedrounds)
+    s_star,loads_s_star = neighbour4(s_star,loads_s_star,τ,objfunc,verbose,sortedrounds)
     aumoinuneiteration = false
     while !aumoinuneiteration || f(objfunc,loads_s_star) < f(objfunc,loads_s)
         aumoinuneiteration = true
@@ -201,7 +220,7 @@ function heuristique4(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
         end
         s = s_star
         loads_s = loads_s_star
-        s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
+        s_star,loads_s_star = neighbour4(s,loads_s,τ,objfunc,verbose,sortedrounds)
         push!(solutions,f(objfunc,loads_s_star))
     end
     if f(objfunc,loads_s_star) < f(objfunc,loads_s_best)
@@ -225,7 +244,7 @@ function heuristique4(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
     pausedegrad = iteramelio
     while τ > 0 && nbiterstagnanmax2 > 0
         nbtau = nbtau + 1
-        s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
+        s_star,loads_s_star = neighbour4(s,loads_s,τ,objfunc,verbose,sortedrounds)
         aumoinuneiteration = false
         while !aumoinuneiteration || f(objfunc,loads_s_star) < f(objfunc,loads_s)
             pausedegrad = pausedegrad - 1
@@ -237,18 +256,18 @@ function heuristique4(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
             end
             s = s_star
             loads_s = loads_s_star
-            s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
+            s_star,loads_s_star = neighbour4(s,loads_s,τ,objfunc,verbose,sortedrounds)
             if pausedegrad == 0
                 nbpausedegrad = nbpausedegrad + 1
                 aumoinuneiteration = false
-                s_star,loads_s_star = neighbour3(s,loads_s,tempτ,objfunc,verbose,sortedrounds)
+                s_star,loads_s_star = neighbour4(s,loads_s,tempτ,objfunc,verbose,sortedrounds)
                 while !aumoinuneiteration || f(objfunc,loads_s_star) < f(objfunc,loads_s)
                     aumoinuneiteration = true
                     nbwhilepausedegrad = nbwhilepausedegrad + 1
                     nombrewhile = nombrewhile + 1
                     s = s_star
                     loads_s = loads_s_star
-                    s_star,loads_s_star = neighbour3(s,loads_s,tempτ,objfunc,verbose,sortedrounds)
+                    s_star,loads_s_star = neighbour4(s,loads_s,tempτ,objfunc,verbose,sortedrounds)
                     push!(solutions,f(objfunc,loads_s_star))
                 end
                 pausedegrad = iteramelio
@@ -282,7 +301,7 @@ function heuristique4(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
     end
     # 3.2
     nbwhile32 = 0
-    s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
+    s_star,loads_s_star = neighbour4(s,loads_s,τ,objfunc,verbose,sortedrounds)
     aumoinuneiteration = false
     while !aumoinuneiteration || f(objfunc,loads_s_star) < f(objfunc,loads_s)
         aumoinuneiteration = true
@@ -290,7 +309,7 @@ function heuristique4(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
         nombrewhile = nombrewhile + 1
         s = s_star
         loads_s = loads_s_star
-        s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
+        s_star,loads_s_star = neighbour4(s,loads_s,τ,objfunc,verbose,sortedrounds)
         push!(solutions,f(objfunc,loads_s_star))
     end
     if f(objfunc,loads_s_star) < f(objfunc,loads_s_best)
