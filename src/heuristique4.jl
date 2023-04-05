@@ -30,14 +30,14 @@ function neighbour4(instance::Matrix,outputs,τ,objfunc::Int64,verbose::Bool=fal
         minq = typemax(Int64)
         q, k, maxk = -1, -1, -1
         lensr = length(s[r,:])
-        emptyoutputs, nonemptyoutputs = [], []
+        isemptyoutputs, nonemptyoutputs = true, []
         for i in 1:lensr
-            if s[r,:][i] == 0
+            if s[r,i] == 0
                 if outputsload[i] < minq
                     q = i
                     minq = outputsload[i]
                 end
-                push!(emptyoutputs, i)
+                isemptyoutputs = false
             else
                 if outputsload[i] > maxk
                     k = i
@@ -46,10 +46,12 @@ function neighbour4(instance::Matrix,outputs,τ,objfunc::Int64,verbose::Bool=fal
                 push!(nonemptyoutputs, i)
             end
         end
-        if isempty(emptyoutputs)
+        if isemptyoutputs
             continue
         end
         if verbose
+            emptyoutputs = collect(1:lensr)
+            deleteat!(emptyoutputs, nonemptyoutputs)
             println("empty outputs: ",emptyoutputs)
             println("least loaded output q: ",q)
             println("most loaded output k: ",k)
@@ -162,7 +164,7 @@ function heuristique4(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
     end
     # 1.2
     nbwhile12 = 0
-    s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
+    s_star,loads_s_star = neighbour4(s,loads_s,τ,objfunc,verbose,sortedrounds)
     push!(solutions,f(objfunc,loads_s_star))
     aumoinuneiteration = false
     while !aumoinuneiteration || f(objfunc,loads_s_star) < f(objfunc,loads_s)
@@ -173,7 +175,7 @@ function heuristique4(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
         loads_s = loads_s_star
         s_best = s_star
         loads_s_best = loads_s_star
-        s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
+        s_star,loads_s_star = neighbour4(s,loads_s,τ,objfunc,verbose,sortedrounds)
     end
     push!(solutions,f(objfunc,loads_s_best))
     if verbose
@@ -190,7 +192,7 @@ function heuristique4(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
     end
     # 2.2
     nbwhile22 = 0
-    s_star,loads_s_star = neighbour3(s_star,loads_s_star,τ,objfunc,verbose,sortedrounds)
+    s_star,loads_s_star = neighbour4(s_star,loads_s_star,τ,objfunc,verbose,sortedrounds)
     aumoinuneiteration = false
     while !aumoinuneiteration || f(objfunc,loads_s_star) < f(objfunc,loads_s)
         aumoinuneiteration = true
@@ -201,7 +203,7 @@ function heuristique4(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
         end
         s = s_star
         loads_s = loads_s_star
-        s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
+        s_star,loads_s_star = neighbour4(s,loads_s,τ,objfunc,verbose,sortedrounds)
         push!(solutions,f(objfunc,loads_s_star))
     end
     if f(objfunc,loads_s_star) < f(objfunc,loads_s_best)
@@ -225,7 +227,7 @@ function heuristique4(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
     pausedegrad = iteramelio
     while τ > 0 && nbiterstagnanmax2 > 0
         nbtau = nbtau + 1
-        s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
+        s_star,loads_s_star = neighbour4(s,loads_s,τ,objfunc,verbose,sortedrounds)
         aumoinuneiteration = false
         while !aumoinuneiteration || f(objfunc,loads_s_star) < f(objfunc,loads_s)
             pausedegrad = pausedegrad - 1
@@ -237,18 +239,18 @@ function heuristique4(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
             end
             s = s_star
             loads_s = loads_s_star
-            s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
+            s_star,loads_s_star = neighbour4(s,loads_s,τ,objfunc,verbose,sortedrounds)
             if pausedegrad == 0
                 nbpausedegrad = nbpausedegrad + 1
                 aumoinuneiteration = false
-                s_star,loads_s_star = neighbour3(s,loads_s,tempτ,objfunc,verbose,sortedrounds)
+                s_star,loads_s_star = neighbour4(s,loads_s,tempτ,objfunc,verbose,sortedrounds)
                 while !aumoinuneiteration || f(objfunc,loads_s_star) < f(objfunc,loads_s)
                     aumoinuneiteration = true
                     nbwhilepausedegrad = nbwhilepausedegrad + 1
                     nombrewhile = nombrewhile + 1
                     s = s_star
                     loads_s = loads_s_star
-                    s_star,loads_s_star = neighbour3(s,loads_s,tempτ,objfunc,verbose,sortedrounds)
+                    s_star,loads_s_star = neighbour4(s,loads_s,tempτ,objfunc,verbose,sortedrounds)
                     push!(solutions,f(objfunc,loads_s_star))
                 end
                 pausedegrad = iteramelio
@@ -282,7 +284,7 @@ function heuristique4(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
     end
     # 3.2
     nbwhile32 = 0
-    s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
+    s_star,loads_s_star = neighbour4(s,loads_s,τ,objfunc,verbose,sortedrounds)
     aumoinuneiteration = false
     while !aumoinuneiteration || f(objfunc,loads_s_star) < f(objfunc,loads_s)
         aumoinuneiteration = true
@@ -290,7 +292,7 @@ function heuristique4(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
         nombrewhile = nombrewhile + 1
         s = s_star
         loads_s = loads_s_star
-        s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
+        s_star,loads_s_star = neighbour4(s,loads_s,τ,objfunc,verbose,sortedrounds)
         push!(solutions,f(objfunc,loads_s_star))
     end
     if f(objfunc,loads_s_star) < f(objfunc,loads_s_best)
