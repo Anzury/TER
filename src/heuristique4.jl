@@ -363,7 +363,7 @@ f(s) compute the square root of the sum of the difference between Ck and C* squa
 function f3(loads)
     Ck = loads
     C = mean(Ck)
-    return sqrt(sum((Ck .- C).^2))/length(loads)
+    return sqrt(sum((Ck .- C).^2)/length(loads))
 end
 
 function f(num::Int64,loads)

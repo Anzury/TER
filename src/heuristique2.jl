@@ -355,7 +355,7 @@ f(s) compute the sum of the difference between Ck and C* for each output k divid
 function f2(loads)
     Ck = loads
     C = mean(Ck)
-    return sum(abs.(Ck .- C))/length(loads)
+    return sqrt(sum((Ck .- C).^2)/length(loads))
 end
 
 """
