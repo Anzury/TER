@@ -40,7 +40,7 @@ function main()
             # target = "../data/75_50/75_50_[1,5]_3300_1.xlsx"
             # target = "../data/120_90/120_90_[1,4]_4100_1.xlsx"
             # target = "../data/data_reelles/OPTICLASS_trafic_05_24_PF.xlsx"
-            # target = "../data/data_reelles/OPTICLASS_trafic_06_27_PF.xlsx"
+            target = "../data/data_reelles/OPTICLASS_trafic_06_27_PF.xlsx"
             # target = "../data/12_20/12_20_[1,6]_1700_1.xlsx"
 
             # data = loadinstanceMILP(string(target, folder[1], "/", files))
@@ -68,26 +68,25 @@ function main()
             # id = basename(target)[1:end-5]
 
             fonctionobjectif = 3
-            # pourcentage = 0.05
-            # decroissance = 0.002
+            pourcentage = 0.05
+            decroissance = 0.002
             nbiterstagnant = 50
 
             io = stdout
 
-            # println(io,"fonctionobjectif= f", fonctionobjectif)
-            # println(io,"pourcentage= ", pourcentage)
-            # println(io,"decroissance= ", decroissance)
-            # println(io,"nbiterstagnant= ", nbiterstagnant)
-            # println(io,"taille matrice: ",size(data))
+            println(io,"fonctionobjectif= f", fonctionobjectif)
+            println(io,"pourcentage= ", pourcentage)
+            println(io,"decroissance= ", decroissance)
+            println(io,"nbiterstagnant= ", nbiterstagnant)
+            println(io,"taille matrice: ",size(data))
             
-            # for nbiterameliore in [10,typemax(Int64)]
-            #     # println("nbiterameliore= ", nbiterameliore)
-            #     println(io,"nbiterameliore= ", nbiterameliore)
-            #     t1 = @elapsed sol,solutions = heuristique3(data,io,fonctionobjectif,pourcentage,decroissance,nbiterstagnant,nbiterameliore)
-            #     # println("Temps avec heuristique: ", t1,"s")
-            #     println(io,"Temps= ", t1,"s")
-            #     plotsolutions(solutions,f(3,sum(sol,dims=1)), target, fonctionobjectif, pourcentage, decroissance, nbiterstagnant, nbiterameliore)
-            # end
+            for nbiterameliore in [typemax(Int64)]
+                # println("nbiterameliore= ", nbiterameliore)
+                println(io,"nbiterameliore= ", nbiterameliore)
+                t1 = @elapsed sol,solutions = heuristique3(data,io,fonctionobjectif,pourcentage,decroissance,nbiterstagnant,nbiterameliore)
+                println(io,"Temps avec heuristique= ", t1,"s")
+                plotsolutions(solutions,f(3,sum(sol,dims=1)), target, fonctionobjectif, pourcentage, decroissance, nbiterstagnant, nbiterameliore)
+            end
             # close(io)
         end
     end

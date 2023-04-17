@@ -310,11 +310,11 @@ function heuristique3(instance::Matrix,iomain = stdout,objfunc::Int64 = 3,pource
     # println("nombre de tau :",nbtau)
 
     # println("value avec f1 :",f1(loads_s_best))
-    # println(iomain,"f1= ",f1(loads_s_best))
+    println(iomain,"f1= ",f1(loads_s_best))
     # println("value avec f2 :",f2(loads_s_best))
-    # println(iomain,"f2= ",f2(loads_s_best))
+    println(iomain,"f2= ",f2(loads_s_best))
     # println("value avec f3 :",f3(loads_s_best))
-    # println(iomain,"f3= ",f3(loads_s_best))
+    println(iomain,"f3= ",f3(loads_s_best))
 
     # display(s_best)
     # println(sum(s_best,dims=1))
