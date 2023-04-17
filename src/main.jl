@@ -70,7 +70,7 @@ function main()
             # fonctionobjectif = 3
             # pourcentage = 0.05
             # decroissance = 0.002
-            # nbiterstagnant = 30
+            # nbiterstagnant = 50
 
             # io = open("../findbestpara.txt", "w")
             # io = stdout
@@ -113,7 +113,7 @@ function main()
             # end
             # io = open("../findbestpara.txt", "w")
             # println(io,"resultstest= ", resultstest)
-            # for nbiterameliore in [typemax(Int64)]
+            # for nbiterameliore in [10,typemax(Int64)]
             #     # println("nbiterameliore= ", nbiterameliore)
             #     println(io,"nbiterameliore= ", nbiterameliore)
             #     t1 = @elapsed sol,solutions = heuristique3(data,io,fonctionobjectif,pourcentage,decroissance,nbiterstagnant,nbiterameliore)

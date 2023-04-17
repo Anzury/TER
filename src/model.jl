@@ -19,7 +19,7 @@ function modelMILP(instanceMILP, binary::Bool = true, solver = Gurobi.Optimizer)
     m = direct_model((solver)())
     set_optimizer_attribute(m, "LogToConsole", 0)
     set_optimizer_attribute(m, "TimeLimit", 50)
-    set_optimizer_attribute(m, "LogFile", "gurobi.log")
+    # set_optimizer_attribute(m, "LogFile", "gurobi.log")
 
     X = instanceMILP.X
     Lmax = instanceMILP.Lmax
@@ -39,7 +39,7 @@ function modelMILP(instanceMILP, binary::Bool = true, solver = Gurobi.Optimizer)
     end
 
     # Définition des variables
-    @variable(m, 0 <= X[r=1:R, j=1:length(B[r]), 1:Oj[r][j].fin] <= 1, binary=binary)
+    @variable(m, 0 <= X[r=1:R, j=1:length(B[r]), Oj[r][j].debut:Oj[r][j].fin] <= 1, binary=binary)
     @variable(m, 0 <= Lmax)
     @variable(m, 0 <= Lmin)
 
@@ -53,6 +53,14 @@ function modelMILP(instanceMILP, binary::Bool = true, solver = Gurobi.Optimizer)
     @constraint(m, c5_1[k=1:O], Lmin <= sum(sum(V[r].batch[j] * X[r, j, k] for j in U[r][k]) for r in 1:R))
     @constraint(m, c5_2[k=1:O], sum(sum(V[r].batch[j] * X[r, j, k] for j in U[r][k]) for r in 1:R) <= Lmax)
 
-    write_to_file(m, "model.lp")
+    # write_to_file(m, "model.lp")
     return m
+end
+
+function solveMILP(filemodelMILP) 
+    lp = read_from_file(filemodelMILP)
+    set_optimizer(lp,Gurobi.Optimizer)
+    optimize!(lp)
+    println(solution_summary(m))
+    return nothing
 end
