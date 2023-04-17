@@ -140,7 +140,7 @@ s(B) := s∗. If f(s∗) < f(s), then reset s := s∗
 and repeat Step 3.2. Otherwise, stop and return
 the best found solution s(B).
 """
-function heuristique3(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float64,∆::Float64 = 0.02,nbiterstagnanmax::Int64 = 50,iteramelio::Int64 = 10,verbose::Bool=false)
+function heuristique3(instance::Matrix,iomain = stdout,objfunc::Int64 = 3,pourcentage::Float64 = 0.05,∆::Float64 = 0.002,nbiterstagnanmax::Int64 = 50,iteramelio::Int64 = 10,verbose::Bool=false)
     # sortperm = sortrounds(instance)
     # sortedrounds = collect(1:size(instance)[1])[sortperm]
     sortedrounds = 1:size(instance)[1]
@@ -262,7 +262,7 @@ function heuristique3(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
             end
             nbiterstagnanmax2 = nbiterstagnanmax2 - 1
             if nbiterstagnanmax2 == 0
-                println("stagnation")
+                # println("stagnation")
             end
         end
         τ = τ - ∆
@@ -299,20 +299,23 @@ function heuristique3(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
         loads_s_best = loads_s_star
     end
     push!(solutions,f(objfunc,loads_s_best))
-    println("nombre de while :",nombrewhile)
-    println("nombre de while 1.2 :",nbwhile12)
-    println("nombre de while 2.2 :",nbwhile22)
-    println("nombre de while 2.3 :",nbwhile23)
-    println("nombre de pause degrad :",nbpausedegrad)
-    println("nombre de while pause degrad :",nbwhilepausedegrad)
-    println("nombre de while 3.2 :",nbwhile32)
-    println("nombre de tau :",nbtau)
+
+    # println("nombre de while :",nombrewhile)
+    # println("nombre de while 1.2 :",nbwhile12)
+    # println("nombre de while 2.2 :",nbwhile22)
+    # println("nombre de while 2.3 :",nbwhile23)
+    # println("nombre de pause degrad :",nbpausedegrad)
+    # println("nombre de while pause degrad :",nbwhilepausedegrad)
+    # println("nombre de while 3.2 :",nbwhile32)
+    # println("nombre de tau :",nbtau)
+
     # println("value avec f1 :",f1(loads_s_best))
-    println(iomain,"f1= ",f1(loads_s_best))
+    # println(iomain,"f1= ",f1(loads_s_best))
     # println("value avec f2 :",f2(loads_s_best))
-    println(iomain,"f2= ",f2(loads_s_best))
+    # println(iomain,"f2= ",f2(loads_s_best))
     # println("value avec f3 :",f3(loads_s_best))
-    println(iomain,"f3= ",f3(loads_s_best))
+    # println(iomain,"f3= ",f3(loads_s_best))
+
     # display(s_best)
     # println(sum(s_best,dims=1))
     # println(loads_s_best)
