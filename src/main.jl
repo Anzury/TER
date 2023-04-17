@@ -23,17 +23,17 @@ function main()
     println("\nEtudiants : Adrien Pichon et Nicolas Compère\n")
 
     # Collecting the names of instances to solve located in the folder Data ----
-    target = "../data/"
-    fnames = getfname(target)
+    # target = "../data/"
+    # fnames = getfname(target)
 
-    allfnames = []
-    for name in fnames
-        push!(allfnames, [name, getfname(string(target, "/", name))])
-    end
+    # allfnames = []
+    # for name in fnames
+    #     push!(allfnames, [name, getfname(string(target, "/", name))])
+    # end
     
-    println("")
-    for folder in allfnames
-        for files in folder[2]
+    # println("")
+    # for folder in allfnames
+    #     for files in folder[2]
 
             # target = "../data/100_60/100_60_[1,4]_3300_3.xlsx"
             # target = "../data/30_30/30_30_[1,6]_2400_1.xlsx"
@@ -59,8 +59,8 @@ function main()
             # println(io, solution_summary(MILP, verbose=true))
             # close(io)
 
-            # data = loadinstance(target)
-            data = loadinstance(string(target, folder[1], "/", files))
+            data = loadinstance(target)
+            # data = loadinstance(string(target, folder[1], "/", files))
 
             # println("id: ",basename(target)[1:end-5])
             # id = basename(string(target, folder[1], "/", files)[1:end-5])
@@ -88,8 +88,8 @@ function main()
                 plotsolutions(solutions,f(3,sum(sol,dims=1)), target, fonctionobjectif, pourcentage, decroissance, nbiterstagnant, nbiterameliore)
             end
             # close(io)
-        end
-    end
+    #     end
+    # end
     return nothing
 end
 
