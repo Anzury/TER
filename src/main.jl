@@ -35,7 +35,7 @@ function main()
     #     for files in folder[2]
     nbsolopti = 0
     nbsolacceptable = 0
-    targetfolder = "../data/120_90/"
+    targetfolder = "../data/data_reelles/"
     folder = getfname(targetfolder)
     for file in folder
 
