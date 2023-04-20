@@ -267,7 +267,7 @@ function heuristique3(instance::Matrix,iomain = stdout,objfunc::Int64 = 3,pource
             end
             nbiterstagnanmax2 = nbiterstagnanmax2 - 1
             if nbiterstagnanmax2 == 0
-                # println("stagnation")
+                println("stagnation")
             end
         end
         τ = τ - ∆
