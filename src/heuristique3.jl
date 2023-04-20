@@ -144,7 +144,7 @@ function heuristique3(instance::Matrix,iomain = stdout,objfunc::Int64 = 3,pource
     # sortperm = sortrounds(instance)
     # sortedrounds = collect(1:size(instance)[1])[sortperm]
     sortedrounds = 1:size(instance)[1]
-    nombrewhile = 0
+    nbcallneighbour = 0
     if verbose
         println("sorted rounds: ",sortedrounds)
         println("stage 1")
@@ -162,21 +162,23 @@ function heuristique3(instance::Matrix,iomain = stdout,objfunc::Int64 = 3,pource
         println("step 1.2")
     end
     # 1.2
-    nbwhile12 = 0
+    nbcallneighbour12 = 0
     s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
+    nbcallneighbour12 = nbcallneighbour12 + 1
+    nbcallneighbour = nbcallneighbour + 1
     push!(solutions,f(objfunc,loads_s_star))
     aumoinuneiteration = false
     while !aumoinuneiteration || f(objfunc,loads_s_star) < f(objfunc,loads_s)
         aumoinuneiteration = true
-        nbwhile12 = nbwhile12 + 1
-        nombrewhile = nombrewhile + 1
+        nbcallneighbour12 = nbcallneighbour12 + 1
+        nbcallneighbour = nbcallneighbour + 1
         s = s_star
         loads_s = loads_s_star
         s_best = s_star
         loads_s_best = loads_s_star
         s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
+        push!(solutions,f(objfunc,loads_s_best))
     end
-    push!(solutions,f(objfunc,loads_s_best))
     if verbose
         println("stage 2")
     end
@@ -190,16 +192,16 @@ function heuristique3(instance::Matrix,iomain = stdout,objfunc::Int64 = 3,pource
         println("step 2.2")
     end
     # 2.2
-    nbwhile22 = 0
+    nbcallneighbour22 = 0
     s_star,loads_s_star = neighbour3(s_star,loads_s_star,τ,objfunc,verbose,sortedrounds)
+    nbcallneighbour22 = nbcallneighbour22 + 1
+    nbcallneighbour = nbcallneighbour + 1
+    push!(solutions,f(objfunc,loads_s_star))
     aumoinuneiteration = false
     while !aumoinuneiteration || f(objfunc,loads_s_star) < f(objfunc,loads_s)
         aumoinuneiteration = true
-        nbwhile22 = nbwhile22 + 1
-        nombrewhile = nombrewhile + 1
-        if verbose
-            println("solution améliorée")
-        end
+        nbcallneighbour22 = nbcallneighbour22 + 1
+        nbcallneighbour = nbcallneighbour + 1
         s = s_star
         loads_s = loads_s_star
         s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
@@ -214,9 +216,9 @@ function heuristique3(instance::Matrix,iomain = stdout,objfunc::Int64 = 3,pource
         println("step 2.3")
     end
     # 2.3
-    nbwhile23 = 0
-    nbwhilepausedegrad = 0
+    nbcallneighbour23 = 0
     nbpausedegrad = 0
+    nbcallneighbourpausedegrad = 0
     nbtau = 1
     nbiterstagnanmax2 = nbiterstagnanmax
     τ = τ - ∆
@@ -227,34 +229,37 @@ function heuristique3(instance::Matrix,iomain = stdout,objfunc::Int64 = 3,pource
     while τ > 0 && nbiterstagnanmax2 > 0
         nbtau = nbtau + 1
         s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
+        nbcallneighbour23 = nbcallneighbour23 + 1
+        nbcallneighbour = nbcallneighbour + 1
+        push!(solutions,f(objfunc,loads_s_star))
         aumoinuneiteration = false
         while !aumoinuneiteration || f(objfunc,loads_s_star) < f(objfunc,loads_s)
             pausedegrad = pausedegrad - 1
             aumoinuneiteration = true
-            nbwhile23 = nbwhile23 + 1
-            nombrewhile = nombrewhile + 1
-            if verbose
-                println("solution améliorée")
-            end
+            nbcallneighbour23 = nbcallneighbour23 + 1
+            nbcallneighbour = nbcallneighbour + 1
             s = s_star
             loads_s = loads_s_star
             s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
+            push!(solutions,f(objfunc,loads_s_star))
             if pausedegrad == 0
-                nbpausedegrad = nbpausedegrad + 1
                 aumoinuneiteration = false
                 s_star,loads_s_star = neighbour3(s,loads_s,tempτ,objfunc,verbose,sortedrounds)
+                nbcallneighbourpausedegrad = nbcallneighbourpausedegrad + 1
+                nbcallneighbour = nbcallneighbour + 1
+                nbpausedegrad = nbpausedegrad + 1
+                push!(solutions,f(objfunc,loads_s_star))
                 while !aumoinuneiteration || f(objfunc,loads_s_star) < f(objfunc,loads_s)
                     aumoinuneiteration = true
-                    nbwhilepausedegrad = nbwhilepausedegrad + 1
-                    nombrewhile = nombrewhile + 1
                     s = s_star
                     loads_s = loads_s_star
                     s_star,loads_s_star = neighbour3(s,loads_s,tempτ,objfunc,verbose,sortedrounds)
+                    nbcallneighbour = nbcallneighbour + 1
+                    nbcallneighbourpausedegrad = nbcallneighbourpausedegrad + 1
                     push!(solutions,f(objfunc,loads_s_star))
                 end
                 pausedegrad = iteramelio
             end
-            push!(solutions,f(objfunc,loads_s_star))
             if f(objfunc,loads_s_star) < f(objfunc,loads_s_best)
                 s_best = s_star
                 loads_s_best = loads_s_star
@@ -269,7 +274,6 @@ function heuristique3(instance::Matrix,iomain = stdout,objfunc::Int64 = 3,pource
         if verbose
             println("valeur τ changée :",τ)
         end
-
     end
     push!(solutions,f(objfunc,loads_s_best))
     if verbose
@@ -282,13 +286,16 @@ function heuristique3(instance::Matrix,iomain = stdout,objfunc::Int64 = 3,pource
         println("step 3.2")
     end
     # 3.2
-    nbwhile32 = 0
+    nbcallneighbour32 = 0
     s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
+    nbcallneighbour32 = nbcallneighbour32 + 1
+    nbcallneighbour = nbcallneighbour + 1
+    push!(solutions,f(objfunc,loads_s_star))
     aumoinuneiteration = false
     while !aumoinuneiteration || f(objfunc,loads_s_star) < f(objfunc,loads_s)
         aumoinuneiteration = true
-        nbwhile32 = nbwhile32 + 1
-        nombrewhile = nombrewhile + 1
+        nbcallneighbour32 = nbcallneighbour32 + 1
+        nbcallneighbour = nbcallneighbour + 1
         s = s_star
         loads_s = loads_s_star
         s_star,loads_s_star = neighbour3(s,loads_s,τ,objfunc,verbose,sortedrounds)
@@ -300,14 +307,14 @@ function heuristique3(instance::Matrix,iomain = stdout,objfunc::Int64 = 3,pource
     end
     push!(solutions,f(objfunc,loads_s_best))
 
-    # println("nombre de while :",nombrewhile)
-    # println("nombre de while 1.2 :",nbwhile12)
-    # println("nombre de while 2.2 :",nbwhile22)
-    # println("nombre de while 2.3 :",nbwhile23)
-    # println("nombre de pause degrad :",nbpausedegrad)
-    # println("nombre de while pause degrad :",nbwhilepausedegrad)
-    # println("nombre de while 3.2 :",nbwhile32)
-    # println("nombre de tau :",nbtau)
+    println("nombre d'appel de voisinage :",nbcallneighbour)
+    println("nombre d'appel de voisinage pour l'étape 1.2 :",nbcallneighbour12)
+    println("nombre d'appel de voisinage pour l'étape 2.2 :",nbcallneighbour22)
+    println("nombre d'appel de voisinage pour l'étape 2.3 :",nbcallneighbour23)
+    println("nombre de pause degrad :",nbcallneighbourpausedegrad)
+    println("nombre d'appel de voisinage pendant les pauses degrad :",nbpausedegrad)
+    println("nombre d'appel de voisinage pour l'étape 3.2 :",nbcallneighbour32)
+    println("nombre de tau :",nbtau)
 
     # println("value avec f1 :",f1(loads_s_best))
     println(iomain,"f1= ",f1(loads_s_best))

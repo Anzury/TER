@@ -68,8 +68,8 @@ function main()
             # id = basename(target)[1:end-5]
 
             fonctionobjectif = 3
-            pourcentage = 0.05
-            decroissance = 0.002
+            pourcentage = 0.035
+            decroissance = 0.02
             nbiterstagnant = 50
 
             io = stdout
@@ -80,7 +80,7 @@ function main()
             println(io,"nbiterstagnant= ", nbiterstagnant)
             println(io,"taille matrice: ",size(data))
             
-            for nbiterameliore in [typemax(Int64)]
+            for nbiterameliore in [10,typemax(Int64)]
                 # println("nbiterameliore= ", nbiterameliore)
                 println(io,"nbiterameliore= ", nbiterameliore)
                 t1 = @elapsed sol,solutions = heuristique3(data,io,fonctionobjectif,pourcentage,decroissance,nbiterstagnant,nbiterameliore)

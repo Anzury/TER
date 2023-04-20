@@ -61,38 +61,33 @@ function plotbestpara2()
         push!(listsize, size[1][1])
         minilistdelta = []
         minilistpourcentage = []
-        nboccurencedelta = zeros(length(alldelta))
-        nboccurencepourcentage = zeros(length(allpourcentage))
+        nboccurencepara = zeros(length(allcombi))
         for instance in size
             for parametres in instance[2]
                 if parametres in allcombi
-                    nboccurencedelta[findall(x->x==parametres[1], alldelta)[1]] += 1
-                    nboccurencepourcentage[findall(x->x==parametres[2], allpourcentage)[1]] += 1
+                    nboccurencepara[findall(x -> x == parametres, allcombi)[1]] += 1
                 end
             end
         end
-        for i in 1:lastindex(nboccurencedelta)
-            if nboccurencedelta[i] >= 25
-                push!(minilistdelta, alldelta[i])
-            end
-        end
-        for i in 1:lastindex(nboccurencepourcentage)
-            if nboccurencepourcentage[i] >= 25
-                push!(minilistpourcentage, allpourcentage[i])
+        for i in 1:lastindex(nboccurencepara)
+            if nboccurencepara[i] >= 15
+                push!(minilistdelta, allcombi[i][1])
+                push!(minilistpourcentage, allcombi[i][2])
             end
         end
         push!(listbondelta, minilistdelta)
         push!(listbonpourcentage, minilistpourcentage)
     end
-    println("listbondelta: ", listbondelta)
-    println("listbonpourcentage: ", listbonpourcentage)
+    println("sizes : ", listsize)
+    listmultiplicationsize = [i[1]*i[2] for i in listsize]
     figure("meilleur paramètres?")
     title("meilleur paramètres?")
-    xlabel(listsize)
+    xlabel("size")
     ylabel("delta")
     zlabel("pourcentage")
     for i in 1:lastindex(listsize)
-        scatter3D(collect(1:lastindex(listsize))[i],listbondelta[i],listbonpourcentage[i])
+        # scatter3D(collect(1:lastindex(listsize))[i],listbondelta[i],listbonpourcentage[i])
+        scatter3D(listmultiplicationsize[i],listbondelta[i],listbonpourcentage[i])
     end
     legend(fontsize ="small")
 end
