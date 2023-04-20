@@ -6,7 +6,6 @@ using MathOptInterface
 include("model.jl")
 include("datastructMILP.jl")
 include("loadinstance.jl")
-# include("writeinstance.jl")
 include("heuristique.jl")
 include("heuristique2.jl")
 include("heuristique3.jl")
@@ -63,15 +62,12 @@ function main()
             # println(io, solution_summary(MILP, verbose=true))
             # close(io)
 
-            # data = loadinstance(target)
+            data = loadinstance(target)
             # data = loadinstance(string(target, folder[1], "/", files))
-            data = loadinstance("../data/data_reelles/" * file)
 
-            # println("id: ",basename(target)[1:end-5])
             println("id: ",file[1:end-5])
             # id = basename(string(target, folder[1], "/", files)[1:end-5])
             # println("id: ",id)
-            # id = basename(target)[1:end-5]
 
             fonctionobjectif = 3
             pourcentage = 0.035
@@ -88,7 +84,6 @@ function main()
             println(io,"nbiterameliore= ", nbiterameliore)
             println(io,"taille matrice: ",size(data))
             
-            # println("nbiterameliore= ", nbiterameliore)
             t1 = @elapsed sol,solutions = heuristique3(data,io,fonctionobjectif,pourcentage,decroissance,nbiterstagnant,nbiterameliore)
             println(io,"Temps avec heuristique= ", t1,"s")
             # plotsolutions(solutions,f(3,sum(sol,dims=1)), target, fonctionobjectif, pourcentage, decroissance, nbiterstagnant, nbiterameliore)
