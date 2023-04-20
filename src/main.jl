@@ -34,7 +34,9 @@ function main()
     # for folder in allfnames
     #     for files in folder[2]
     nbsolopti = 0
-    folder = getfname("../data/data_reelles/")
+    nbsolacceptable = 0
+    targetfolder = "../data/120_90/"
+    folder = getfname(targetfolder)
     for file in folder
 
             # target = "../data/100_60/100_60_[1,4]_3300_3.xlsx"
@@ -44,7 +46,7 @@ function main()
             # target = "../data/data_reelles/OPTICLASS_trafic_05_24_PF.xlsx"
             # target = "../data/data_reelles/OPTICLASS_trafic_06_27_PF.xlsx"
             # target = "../data/12_20/12_20_[1,6]_1700_1.xlsx"
-            target = "../data/data_reelles/" * file
+            target = targetfolder * file
 
             # data = loadinstanceMILP(string(target, folder[1], "/", files))
             # data = loadinstanceMILP(target)
@@ -90,6 +92,9 @@ function main()
             if f(1,sum(sol,dims=1)) == 10
                 nbsolopti += 1
             end
+            if f(1,sum(sol,dims=1)) <= 50
+                nbsolacceptable += 1
+            end
             # close(io)
         # end
     end
@@ -97,6 +102,11 @@ function main()
         println("Toutes les solutions sont optimales !!!")
     else
         println("Il y a ", nbsolopti, " solutions optimales sur ", length(folder))
+    end
+    if nbsolacceptable == length(folder)
+        println("Toutes les solutions sont acceptables !!!")
+    else
+        println("Il y a ", nbsolacceptable, " solutions acceptables sur ", length(folder))
     end
     return nothing
 end
