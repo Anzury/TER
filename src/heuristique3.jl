@@ -266,8 +266,9 @@ function heuristique3(instance::Matrix,iomain = stdout,objfunc::Int64 = 3,pource
                 nbiterstagnanmax2 = nbiterstagnanmax
             end
             nbiterstagnanmax2 = nbiterstagnanmax2 - 1
-            if nbiterstagnanmax2 == 0
-                println("stagnation")
+            if nbiterstagnanmax2 <= 0
+                println(iomain,"stagnation")
+                break
             end
         end
         τ = τ - ∆
@@ -307,14 +308,14 @@ function heuristique3(instance::Matrix,iomain = stdout,objfunc::Int64 = 3,pource
     end
     push!(solutions,f(objfunc,loads_s_best))
 
-    println("nombre d'appel de voisinage :",nbcallneighbour)
-    println("nombre d'appel de voisinage pour l'étape 1.2 :",nbcallneighbour12)
-    println("nombre d'appel de voisinage pour l'étape 2.2 :",nbcallneighbour22)
-    println("nombre d'appel de voisinage pour l'étape 2.3 :",nbcallneighbour23)
-    println("nombre de pause degrad :",nbcallneighbourpausedegrad)
-    println("nombre d'appel de voisinage pendant les pauses degrad :",nbpausedegrad)
-    println("nombre d'appel de voisinage pour l'étape 3.2 :",nbcallneighbour32)
-    println("nombre de tau :",nbtau)
+    println(iomain,"nombre d'appel de voisinage :",nbcallneighbour)
+    println(iomain,"nombre d'appel de voisinage pour l'étape 1.2 :",nbcallneighbour12)
+    println(iomain,"nombre d'appel de voisinage pour l'étape 2.2 :",nbcallneighbour22)
+    println(iomain,"nombre d'appel de voisinage pour l'étape 2.3 :",nbcallneighbour23)
+    println(iomain,"nombre de pause degrad :",nbcallneighbourpausedegrad)
+    println(iomain,"nombre d'appel de voisinage pendant les pauses degrad :",nbpausedegrad)
+    println(iomain,"nombre d'appel de voisinage pour l'étape 3.2 :",nbcallneighbour32)
+    println(iomain,"nombre de tau :",nbtau)
 
     # println("value avec f1 :",f1(loads_s_best))
     println(iomain,"f1= ",f1(loads_s_best))

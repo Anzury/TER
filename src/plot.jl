@@ -70,7 +70,7 @@ function plotbestpara2()
             end
         end
         for i in 1:lastindex(nboccurencepara)
-            if nboccurencepara[i] >= 15
+            if nboccurencepara[i] >= 20
                 push!(minilistdelta, allcombi[i][1])
                 push!(minilistpourcentage, allcombi[i][2])
             end

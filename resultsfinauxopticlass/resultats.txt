@@ -1,0 +1,8 @@
+Il y a 22 instances
+fonctionobjectif utilisée pour optimiser: f3
+pourcentage de la solution initiale pour l'initialisation de tau = 0.035
+valeur de décroissance de tau (delta) = 0.02
+nombre d'itérations non améliorantes pour arrêt de la phase 2 = 35
+nombre d'itérations avant l'alternation de phases pendant la phase 2 = 9223372036854775807
+Il y a 17 solutions optimales sur 22 (f1 <= 10)
+Toutes les solutions sont acceptables !!! (f1 <= 50)

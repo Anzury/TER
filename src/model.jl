@@ -19,7 +19,7 @@ function modelMILP(instanceMILP, binary::Bool = true, solver = Gurobi.Optimizer)
     m = direct_model((solver)())
     set_optimizer_attribute(m, "LogToConsole", 0)
     set_optimizer_attribute(m, "TimeLimit", 50)
-    # set_optimizer_attribute(m, "LogFile", "gurobi.log")
+    set_optimizer_attribute(m, "LogFile", "gurobi.log")
 
     X = instanceMILP.X
     Lmax = instanceMILP.Lmax
@@ -53,7 +53,7 @@ function modelMILP(instanceMILP, binary::Bool = true, solver = Gurobi.Optimizer)
     @constraint(m, c5_1[k=1:O], Lmin <= sum(sum(V[r].batch[j] * X[r, j, k] for j in U[r][k]) for r in 1:R))
     @constraint(m, c5_2[k=1:O], sum(sum(V[r].batch[j] * X[r, j, k] for j in U[r][k]) for r in 1:R) <= Lmax)
 
-    # write_to_file(m, "model.lp")
+    write_to_file(m, "model.lp")
     return m
 end
 

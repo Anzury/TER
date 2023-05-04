@@ -33,6 +33,7 @@ function main()
     # println("")
     # for folder in allfnames
     #     for files in folder[2]
+
     nbsolopti = 0
     nbsolacceptable = 0
     targetfolder = "../data/data_reelles/"
@@ -45,7 +46,7 @@ function main()
             # target = "../data/120_90/120_90_[1,4]_4100_1.xlsx"
             # target = "../data/data_reelles/OPTICLASS_trafic_05_24_PF.xlsx"
             # target = "../data/data_reelles/OPTICLASS_trafic_06_27_PF.xlsx"
-            # target = "../data/12_20/12_20_[1,6]_1700_1.xlsx"
+            # target = "../data/12_20/12_20_[1,6]_1700_2.xlsx"
             target = targetfolder * file
 
             # data = loadinstanceMILP(string(target, folder[1], "/", files))
@@ -74,11 +75,14 @@ function main()
             fonctionobjectif = 3
             pourcentage = 0.035
             decroissance = 0.02
-            nbiterstagnant = 50
+            nbiterstagnant = 35
             nbiterameliore = typemax(Int64)
+            # nbiterameliore = 10
 
             io = stdout
+            io = open("../resultsfinauxopticlass/" * file[1:end-5] * ".txt", "w")
 
+            println(io,"id: ",file[1:end-5])
             println(io,"fonctionobjectif= f", fonctionobjectif)
             println(io,"pourcentage= ", pourcentage)
             println(io,"decroissance= ", decroissance)
@@ -89,25 +93,38 @@ function main()
             t1 = @elapsed sol,solutions = heuristique3(data,io,fonctionobjectif,pourcentage,decroissance,nbiterstagnant,nbiterameliore)
             println(io,"Temps avec heuristique= ", t1,"s")
             # plotsolutions(solutions,f(3,sum(sol,dims=1)), target, fonctionobjectif, pourcentage, decroissance, nbiterstagnant, nbiterameliore)
-            if f(1,sum(sol,dims=1)) == 10
+            if f(1,sum(sol,dims=1)) <= 10
                 nbsolopti += 1
             end
             if f(1,sum(sol,dims=1)) <= 50
                 nbsolacceptable += 1
             end
-            # close(io)
+            close(io)
         # end
     end
+    fonctionobjectif = 3
+    pourcentage = 0.035
+    decroissance = 0.02
+    nbiterstagnant = 35
+    nbiterameliore = typemax(Int64)
+    io = open("../resultsfinauxopticlass/" * "resultats.txt", "w")
+    println(io,"Il y a ", length(folder), " instances")
+    println(io,"fonctionobjectif utilisée pour optimiser: f", fonctionobjectif)
+    println(io,"pourcentage de la solution initiale pour l'initialisation de tau = ", pourcentage)
+    println(io,"valeur de décroissance de tau (delta) = ", decroissance)
+    println(io,"nombre d'itérations non améliorantes pour arrêt de la phase 2 = ", nbiterstagnant)
+    println(io,"nombre d'itérations avant l'alternation de phases pendant la phase 2 = ", nbiterameliore)
     if nbsolopti == length(folder)
-        println("Toutes les solutions sont optimales !!!")
+        println(io,"Toutes les solutions sont optimales !!! (f1 <= 10)")
     else
-        println("Il y a ", nbsolopti, " solutions optimales sur ", length(folder))
+        println(io,"Il y a ", nbsolopti, " solutions optimales (f1 <= 10) sur ", length(folder))
     end
     if nbsolacceptable == length(folder)
-        println("Toutes les solutions sont acceptables !!!")
+        println(io,"Toutes les solutions sont acceptables !!! (f1 <= 50)")
     else
-        println("Il y a ", nbsolacceptable, " solutions acceptables sur ", length(folder))
+        println(io,"Il y a ", nbsolacceptable, " solutions acceptables (f1 <= 50) sur ", length(folder))
     end
+    close(io)
     return nothing
 end
 
