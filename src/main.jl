@@ -46,7 +46,7 @@ function main()
             # target = "../data/120_90/120_90_[1,4]_4100_1.xlsx"
             # target = "../data/data_reelles/OPTICLASS_trafic_05_24_PF.xlsx"
             # target = "../data/data_reelles/OPTICLASS_trafic_06_27_PF.xlsx"
-            # target = "../data/12_20/12_20_[1,6]_1700_2.xlsx"
+            # target = "../data/12_20/12_20_[1,6]_1700_1.xlsx"
             target = targetfolder * file
 
             # data = loadinstanceMILP(string(target, folder[1], "/", files))
@@ -73,23 +73,24 @@ function main()
             # println("id: ",id)
 
             fonctionobjectif = 3
-            pourcentage = 0.035
+            # pourcentage = 0.035
+            pourcentage = initialisation(data,fonctionobjectif)
             decroissance = 0.02
             nbiterstagnant = 35
             nbiterameliore = typemax(Int64)
             # nbiterameliore = 10
 
             io = stdout
-            io = open("../resultsfinauxopticlass/" * file[1:end-5] * ".txt", "w")
+            # io = open("../resultsfinauxopticlass/" * file[1:end-5] * ".txt", "w")
 
-            println(io,"id: ",file[1:end-5])
-            println(io,"fonctionobjectif= f", fonctionobjectif)
+            # println(io,"id: ",file[1:end-5])
+            # println(io,"fonctionobjectif= f", fonctionobjectif)
             println(io,"pourcentage= ", pourcentage)
-            println(io,"decroissance= ", decroissance)
-            println(io,"nbiterstagnant= ", nbiterstagnant)
-            println(io,"nbiterameliore= ", nbiterameliore)
+            # println(io,"decroissance= ", decroissance)
+            # println(io,"nbiterstagnant= ", nbiterstagnant)
+            # println(io,"nbiterameliore= ", nbiterameliore)
             println(io,"taille matrice: ",size(data))
-            
+
             t1 = @elapsed sol,solutions = heuristique3(data,io,fonctionobjectif,pourcentage,decroissance,nbiterstagnant,nbiterameliore)
             println(io,"Temps avec heuristique= ", t1,"s")
             # plotsolutions(solutions,f(3,sum(sol,dims=1)), target, fonctionobjectif, pourcentage, decroissance, nbiterstagnant, nbiterameliore)
@@ -99,21 +100,22 @@ function main()
             if f(1,sum(sol,dims=1)) <= 50
                 nbsolacceptable += 1
             end
-            close(io)
+            # close(io)
         # end
     end
-    fonctionobjectif = 3
-    pourcentage = 0.035
-    decroissance = 0.02
-    nbiterstagnant = 35
-    nbiterameliore = typemax(Int64)
-    io = open("../resultsfinauxopticlass/" * "resultats.txt", "w")
-    println(io,"Il y a ", length(folder), " instances")
-    println(io,"fonctionobjectif utilisée pour optimiser: f", fonctionobjectif)
-    println(io,"pourcentage de la solution initiale pour l'initialisation de tau = ", pourcentage)
-    println(io,"valeur de décroissance de tau (delta) = ", decroissance)
-    println(io,"nombre d'itérations non améliorantes pour arrêt de la phase 2 = ", nbiterstagnant)
-    println(io,"nombre d'itérations avant l'alternation de phases pendant la phase 2 = ", nbiterameliore)
+    # fonctionobjectif = 3
+    # pourcentage = 0.035
+    # decroissance = 0.02
+    # nbiterstagnant = 35
+    # nbiterameliore = typemax(Int64)
+    # io = open("../resultsfinauxopticlass/" * "resultats.txt", "w")
+    # println(io,"Il y a ", length(folder), " instances")
+    # println(io,"fonctionobjectif utilisée pour optimiser: f", fonctionobjectif)
+    # println(io,"pourcentage de la solution initiale pour l'initialisation de tau = ", pourcentage)
+    # println(io,"valeur de décroissance de tau (delta) = ", decroissance)
+    # println(io,"nombre d'itérations non améliorantes pour arrêt de la phase 2 = ", nbiterstagnant)
+    # println(io,"nombre d'itérations avant l'alternation de phases pendant la phase 2 = ", nbiterameliore)
+    io = stdout
     if nbsolopti == length(folder)
         println(io,"Toutes les solutions sont optimales !!! (f1 <= 10)")
     else
@@ -124,7 +126,7 @@ function main()
     else
         println(io,"Il y a ", nbsolacceptable, " solutions acceptables (f1 <= 50) sur ", length(folder))
     end
-    close(io)
+    # close(io)
     return nothing
 end
 

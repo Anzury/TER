@@ -1,4 +1,5 @@
 using Statistics
+using Random
 """
 Function neighbour3(instance::Matrix, τ)
 Input: An initial solution s(0) and a tolerance value τ.
@@ -115,6 +116,62 @@ function sortrounds(s::Matrix)
 end
 
 """
+compute the optimal value for pourcentage by using random neighbour movements on the initial solution and compute the variance of the results
+"""
+function initialisation(instance::Matrix,objfunc::Int64)
+    values = []
+    for i in 1:20
+        s = deepcopy(instance)
+        outputsload = sum(s,dims=1)
+        for r in 1:size(s)[1]
+            emptyoutputs = findall(x->x==0,vec(s[r,:]))
+            if isempty(emptyoutputs)
+                continue
+            end
+            random = rand(1:lastindex(emptyoutputs))
+            q = emptyoutputs[random]
+            nonemptyoutputs = findall(x->x!=0,vec(s[r,:]))
+            if isempty(nonemptyoutputs)
+                continue
+            end
+            random = rand(1:lastindex(nonemptyoutputs))
+            k = nonemptyoutputs[random]
+
+            rotation = sign(q-k)
+            shiftingoutputs = []
+            if rotation == 1
+                for j in k:q
+                    if j == q || s[r,j] != 0
+                        push!(shiftingoutputs,j)
+                    end
+                end
+            elseif rotation == -1
+                for j in q:k
+                    if j == q || s[r,j] != 0
+                        push!(shiftingoutputs,j)
+                    end
+                end
+            else
+                println("error rotation != -1/1")
+            end
+            oldoutputsload = deepcopy(outputsload)
+            for j in shiftingoutputs
+                outputsload[j] -= s[r,j]
+            end
+            shiftedoutputs = circshift(shiftingoutputs,rotation)
+            for j in 1:lastindex(shiftingoutputs)
+                s[r,shiftingoutputs[j]] = instance[r,shiftedoutputs[j]]
+                outputsload[shiftingoutputs[j]] += s[r,shiftingoutputs[j]]
+            end
+            push!(values,f(objfunc,outputsload))
+        end
+    end
+    return var(values)
+end
+    
+
+
+"""
 Heuristic Opti-Move
 Input: A current solution s.
 Output: The best known solution s(B).
@@ -184,7 +241,8 @@ function heuristique3(instance::Matrix,iomain = stdout,objfunc::Int64 = 3,pource
     end
     # Stage 2
     # 2.1
-    τ = pourcentage*f(objfunc,loads_s_best)
+    # τ = pourcentage*f(objfunc,loads_s_best)
+    τ = pourcentage
     if verbose
         println("valeur τ initialisé :",τ)
     end
@@ -308,14 +366,14 @@ function heuristique3(instance::Matrix,iomain = stdout,objfunc::Int64 = 3,pource
     end
     push!(solutions,f(objfunc,loads_s_best))
 
-    println(iomain,"nombre d'appel de voisinage :",nbcallneighbour)
-    println(iomain,"nombre d'appel de voisinage pour l'étape 1.2 :",nbcallneighbour12)
-    println(iomain,"nombre d'appel de voisinage pour l'étape 2.2 :",nbcallneighbour22)
-    println(iomain,"nombre d'appel de voisinage pour l'étape 2.3 :",nbcallneighbour23)
-    println(iomain,"nombre de pause degrad :",nbcallneighbourpausedegrad)
-    println(iomain,"nombre d'appel de voisinage pendant les pauses degrad :",nbpausedegrad)
-    println(iomain,"nombre d'appel de voisinage pour l'étape 3.2 :",nbcallneighbour32)
-    println(iomain,"nombre de tau :",nbtau)
+    # println(iomain,"nombre d'appel de voisinage :",nbcallneighbour)
+    # println(iomain,"nombre d'appel de voisinage pour l'étape 1.2 :",nbcallneighbour12)
+    # println(iomain,"nombre d'appel de voisinage pour l'étape 2.2 :",nbcallneighbour22)
+    # println(iomain,"nombre d'appel de voisinage pour l'étape 2.3 :",nbcallneighbour23)
+    # println(iomain,"nombre de pause degrad :",nbcallneighbourpausedegrad)
+    # println(iomain,"nombre d'appel de voisinage pendant les pauses degrad :",nbpausedegrad)
+    # println(iomain,"nombre d'appel de voisinage pour l'étape 3.2 :",nbcallneighbour32)
+    # println(iomain,"nombre de tau :",nbtau)
 
     # println("value avec f1 :",f1(loads_s_best))
     println(iomain,"f1= ",f1(loads_s_best))
