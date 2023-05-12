@@ -1,0 +1,19 @@
+id: 30_15_[1,7]_1500_15
+fonctionobjectif= f3
+pourcentage= 1340.9639809229473
+decroissance= 0.02
+nbiterstagnant= 9223372036854775807
+nbiterameliore= 10
+taille matrice: (30, 15)
+nombre d'appel de voisinage :1965
+nombre d'appel de voisinage pour l'étape 1.2 :5
+nombre d'appel de voisinage pour l'étape 2.2 :2
+nombre d'appel de voisinage pour l'étape 2.3 :1715
+nombre de pause degrad :241
+nombre d'appel de voisinage pendant les pauses degrad :104
+nombre d'appel de voisinage pour l'étape 3.2 :2
+nombre de tau :671
+f1= 10
+f2= 2.311111111111139
+f3= 3.3993463423951904
+Temps avec heuristique= 0.3303419s

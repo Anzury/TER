@@ -1,0 +1,20 @@
+id: OPTICLASS_trafic_06_27_PF
+fonctionobjectif= f3
+pourcentage= 61.47864107435535
+decroissance= 0.02
+nbiterstagnant= 55
+nbiterameliore= 10
+taille matrice: (226, 202)
+stagnation
+nombre d'appel de voisinage :392
+nombre d'appel de voisinage pour l'étape 1.2 :51
+nombre d'appel de voisinage pour l'étape 2.2 :2
+nombre d'appel de voisinage pour l'étape 2.3 :251
+nombre de pause degrad :82
+nombre d'appel de voisinage pendant les pauses degrad :15
+nombre d'appel de voisinage pour l'étape 3.2 :6
+nombre de tau :98
+f1= 20
+f2= 3.1849818645230874
+f3= 4.463414216053911
+Temps avec heuristique= 3.1035659s

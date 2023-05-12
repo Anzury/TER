@@ -1,0 +1,19 @@
+id: 120_90_[1,4]_4100_11
+fonctionobjectif= f3
+pourcentage= 261.531190952654
+decroissance= 0.02
+nbiterstagnant= 9223372036854775807
+nbiterameliore= 10
+taille matrice: (120, 90)
+nombre d'appel de voisinage :414
+nombre d'appel de voisinage pour l'étape 1.2 :19
+nombre d'appel de voisinage pour l'étape 2.2 :2
+nombre d'appel de voisinage pour l'étape 2.3 :341
+nombre de pause degrad :50
+nombre d'appel de voisinage pendant les pauses degrad :21
+nombre d'appel de voisinage pour l'étape 3.2 :2
+nombre de tau :131
+f1= 10
+f2= 4.990123456790125
+f3= 4.9950592873308945
+Temps avec heuristique= 0.7939997s

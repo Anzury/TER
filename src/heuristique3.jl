@@ -17,7 +17,8 @@ function neighbour3(instance::Matrix,outputs,τ,objfunc::Int64,verbose::Bool=fal
     r = 1
     s = deepcopy(instance)
     outputsload = deepcopy(outputs)
-    for r in roundsorder
+    rounds = shuffle(collect(roundsorder))
+    for r in rounds
         if verbose
             println("round r = ",r)
             println("round :",s[r,:])
@@ -240,8 +241,10 @@ function heuristique3(instance::Matrix,iomain = stdout,objfunc::Int64 = 3,pource
     end
     # Stage 2
     # 2.1
-    # τ = pourcentage*f(objfunc,loads_s_best)
-    τ = pourcentage
+    τ = 0.05*f(objfunc,loads_s_best)
+    println("old τ initialisé :",τ)
+    τ = 0.1 * pourcentage
+    println("new τ initialisé :",τ)
     if verbose
         println("valeur τ initialisé :",τ)
     end

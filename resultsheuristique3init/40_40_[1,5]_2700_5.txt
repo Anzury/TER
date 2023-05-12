@@ -1,11 +1,10 @@
 id: 40_40_[1,5]_2700_5
 fonctionobjectif= f3
-pourcentage= 208.4589680340585
+pourcentage= 228.64680972582912
 decroissance= 0.02
 nbiterstagnant= 55
 nbiterameliore= 10
 taille matrice: (40, 40)
-stagnation
 nombre d'appel de voisinage :155
 nombre d'appel de voisinage pour l'étape 1.2 :10
 nombre d'appel de voisinage pour l'étape 2.2 :2
@@ -17,4 +16,4 @@ nombre de tau :45
 f1= 20
 f2= 5.4375
 f3= 6.319612329882269
-Temps avec heuristique= 0.0597274s
+Temps avec heuristique= 0.0609436s

@@ -1,0 +1,19 @@
+id: 55_55_[1,4]_3000_19
+fonctionobjectif= f3
+pourcentage= 134.71603924392463
+decroissance= 0.02
+nbiterstagnant= 9223372036854775807
+nbiterameliore= 10
+taille matrice: (55, 55)
+nombre d'appel de voisinage :190
+nombre d'appel de voisinage pour l'étape 1.2 :12
+nombre d'appel de voisinage pour l'étape 2.2 :5
+nombre d'appel de voisinage pour l'étape 2.3 :154
+nombre de pause degrad :17
+nombre d'appel de voisinage pendant les pauses degrad :8
+nombre d'appel de voisinage pour l'étape 3.2 :2
+nombre de tau :68
+f1= 20
+f2= 1.7520661157024877
+f3= 3.796475094149291
+Temps avec heuristique= 0.1451961s

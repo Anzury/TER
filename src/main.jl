@@ -79,44 +79,45 @@ function main()
             println("id: ",basename(string(target, folder[1], "/", files)[1:end-5]))
 
             fonctionobjectif = 3
-            pourcentage = 0.05
-            # pourcentage = initialisation(data,fonctionobjectif)
+            # pourcentage = 0.05
+            pourcentage = initialisation(data,fonctionobjectif)
             decroissance = 0.02
-            nbiterstagnant = 55
-            nbiterameliore = typemax(Int64)
-            # nbiterameliore = 10
+            # nbiterstagnant = 55
+            nbiterstagnant = typemax(Int64)
+            # nbiterameliore = typemax(Int64)
+            nbiterameliore = 10
 
-            io = stdout
-            # io = open("../resultsheuristique/" * files[1:end-5] * ".txt", "w")
+            # io = stdout
+            io = open("../resultsheuristique3init1percent/" * files[1:end-5] * ".txt", "w")
 
             # println(io,"id: ",file[1:end-5])
-            # println(io,"id: ",basename(string(target, folder[1], "/", files)[1:end-5]))
-            # println(io,"fonctionobjectif= f", fonctionobjectif)
-            # println(io,"pourcentage= ", pourcentage)
-            # println(io,"decroissance= ", decroissance)
-            # println(io,"nbiterstagnant= ", nbiterstagnant)
-            # println(io,"nbiterameliore= ", nbiterameliore)
-            # println(io,"taille matrice: ",size(data))
+            println(io,"id: ",basename(string(target, folder[1], "/", files)[1:end-5]))
+            println(io,"fonctionobjectif= f", fonctionobjectif)
+            println(io,"pourcentage= ", pourcentage)
+            println(io,"decroissance= ", decroissance)
+            println(io,"nbiterstagnant= ", nbiterstagnant)
+            println(io,"nbiterameliore= ", nbiterameliore)
+            println(io,"taille matrice: ",size(data))
 
-            t1 = @elapsed sol,solutions = heuristique(data,io,fonctionobjectif,pourcentage,decroissance,nbiterstagnant,nbiterameliore)
+            t1 = @elapsed sol,solutions = heuristique2(data,io,fonctionobjectif,pourcentage,decroissance,nbiterstagnant,nbiterameliore)
             push!(timesfolder, t1)
             push!(valuesf1folder, f(1,sum(sol,dims=1)))
             println(io,"Temps avec heuristique= ", t1,"s")
-            # if files == "OPTICLASS_trafic_06_27_PF.xlsx"
-            #     plotsolutions(solutions,f(3,sum(sol,dims=1)), target, fonctionobjectif, pourcentage, decroissance, nbiterstagnant, nbiterameliore)
-            # end
+            if files == "OPTICLASS_trafic_06_27_PF.xlsx"
+                plotsolutions(solutions,f(3,sum(sol,dims=1)), target, fonctionobjectif, pourcentage, decroissance, nbiterstagnant, nbiterameliore)
+            end
             # if f(1,sum(sol,dims=1)) <= 10
             #     nbsolopti += 1
             # end
             # if f(1,sum(sol,dims=1)) <= 50
             #     nbsolacceptable += 1
             # end
-            # close(io)
+            close(io)
         end
         push!(alltimes, timesfolder)
         push!(allvaluesf1, valuesf1folder)
     end
-    io = open("../resultsheuristique/temps.txt", "w")
+    io = open("../resultsheuristique3init1percent/temps.txt", "w")
     for i in 1:lastindex(allfnames)
         println(io,"temps moyen pour ", allfnames[i][1], " = ", mean(alltimes[i]), "s")
         println(io,"f1 moyen pour ", allfnames[i][1], " = ", mean(allvaluesf1[i]))
