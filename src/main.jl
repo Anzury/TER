@@ -22,21 +22,21 @@ function main()
     println("\nEtudiants : Adrien Pichon et Nicolas Compère\n")
 
     # Collecting the names of instances to solve located in the folder Data ----
-    target = "../data/"
-    fnames = getfname(target)
+    # target = "../data/"
+    # fnames = getfname(target)
 
-    allfnames = []
-    for name in fnames
-        push!(allfnames, [name, getfname(string(target, "/", name))])
-    end
+    # allfnames = []
+    # for name in fnames
+    #     push!(allfnames, [name, getfname(string(target, "/", name))])
+    # end
     
-    println("")
-    alltimes = []
-    allvaluesf1 = []
-    for folder in allfnames
-        timesfolder = []
-        valuesf1folder = []
-        for files in folder[2]
+    # println("")
+    # alltimes = []
+    # allvaluesf1 = []
+    # for folder in allfnames
+    #     timesfolder = []
+    #     valuesf1folder = []
+    #     for files in folder[2]
 
     # nbsolopti = 0
     # nbsolacceptable = 0
@@ -50,7 +50,7 @@ function main()
             # target = "../data/30_30/30_30_[1,6]_2400_1.xlsx"
             # target = "../data/75_50/75_50_[1,5]_3300_1.xlsx"
             # target = "../data/120_90/120_90_[1,4]_4100_1.xlsx"
-            # target = "../data/data_reelles/OPTICLASS_trafic_05_24_PF.xlsx"
+            target = "../data/data_reelles/OPTICLASS_trafic_05_24_PF.xlsx"
             # target = "../data/data_reelles/OPTICLASS_trafic_06_27_PF.xlsx"
             # target = "../data/12_20/12_20_[1,6]_1700_1.xlsx"
             # target = targetfolder * file
@@ -71,12 +71,12 @@ function main()
             # println(io, solution_summary(MILP, verbose=true))
             # close(io)
 
-            # data = loadinstance(target)
-            data = loadinstance(string(target, folder[1], "/", files))
+            data = loadinstance(target)
+            # data = loadinstance(string(target, folder[1], "/", files))
 
-            # println("id: ",target[1:end-5])
+            println("id: ",target[1:end-5])
             # println("id: ",file[1:end-5])
-            println("id: ",basename(string(target, folder[1], "/", files)[1:end-5]))
+            # println("id: ",basename(string(target, folder[1], "/", files)[1:end-5]))
 
             fonctionobjectif = 3
             # pourcentage = 0.05
@@ -85,13 +85,13 @@ function main()
             # nbiterstagnant = 55
             nbiterstagnant = typemax(Int64)
             # nbiterameliore = typemax(Int64)
-            nbiterameliore = 10
+            nbiterameliore = 20
 
-            # io = stdout
-            io = open("../resultsheuristique3init1percent/" * files[1:end-5] * ".txt", "w")
+            io = stdout
+            # io = open("../resultsheuristique3init1percent/" * files[1:end-5] * ".txt", "w")
 
             # println(io,"id: ",file[1:end-5])
-            println(io,"id: ",basename(string(target, folder[1], "/", files)[1:end-5]))
+            # println(io,"id: ",basename(string(target, folder[1], "/", files)[1:end-5]))
             println(io,"fonctionobjectif= f", fonctionobjectif)
             println(io,"pourcentage= ", pourcentage)
             println(io,"decroissance= ", decroissance)
@@ -100,28 +100,28 @@ function main()
             println(io,"taille matrice: ",size(data))
 
             t1 = @elapsed sol,solutions = heuristique2(data,io,fonctionobjectif,pourcentage,decroissance,nbiterstagnant,nbiterameliore)
-            push!(timesfolder, t1)
-            push!(valuesf1folder, f(1,sum(sol,dims=1)))
+            # push!(timesfolder, t1)
+            # push!(valuesf1folder, f(1,sum(sol,dims=1)))
             println(io,"Temps avec heuristique= ", t1,"s")
-            if files == "OPTICLASS_trafic_06_27_PF.xlsx"
+            # if files == "OPTICLASS_trafic_06_27_PF.xlsx"
                 plotsolutions(solutions,f(3,sum(sol,dims=1)), target, fonctionobjectif, pourcentage, decroissance, nbiterstagnant, nbiterameliore)
-            end
+            # end
             # if f(1,sum(sol,dims=1)) <= 10
             #     nbsolopti += 1
             # end
             # if f(1,sum(sol,dims=1)) <= 50
             #     nbsolacceptable += 1
             # end
-            close(io)
-        end
-        push!(alltimes, timesfolder)
-        push!(allvaluesf1, valuesf1folder)
-    end
-    io = open("../resultsheuristique3init1percent/temps.txt", "w")
-    for i in 1:lastindex(allfnames)
-        println(io,"temps moyen pour ", allfnames[i][1], " = ", mean(alltimes[i]), "s")
-        println(io,"f1 moyen pour ", allfnames[i][1], " = ", mean(allvaluesf1[i]))
-    end
+            # close(io)
+        # end
+        # push!(alltimes, timesfolder)
+        # push!(allvaluesf1, valuesf1folder)
+    # end
+    # io = open("../resultsheuristique3init1percent/temps.txt", "w")
+    # for i in 1:lastindex(allfnames)
+    #     println(io,"temps moyen pour ", allfnames[i][1], " = ", mean(alltimes[i]), "s")
+    #     println(io,"f1 moyen pour ", allfnames[i][1], " = ", mean(allvaluesf1[i]))
+    # end
     # println("temps moyen pour ", targetfolder[9:lastindex(targetfolder)-1], " = ", mean(timesfolder), "s")
     # println("f1 moyen pour ", targetfolder[9:lastindex(targetfolder)-1], " = ", mean(valuesf1folder))
     # if nbsolopti == length(folder)
@@ -134,7 +134,7 @@ function main()
     # else
     #     println("Il y a ", nbsolacceptable, " solutions acceptables (f1 <= 50) sur ", length(folder))
     # end
-    close(io)
+    # close(io)
     return nothing
 end
 

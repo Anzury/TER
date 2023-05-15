@@ -207,8 +207,10 @@ function heuristique(instance::Matrix,iomain = stdout,objfunc::Int64 = 3,pourcen
     end
     # Stage 2
     # 2.1
-    τ = pourcentage*f(objfunc,loads_s_best)
-    # τ = pourcentage
+    τ = 0.05*f(objfunc,loads_s_best)
+    println("old τ initialisé :",τ)
+    τ = 0.01 * pourcentage
+    println("new τ initialisé :",τ)
     if verbose
         println("valeur τ initialisé :",τ)
     end
