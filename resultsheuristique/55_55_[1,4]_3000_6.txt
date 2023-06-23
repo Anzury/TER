@@ -1,29 +1,20 @@
-fonctionobjectif= 3
-pourcentage= 0.5
+id: 55_55_[1,4]_3000_6
+fonctionobjectif= f3
+pourcentage= 0.05
 decroissance= 0.02
-nbiterstagnant= 150
-nbiterameliore= 5
+nbiterstagnant= 55
+nbiterameliore= 9223372036854775807
+taille matrice: (55, 55)
+stagnation
+nombre d'appel de voisinage :558
+nombre d'appel de voisinage pour l'étape 1.2 :27
+nombre d'appel de voisinage pour l'étape 2.2 :9
+nombre d'appel de voisinage pour l'étape 2.3 :519
+nombre de pause degrad :0
+nombre d'appel de voisinage pendant les pauses degrad :0
+nombre d'appel de voisinage pour l'étape 3.2 :3
+nombre de tau :154
 f1= 50
-f2= 7.801652892561978
-f3= 1.3619273036641182
-temps= 0.4531424s
-nbiterameliore= 10
-f1= 30
-f2= 5.758677685950405
-f3= 0.9976682054843735
-temps= 0.4116401s
-nbiterameliore= 15
-f1= 50
-f2= 7.259504132231396
-f3= 1.3374342144518645
-temps= 0.3675741s
-nbiterameliore= 20
-f1= 40
-f2= 5.533884297520651
-f3= 1.0618725221009762
-temps= 0.3464474s
-nbiterameliore= 25
-f1= 50
-f2= 6.307438016528915
-f3= 1.2611039491447402
-temps= 0.3634341s
+f2= 7.6231404958677595
+f3= 10.626646688147241
+Temps avec heuristique= 0.1287637s

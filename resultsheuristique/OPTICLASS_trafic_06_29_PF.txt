@@ -1,29 +1,20 @@
-fonctionobjectif= 3
-pourcentage= 0.5
+id: OPTICLASS_trafic_06_29_PF
+fonctionobjectif= f3
+pourcentage= 0.05
 decroissance= 0.02
-nbiterstagnant= 150
-nbiterameliore= 5
-f1= 520
-f2= 78.86342155009449
-f3= 8.941813496263277
-temps= 12.211914s
-nbiterameliore= 10
-f1= 20
-f2= 1.701323251417806
-f3= 0.2871347616229917
-temps= 11.8513994s
-nbiterameliore= 15
-f1= 60
-f2= 2.774102079395119
-f3= 0.44787701364036886
-temps= 11.5133247s
-nbiterameliore= 20
-f1= 320
-f2= 41.027882797731536
-f3= 5.286541590274215
-temps= 10.8770836s
-nbiterameliore= 25
+nbiterstagnant= 55
+nbiterameliore= 9223372036854775807
+taille matrice: (206, 184)
+stagnation
+nombre d'appel de voisinage :2667
+nombre d'appel de voisinage pour l'étape 1.2 :73
+nombre d'appel de voisinage pour l'étape 2.2 :3
+nombre d'appel de voisinage pour l'étape 2.3 :2588
+nombre de pause degrad :0
+nombre d'appel de voisinage pendant les pauses degrad :0
+nombre d'appel de voisinage pour l'étape 3.2 :3
+nombre de tau :592
 f1= 30
-f2= 2.0203213610586364
-f3= 0.34335201431887524
-temps= 10.1968424s
+f2= 2.4456521739130768
+f3= 4.885261968313963
+Temps avec heuristique= 6.5095842s

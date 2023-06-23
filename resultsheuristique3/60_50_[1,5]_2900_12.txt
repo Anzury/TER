@@ -1,0 +1,19 @@
+id: 60_50_[1,5]_2900_12
+fonctionobjectif= f3
+pourcentage= 0.05
+decroissance= 0.02
+nbiterstagnant= 55
+nbiterameliore= 10
+taille matrice: (60, 50)
+nombre d'appel de voisinage :67
+nombre d'appel de voisinage pour l'étape 1.2 :11
+nombre d'appel de voisinage pour l'étape 2.2 :4
+nombre d'appel de voisinage pour l'étape 2.3 :46
+nombre de pause degrad :4
+nombre d'appel de voisinage pendant les pauses degrad :2
+nombre d'appel de voisinage pour l'étape 3.2 :2
+nombre de tau :24
+f1= 40
+f2= 5.808000000000002
+f3= 6.705221845696084
+Temps avec heuristique= 0.0538863s

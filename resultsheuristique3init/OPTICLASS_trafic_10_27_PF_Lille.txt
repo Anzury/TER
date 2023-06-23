@@ -1,0 +1,19 @@
+id: OPTICLASS_trafic_10_27_PF_Lille
+fonctionobjectif= f3
+pourcentage= 157.70182761371595
+decroissance= 0.02
+nbiterstagnant= 55
+nbiterameliore= 10
+taille matrice: (141, 229)
+nombre d'appel de voisinage :323
+nombre d'appel de voisinage pour l'étape 1.2 :61
+nombre d'appel de voisinage pour l'étape 2.2 :4
+nombre d'appel de voisinage pour l'étape 2.3 :175
+nombre de pause degrad :78
+nombre d'appel de voisinage pendant les pauses degrad :11
+nombre d'appel de voisinage pour l'étape 3.2 :5
+nombre de tau :62
+f1= 20
+f2= 2.8164985412176824
+f3= 4.699955998977714
+Temps avec heuristique= 1.9456392s

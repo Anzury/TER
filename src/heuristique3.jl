@@ -17,7 +17,8 @@ function neighbour3(instance::Matrix,outputs,τ,objfunc::Int64,verbose::Bool=fal
     r = 1
     s = deepcopy(instance)
     outputsload = deepcopy(outputs)
-    for r in roundsorder
+    rounds = shuffle(collect(roundsorder))
+    for r in rounds
         if verbose
             println("round r = ",r)
             println("round :",s[r,:])
@@ -118,9 +119,9 @@ end
 """
 compute the optimal value for pourcentage by using random neighbour movements on the initial solution and compute the variance of the results
 """
-function initialisation(instance::Matrix,objfunc::Int64)
+function initialisation(instance::Matrix,objfunc::Int64,nbiter::Int64 = 20)
     values = []
-    for i in 1:20
+    for i in 1:nbiter
         s = deepcopy(instance)
         outputsload = sum(s,dims=1)
         for r in 1:size(s)[1]
@@ -154,7 +155,6 @@ function initialisation(instance::Matrix,objfunc::Int64)
             else
                 println("error rotation != -1/1")
             end
-            oldoutputsload = deepcopy(outputsload)
             for j in shiftingoutputs
                 outputsload[j] -= s[r,j]
             end
@@ -370,16 +370,16 @@ function heuristique3(instance::Matrix,iomain = stdout,objfunc::Int64 = 3,pource
     end
     push!(solutions,f(objfunc,loads_s_best))
 
-    # println(iomain,"nombre d'appel de voisinage :",nbcallneighbour)
-    # println(iomain,"nombre d'appel de voisinage pour l'étape 1.2 :",nbcallneighbour12)
-    # println(iomain,"nombre d'appel de voisinage pour l'étape 2.2 :",nbcallneighbour22)
-    # println(iomain,"nombre d'appel de voisinage pour l'étape 2.3 :",nbcallneighbour23)
-    # println(iomain,"nombre de pause degrad :",nbcallneighbourpausedegrad)
-    # println(iomain,"nombre d'appel de voisinage pendant les pauses degrad :",nbpausedegrad)
-    # println(iomain,"nombre d'appel de voisinage pour l'étape 3.2 :",nbcallneighbour32)
-    # println(iomain,"nombre de tau :",nbtau)
+    println(iomain,"nombre d'appel de voisinage :",nbcallneighbour)
+    println(iomain,"nombre d'appel de voisinage pour l'étape 1.2 :",nbcallneighbour12)
+    println(iomain,"nombre d'appel de voisinage pour l'étape 2.2 :",nbcallneighbour22)
+    println(iomain,"nombre d'appel de voisinage pour l'étape 2.3 :",nbcallneighbour23)
+    println(iomain,"nombre de pause degrad :",nbcallneighbourpausedegrad)
+    println(iomain,"nombre d'appel de voisinage pendant les pauses degrad :",nbpausedegrad)
+    println(iomain,"nombre d'appel de voisinage pour l'étape 3.2 :",nbcallneighbour32)
+    println(iomain,"nombre de tau :",nbtau)
 
-    # println("value avec f1 :",f1(loads_s_best))
+    println("value avec f1 :",f1(loads_s_best))
     println(iomain,"f1= ",f1(loads_s_best))
     # println("value avec f2 :",f2(loads_s_best))
     # println(iomain,"f2= ",f2(loads_s_best))

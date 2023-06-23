@@ -1,0 +1,19 @@
+id: 20_20_[1,6]_1900_28
+fonctionobjectif= f3
+pourcentage= 322.6204785296016
+decroissance= 0.02
+nbiterstagnant= 55
+nbiterameliore= 10
+taille matrice: (20, 20)
+nombre d'appel de voisinage :243
+nombre d'appel de voisinage pour l'étape 1.2 :9
+nombre d'appel de voisinage pour l'étape 2.2 :2
+nombre d'appel de voisinage pour l'étape 2.3 :194
+nombre de pause degrad :35
+nombre d'appel de voisinage pendant les pauses degrad :12
+nombre d'appel de voisinage pour l'étape 3.2 :3
+nombre de tau :71
+f1= 10
+f2= 4.95
+f3= 4.9749371855331
+Temps avec heuristique= 0.0347295s

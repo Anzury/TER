@@ -1,0 +1,20 @@
+id: 30_30_[1,6]_2400_19
+fonctionobjectif= f3
+pourcentage= 0.05
+decroissance= 0.02
+nbiterstagnant= 55
+nbiterameliore= 10
+taille matrice: (30, 29)
+stagnation
+nombre d'appel de voisinage :305
+nombre d'appel de voisinage pour l'étape 1.2 :21
+nombre d'appel de voisinage pour l'étape 2.2 :9
+nombre d'appel de voisinage pour l'étape 2.3 :228
+nombre de pause degrad :44
+nombre d'appel de voisinage pendant les pauses degrad :15
+nombre d'appel de voisinage pour l'étape 3.2 :3
+nombre de tau :75
+f1= 60
+f2= 10.606420927467317
+f3= 13.62832610025483
+Temps avec heuristique= 0.0241276s

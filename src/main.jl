@@ -31,13 +31,19 @@ function main()
     # end
     
     # println("")
+    # alltimes = []
+    # allvaluesf1 = []
     # for folder in allfnames
+    #     timesfolder = []
+    #     valuesf1folder = []
     #     for files in folder[2]
 
     nbsolopti = 0
     nbsolacceptable = 0
     targetfolder = "../data/data_reelles/"
     folder = getfname(targetfolder)
+    # timesfolder = []
+    # valuesf1folder = []
     for file in folder
 
             # target = "../data/100_60/100_60_[1,4]_3300_3.xlsx"
@@ -68,12 +74,12 @@ function main()
             data = loadinstance(target)
             # data = loadinstance(string(target, folder[1], "/", files))
 
+            # println("id: ",target[1:end-5])
             println("id: ",file[1:end-5])
-            # id = basename(string(target, folder[1], "/", files)[1:end-5])
-            # println("id: ",id)
+            # println("id: ",basename(string(target, folder[1], "/", files)[1:end-5]))
 
             fonctionobjectif = 3
-            # pourcentage = 0.035
+            # pourcentage = 0.05
             pourcentage = initialisation(data,fonctionobjectif)
             decroissance = 0.02
             nbiterstagnant = 55
@@ -81,7 +87,7 @@ function main()
             nbiterameliore = 10
 
             io = stdout
-            # io = open("../resultsfinauxopticlass/" * file[1:end-5] * ".txt", "w")
+            # io = open("../resultsheuristique3init1percent/" * files[1:end-5] * ".txt", "w")
 
             # println(io,"id: ",file[1:end-5])
             # println(io,"fonctionobjectif= f", fonctionobjectif)
@@ -92,14 +98,18 @@ function main()
             println(io,"taille matrice: ",size(data))
 
             t1 = @elapsed sol,solutions = heuristique3(data,io,fonctionobjectif,pourcentage,decroissance,nbiterstagnant,nbiterameliore)
+            # push!(timesfolder, t1)
+            # push!(valuesf1folder, f(1,sum(sol,dims=1)))
             println(io,"Temps avec heuristique= ", t1,"s")
-            # plotsolutions(solutions,f(3,sum(sol,dims=1)), target, fonctionobjectif, pourcentage, decroissance, nbiterstagnant, nbiterameliore)
-            if f(1,sum(sol,dims=1)) <= 10
-                nbsolopti += 1
-            end
-            if f(1,sum(sol,dims=1)) <= 50
-                nbsolacceptable += 1
-            end
+            # if files == "OPTICLASS_trafic_06_27_PF.xlsx"
+                plotsolutions(solutions,f(3,sum(sol,dims=1)), target, fonctionobjectif, pourcentage, decroissance, nbiterstagnant, nbiterameliore)
+            # end
+            # if f(1,sum(sol,dims=1)) <= 10
+            #     nbsolopti += 1
+            # end
+            # if f(1,sum(sol,dims=1)) <= 50
+            #     nbsolacceptable += 1
+            # end
             # close(io)
         # end
     end

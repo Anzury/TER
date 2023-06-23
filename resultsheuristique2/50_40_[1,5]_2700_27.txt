@@ -1,0 +1,20 @@
+id: 50_40_[1,5]_2700_27
+fonctionobjectif= f3
+pourcentage= 0.05
+decroissance= 0.02
+nbiterstagnant= 55
+nbiterameliore= 10
+taille matrice: (50, 40)
+stagnation
+nombre d'appel de voisinage :416
+nombre d'appel de voisinage pour l'étape 1.2 :20
+nombre d'appel de voisinage pour l'étape 2.2 :3
+nombre d'appel de voisinage pour l'étape 2.3 :321
+nombre de pause degrad :69
+nombre d'appel de voisinage pendant les pauses degrad :21
+nombre d'appel de voisinage pour l'étape 3.2 :3
+nombre de tau :108
+f1= 40
+f2= 7.7
+f3= 9.273618495495704
+Temps avec heuristique= 0.0701288s

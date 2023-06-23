@@ -1,19 +1,14 @@
 using Statistics
+using Random
 """
-Function neighbour(instance::Matrix, τ)
+Function neighbour2(instance::Matrix, τ)
 Input: An initial solution s(0) and a tolerance value τ.
 Output: A potentially new solution better than s(0).
 1. Set i := 0 and r := 1.
-2. Let k be the most loaded output among the non-empty ones of round r for solution s(i). If O(r,k)→ (s(i)) ̸= ∅, then
-choose the least loaded output q ∈O(r,k)→ (s(i)) and go to Step 4.
-3. If O(r,k)← (s(i)) ̸= ∅, then choose the least loaded output q ∈O(r,k)← (s(i)), otherwise go to Step 5.
-4. Let s(T ) be a solution obtained from solution s(i) by shifting the mail batch from output k to output q for round
-r. If f(s(T )) < f(s(i)) + τ, then move to a new current solution, i.e., set i := i + 1 and s(i) := s(T ).
-5. If r < |R|, then set r := r + 1 and go to Step 2. Otherwise, stop and return solution s(i).
-• O(r,k)← (s) is the set of direct left empty outputs of the
-non-empty output k in round r of solution s.
-• O(r,k)→ (s) is the set of direct right empty outputs of
-the non-empty output k in round r of solution s.
+2. let q be the least loaded output among the empty batches in round r of solution s(i). let k be the most loaded output among the non-empty batches in round r of solution s(i).
+3. obtain s(T) by moving the empty batch from output q to output k in round r of solution s(i) and update the solution s(i) by shifting the non-empty batch between outputs k and q.
+4. If f(s(T )) < f(s(i)) + τ, then move to a new current solution, i.e., set i := i + 1 and s(i) := s(T ).
+5. If r < |R|, then set r := r + 1 Otherwise, stop and return solution s(i).
 """
 function neighbour2(instance::Matrix,outputs,τ,objfunc::Int64,verbose::Bool=false,roundsorder=1:size(s0)[1])
     #initialisation
@@ -26,95 +21,77 @@ function neighbour2(instance::Matrix,outputs,τ,objfunc::Int64,verbose::Bool=fal
         if verbose
             println("round r = ",r)
             println("round :",s[r,:])
+            println("outputsload :",outputsload)
         end
-        # compute the batches of round r that can be mouved and the most loaded
-        # output among the movables batches
-        movables = []
-        maxLoad, k = -1, -1
-        for j = 1:size(s0)[2]
-            if s[r,j] != 0 && ((j+1<=size(s0)[2] && s[r,j+1]==0) || (j-1>=1 && s[r,j-1]==0))
-                push!(movables,j)
-                if outputsload[j] > maxLoad
-                    maxLoad, k = outputsload[j], j
-                end
-            end
-        end
-        if k == -1
+        # let q be the least loaded output among the empty batches in round r of solution s(i)
+        #compute the empty outputs in round r
+        emptyoutputs = findall(x->x==0,vec(s[r,:]))
+        if isempty(emptyoutputs)
             continue
         end
+        q = emptyoutputs[argmin(outputsload[emptyoutputs])]
         if verbose
-            println("movables batches: ",movables)
+            println("least loaded output q: ",q)
         end
+
+        # let k be the most loaded output among the non-empty batches in round r of solution s(i)
+        #compute the non-empty outputs in round r
+        nonemptyoutputs = findall(x->x!=0,vec(s[r,:]))
+        if isempty(nonemptyoutputs)
+            continue
+        end
+        k = nonemptyoutputs[argmax(outputsload[nonemptyoutputs])]
         if verbose
             println("most loaded output k: ",k)
         end
 
-        #compute the set of direct left empty outputs of the non-empty output k in round r of solution s
-        moves, ridx, lidx = [], -1, -1
-        if k < size(s0)[2]
-            j = k + 1
-            while j <= size(s0)[2] && s[r,j] == 0
-                push!(moves,j)
-                if ridx == -1
-                    ridx = j
+        # obtain s(T) by moving the empty batch from output q to output k in round r of solution s(i) 
+        # and update the solution s(i) by shifting the non-empty batch between outputs k and q.
+        #compute the movement on outputsload
+        rotation = sign(q-k)
+        shiftingoutputs = []
+        if rotation == 1
+            for j in k:q
+                if j == q || s[r,j] != 0
+                    push!(shiftingoutputs,j)
                 end
-                j = j+1
             end
-        end
-        if k > 1
-            j = k - 1
-            while j >= 1 && s[r,j] == 0
-                push!(moves,j)
-                if lidx == -1
-                    lidx = j
+        elseif rotation == -1
+            for j in q:k
+                if j == q || s[r,j] != 0
+                    push!(shiftingoutputs,j)
                 end
-                j = j-1
             end
+        else
+            println("error rotation != -1/1")
         end
-
-        minloadl, minloadr = typemax(Int64), typemax(Int64)
-        idxminloadl, idxminloadr = -1, -1
-        i = 1
-        for idx in moves
-            if ridx != -1 && idx >= ridx && minloadr > outputsload[idx]
-                idxminloadr, minloadr = i, outputsload[idx]
-            end
-            if ridx == -1 && lidx != -1 && idx <= lidx && minloadl > outputsload[idx]
-                idxminloadl, minloadl = i, outputsload[idx]
-            end
-            i = i+1
+        if verbose
+            println("shifting outputs: ",shiftingoutputs)
         end
-
-        if minloadl < minloadr
-            minloadr, idxminloadr = minloadl, idxminloadl
+        oldoutputsload = deepcopy(outputsload)
+        for j in shiftingoutputs
+            outputsload[j] -= s[r,j]
         end
-
-        if idxminloadr != -1
-        # if !isempty(moves)
-            q = moves[idxminloadr]
+        shiftedoutputs = circshift(shiftingoutputs,rotation)
+        for j in 1:lastindex(shiftingoutputs)
+            s[r,shiftingoutputs[j]] = instance[r,shiftedoutputs[j]]
+            outputsload[shiftingoutputs[j]] += s[r,shiftingoutputs[j]]
+        end
+        if f(objfunc,outputsload) < f(objfunc,oldoutputsload) + τ   
             if verbose
-                println("least loaded output q = ",q)
+                println("new solution found")
+                println("new round: ",s[r,:])
             end
-            #Let s(T ) be a solution obtained from solution s(i) by shifting the mail batch from output k to output q for round r.
-            val = f(objfunc,outputsload)
-            outputsload[k] = outputsload[k] - s[r,k]
-            outputsload[q] = outputsload[q] + s[r,k]
-            #If f(s(T )) < f(s(i)) + τ, then move to a new current solution, i.e., set i := i + 1 and s(i) := s(T ).
-            if f(objfunc,outputsload) < val + τ
-                i = i+1
-                s[r,q] = s[r,k]
-                s[r,k] = 0
-                if verbose
-                    println("updated round sT = ",s[r,:])
-                    println("f(sT) = ",f(objfunc,outputsload)," f(s) = ",val)
-                end
-            elseif verbose
-                println("no update")
-                outputsload[k] = outputsload[k] + s[r,k]
-                outputsload[q] = outputsload[q] - s[r,k]
-            else
-                outputsload[k] = outputsload[k] + s[r,k]
-                outputsload[q] = outputsload[q] - s[r,k]
+            continue
+        else
+            if verbose
+                println("no new solution found")
+            end
+            for j in 1:lastindex(outputsload)
+                outputsload[j] = oldoutputsload[j]
+            end
+            for j in 1:size(s0)[2]
+                s[r,j] = instance[r,j]
             end
         end
     end
@@ -137,6 +114,61 @@ function sortrounds(s::Matrix)
     end
     return sortperm(numberofmail, rev=true)
 end
+
+"""
+compute the optimal value for pourcentage by using random neighbour movements on the initial solution and compute the variance of the results
+"""
+function initialisation(instance::Matrix,objfunc::Int64,nbiter::Int64 = 20)
+    values = []
+    for i in 1:nbiter
+        s = deepcopy(instance)
+        outputsload = sum(s,dims=1)
+        for r in 1:size(s)[1]
+            emptyoutputs = findall(x->x==0,vec(s[r,:]))
+            if isempty(emptyoutputs)
+                continue
+            end
+            random = rand(1:lastindex(emptyoutputs))
+            q = emptyoutputs[random]
+            nonemptyoutputs = findall(x->x!=0,vec(s[r,:]))
+            if isempty(nonemptyoutputs)
+                continue
+            end
+            random = rand(1:lastindex(nonemptyoutputs))
+            k = nonemptyoutputs[random]
+
+            rotation = sign(q-k)
+            shiftingoutputs = []
+            if rotation == 1
+                for j in k:q
+                    if j == q || s[r,j] != 0
+                        push!(shiftingoutputs,j)
+                    end
+                end
+            elseif rotation == -1
+                for j in q:k
+                    if j == q || s[r,j] != 0
+                        push!(shiftingoutputs,j)
+                    end
+                end
+            else
+                println("error rotation != -1/1")
+            end
+            for j in shiftingoutputs
+                outputsload[j] -= s[r,j]
+            end
+            shiftedoutputs = circshift(shiftingoutputs,rotation)
+            for j in 1:lastindex(shiftingoutputs)
+                s[r,shiftingoutputs[j]] = instance[r,shiftedoutputs[j]]
+                outputsload[shiftingoutputs[j]] += s[r,shiftingoutputs[j]]
+            end
+            push!(values,f(objfunc,outputsload))
+        end
+    end
+    return var(values)
+end
+    
+
 
 """
 Heuristic Opti-Move
@@ -164,11 +196,11 @@ s(B) := s∗. If f(s∗) < f(s), then reset s := s∗
 and repeat Step 3.2. Otherwise, stop and return
 the best found solution s(B).
 """
-function heuristique2(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float64,∆::Float64 = 0.02,nbiterstagnanmax::Int64 = 50,iteramelio::Int64 = 10,verbose::Bool=false)
+function heuristique2(instance::Matrix,iomain = stdout,objfunc::Int64 = 3,pourcentage::Float64 = 0.05,∆::Float64 = 0.002,nbiterstagnanmax::Int64 = 50,iteramelio::Int64 = 10,verbose::Bool=false)
     # sortperm = sortrounds(instance)
     # sortedrounds = collect(1:size(instance)[1])[sortperm]
     sortedrounds = 1:size(instance)[1]
-    nombrewhile = 0
+    nbcallneighbour = 0
     if verbose
         println("sorted rounds: ",sortedrounds)
         println("stage 1")
@@ -186,27 +218,32 @@ function heuristique2(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
         println("step 1.2")
     end
     # 1.2
-    nbwhile12 = 0
+    nbcallneighbour12 = 0
     s_star,loads_s_star = neighbour2(s,loads_s,τ,objfunc,verbose,sortedrounds)
+    nbcallneighbour12 = nbcallneighbour12 + 1
+    nbcallneighbour = nbcallneighbour + 1
     push!(solutions,f(objfunc,loads_s_star))
     aumoinuneiteration = false
     while !aumoinuneiteration || f(objfunc,loads_s_star) < f(objfunc,loads_s)
         aumoinuneiteration = true
-        nbwhile12 = nbwhile12 + 1
-        nombrewhile = nombrewhile + 1
+        nbcallneighbour12 = nbcallneighbour12 + 1
+        nbcallneighbour = nbcallneighbour + 1
         s = s_star
         loads_s = loads_s_star
         s_best = s_star
         loads_s_best = loads_s_star
         s_star,loads_s_star = neighbour2(s,loads_s,τ,objfunc,verbose,sortedrounds)
+        push!(solutions,f(objfunc,loads_s_best))
     end
-    push!(solutions,f(objfunc,loads_s_best))
     if verbose
         println("stage 2")
     end
     # Stage 2
     # 2.1
-    τ = pourcentage*f(objfunc,loads_s_best)
+    τ = 0.05*f(objfunc,loads_s_best)
+    println("old τ initialisé :",τ)
+    τ = 0.01 * pourcentage
+    println("new τ initialisé :",τ)
     if verbose
         println("valeur τ initialisé :",τ)
     end
@@ -214,16 +251,16 @@ function heuristique2(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
         println("step 2.2")
     end
     # 2.2
-    nbwhile22 = 0
+    nbcallneighbour22 = 0
     s_star,loads_s_star = neighbour2(s_star,loads_s_star,τ,objfunc,verbose,sortedrounds)
+    nbcallneighbour22 = nbcallneighbour22 + 1
+    nbcallneighbour = nbcallneighbour + 1
+    push!(solutions,f(objfunc,loads_s_star))
     aumoinuneiteration = false
     while !aumoinuneiteration || f(objfunc,loads_s_star) < f(objfunc,loads_s)
         aumoinuneiteration = true
-        nbwhile22 = nbwhile22 + 1
-        nombrewhile = nombrewhile + 1
-        if verbose
-            println("solution améliorée")
-        end
+        nbcallneighbour22 = nbcallneighbour22 + 1
+        nbcallneighbour = nbcallneighbour + 1
         s = s_star
         loads_s = loads_s_star
         s_star,loads_s_star = neighbour2(s,loads_s,τ,objfunc,verbose,sortedrounds)
@@ -238,9 +275,9 @@ function heuristique2(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
         println("step 2.3")
     end
     # 2.3
-    nbwhile23 = 0
-    nbwhilepausedegrad = 0
+    nbcallneighbour23 = 0
     nbpausedegrad = 0
+    nbcallneighbourpausedegrad = 0
     nbtau = 1
     nbiterstagnanmax2 = nbiterstagnanmax
     τ = τ - ∆
@@ -251,46 +288,52 @@ function heuristique2(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
     while τ > 0 && nbiterstagnanmax2 > 0
         nbtau = nbtau + 1
         s_star,loads_s_star = neighbour2(s,loads_s,τ,objfunc,verbose,sortedrounds)
+        nbcallneighbour23 = nbcallneighbour23 + 1
+        nbcallneighbour = nbcallneighbour + 1
+        push!(solutions,f(objfunc,loads_s_star))
         aumoinuneiteration = false
         while !aumoinuneiteration || f(objfunc,loads_s_star) < f(objfunc,loads_s)
             pausedegrad = pausedegrad - 1
             aumoinuneiteration = true
-            nbwhile23 = nbwhile23 + 1
-            nombrewhile = nombrewhile + 1
-            if verbose
-                println("solution améliorée")
-            end
+            nbcallneighbour23 = nbcallneighbour23 + 1
+            nbcallneighbour = nbcallneighbour + 1
             s = s_star
             loads_s = loads_s_star
             s_star,loads_s_star = neighbour2(s,loads_s,τ,objfunc,verbose,sortedrounds)
+            push!(solutions,f(objfunc,loads_s_star))
             if pausedegrad == 0
-                nbpausedegrad = nbpausedegrad + 1
                 aumoinuneiteration = false
                 s_star,loads_s_star = neighbour2(s,loads_s,tempτ,objfunc,verbose,sortedrounds)
+                nbcallneighbourpausedegrad = nbcallneighbourpausedegrad + 1
+                nbcallneighbour = nbcallneighbour + 1
+                nbpausedegrad = nbpausedegrad + 1
+                push!(solutions,f(objfunc,loads_s_star))
                 while !aumoinuneiteration || f(objfunc,loads_s_star) < f(objfunc,loads_s)
                     aumoinuneiteration = true
-                    nbwhilepausedegrad = nbwhilepausedegrad + 1
-                    nombrewhile = nombrewhile + 1
                     s = s_star
                     loads_s = loads_s_star
-                    s_star,loads_s_star = neighbour(s,loads_s,tempτ,objfunc,verbose,sortedrounds)
+                    s_star,loads_s_star = neighbour2(s,loads_s,tempτ,objfunc,verbose,sortedrounds)
+                    nbcallneighbour = nbcallneighbour + 1
+                    nbcallneighbourpausedegrad = nbcallneighbourpausedegrad + 1
                     push!(solutions,f(objfunc,loads_s_star))
                 end
                 pausedegrad = iteramelio
             end
-            push!(solutions,f(objfunc,loads_s_star))
             if f(objfunc,loads_s_star) < f(objfunc,loads_s_best)
                 s_best = s_star
                 loads_s_best = loads_s_star
                 nbiterstagnanmax2 = nbiterstagnanmax
             end
             nbiterstagnanmax2 = nbiterstagnanmax2 - 1
+            if nbiterstagnanmax2 <= 0
+                println("stagnation")
+                break
+            end
         end
         τ = τ - ∆
         if verbose
             println("valeur τ changée :",τ)
         end
-
     end
     push!(solutions,f(objfunc,loads_s_best))
     if verbose
@@ -303,13 +346,16 @@ function heuristique2(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
         println("step 3.2")
     end
     # 3.2
-    nbwhile32 = 0
+    nbcallneighbour32 = 0
     s_star,loads_s_star = neighbour2(s,loads_s,τ,objfunc,verbose,sortedrounds)
+    nbcallneighbour32 = nbcallneighbour32 + 1
+    nbcallneighbour = nbcallneighbour + 1
+    push!(solutions,f(objfunc,loads_s_star))
     aumoinuneiteration = false
     while !aumoinuneiteration || f(objfunc,loads_s_star) < f(objfunc,loads_s)
         aumoinuneiteration = true
-        nbwhile32 = nbwhile32 + 1
-        nombrewhile = nombrewhile + 1
+        nbcallneighbour32 = nbcallneighbour32 + 1
+        nbcallneighbour = nbcallneighbour + 1
         s = s_star
         loads_s = loads_s_star
         s_star,loads_s_star = neighbour2(s,loads_s,τ,objfunc,verbose,sortedrounds)
@@ -320,23 +366,26 @@ function heuristique2(instance::Matrix,iomain,objfunc::Int64,pourcentage::Float6
         loads_s_best = loads_s_star
     end
     push!(solutions,f(objfunc,loads_s_best))
-    println("nombre de while :",nombrewhile)
-    println("nombre de while 1.2 :",nbwhile12)
-    println("nombre de while 2.2 :",nbwhile22)
-    println("nombre de while 2.3 :",nbwhile23)
-    println("nombre de pause degrad :",nbpausedegrad)
-    println("nombre de while pause degrad :",nbwhilepausedegrad)
-    println("nombre de while 3.2 :",nbwhile32)
-    println("nombre de tau :",nbtau)
-    # println("value avec f1 :",f1(s_best))
+
+    println(iomain,"nombre d'appel de voisinage :",nbcallneighbour)
+    println(iomain,"nombre d'appel de voisinage pour l'étape 1.2 :",nbcallneighbour12)
+    println(iomain,"nombre d'appel de voisinage pour l'étape 2.2 :",nbcallneighbour22)
+    println(iomain,"nombre d'appel de voisinage pour l'étape 2.3 :",nbcallneighbour23)
+    println(iomain,"nombre de pause degrad :",nbcallneighbourpausedegrad)
+    println(iomain,"nombre d'appel de voisinage pendant les pauses degrad :",nbpausedegrad)
+    println(iomain,"nombre d'appel de voisinage pour l'étape 3.2 :",nbcallneighbour32)
+    println(iomain,"nombre de tau :",nbtau)
+
+    println("value avec f1 :",f1(loads_s_best))
     println(iomain,"f1= ",f1(loads_s_best))
-    # println("value avec f2 :",f2(s_best))
+    # println("value avec f2 :",f2(loads_s_best))
     println(iomain,"f2= ",f2(loads_s_best))
-    # println("value avec f3 :",f3(s_best))
+    # println("value avec f3 :",f3(loads_s_best))
     println(iomain,"f3= ",f3(loads_s_best))
+
     # display(s_best)
     # println(sum(s_best,dims=1))
-    println(loads_s_best)
+    # println(loads_s_best)
     return s_best,solutions
 end
 
@@ -355,7 +404,7 @@ f(s) compute the sum of the difference between Ck and C* for each output k divid
 function f2(loads)
     Ck = loads
     C = mean(Ck)
-    return sqrt(sum((Ck .- C).^2)/length(loads))
+    return sum(abs.(Ck .- C))/length(loads)
 end
 
 """
@@ -366,7 +415,7 @@ f(s) compute the square root of the sum of the difference between Ck and C* squa
 function f3(loads)
     Ck = loads
     C = mean(Ck)
-    return sqrt(sum((Ck .- C).^2))/length(loads)
+    return sqrt(sum((Ck .- C).^2)/length(loads))
 end
 
 function f(num::Int64,loads)
