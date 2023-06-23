@@ -242,7 +242,11 @@ function heuristique3(instance::Matrix,iomain = stdout,objfunc::Int64 = 3,pource
     # Stage 2
     # 2.1
     # τ = pourcentage*f(objfunc,loads_s_best)
-    τ = pourcentage
+    p = 0.01
+    println("ancienne initialisation : ", 0.035 * f(objfunc,loads_s_best))
+    println("nouvelle initialisation : ", p*pourcentage)
+    τ = p*pourcentage
+    println("tau : ", τ)
     if verbose
         println("valeur τ initialisé :",τ)
     end
@@ -378,9 +382,9 @@ function heuristique3(instance::Matrix,iomain = stdout,objfunc::Int64 = 3,pource
     # println("value avec f1 :",f1(loads_s_best))
     println(iomain,"f1= ",f1(loads_s_best))
     # println("value avec f2 :",f2(loads_s_best))
-    println(iomain,"f2= ",f2(loads_s_best))
+    # println(iomain,"f2= ",f2(loads_s_best))
     # println("value avec f3 :",f3(loads_s_best))
-    println(iomain,"f3= ",f3(loads_s_best))
+    # println(iomain,"f3= ",f3(loads_s_best))
 
     # display(s_best)
     # println(sum(s_best,dims=1))

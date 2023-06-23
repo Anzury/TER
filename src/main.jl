@@ -76,16 +76,16 @@ function main()
             # pourcentage = 0.035
             pourcentage = initialisation(data,fonctionobjectif)
             decroissance = 0.02
-            nbiterstagnant = 35
-            nbiterameliore = typemax(Int64)
-            # nbiterameliore = 10
+            nbiterstagnant = 55
+            # nbiterameliore = typemax(Int64)
+            nbiterameliore = 10
 
             io = stdout
             # io = open("../resultsfinauxopticlass/" * file[1:end-5] * ".txt", "w")
 
             # println(io,"id: ",file[1:end-5])
             # println(io,"fonctionobjectif= f", fonctionobjectif)
-            println(io,"pourcentage= ", pourcentage)
+            # println(io,"pourcentage= ", pourcentage)
             # println(io,"decroissance= ", decroissance)
             # println(io,"nbiterstagnant= ", nbiterstagnant)
             # println(io,"nbiterameliore= ", nbiterameliore)
@@ -115,16 +115,15 @@ function main()
     # println(io,"valeur de décroissance de tau (delta) = ", decroissance)
     # println(io,"nombre d'itérations non améliorantes pour arrêt de la phase 2 = ", nbiterstagnant)
     # println(io,"nombre d'itérations avant l'alternation de phases pendant la phase 2 = ", nbiterameliore)
-    io = stdout
     if nbsolopti == length(folder)
-        println(io,"Toutes les solutions sont optimales !!! (f1 <= 10)")
+        println("Toutes les solutions sont optimales !!! (f1 <= 10)")
     else
-        println(io,"Il y a ", nbsolopti, " solutions optimales (f1 <= 10) sur ", length(folder))
+        println("Il y a ", nbsolopti, " solutions optimales (f1 <= 10) sur ", length(folder))
     end
     if nbsolacceptable == length(folder)
-        println(io,"Toutes les solutions sont acceptables !!! (f1 <= 50)")
+        println("Toutes les solutions sont acceptables !!! (f1 <= 50)")
     else
-        println(io,"Il y a ", nbsolacceptable, " solutions acceptables (f1 <= 50) sur ", length(folder))
+        println("Il y a ", nbsolacceptable, " solutions acceptables (f1 <= 50) sur ", length(folder))
     end
     # close(io)
     return nothing
